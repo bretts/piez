@@ -1,5 +1,5 @@
 function parseResult(request, page) {
-	if(request.response.status == 304) {
+	if(request.response.status == 304 && (request.request.url).indexOf('.js') == -1) {
 		page.localCacheEnabled = true;
 	}
 	else if((JSON.stringify(request.response.headers).indexOf('X-IM-Original-Size') != -1)){

@@ -1,0 +1,339 @@
+<html>
+	<head>
+		<style>
+		/*
+		colour pallette:
+		999797
+		656565
+		2C2C2C
+		000000
+		030202		
+		*/
+
+		*,
+		*:before,
+		*:after {
+		  box-sizing: border-box;
+		}
+		.clearfix:after {
+		  content: "";
+		  display: table;
+		  clear: both;
+		  display: block;
+		}
+
+		body {
+		  margin: 0;
+		  background-color: #222222;
+		  font-size: 20px;
+		  color: white;
+		  font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+		}
+
+		h1 {
+		  margin-bottom: 12px;
+		  text-align: center;
+		  font-size: 30px;
+		  font-weight: 400;
+		  color: #999797;
+		}
+
+		h3 {
+		  font-size: 25px;
+		  font-weight: 600;
+		  color: #656565;
+		  text-align: center;
+		}
+
+		[class*="row-"] {
+		  margin-bottom: 20px;
+		}
+		[class*="row-"]:last-child {
+		  margin-bottom: 0;
+		}
+
+		[class*="col-"] {
+		}
+		 
+		[class*="col-"] {
+			margin-right: 0px;
+			float: left;
+			border: 1px solid #030202;
+			padding: 25px 12px;
+			text-align: center;
+			display: table-cell;
+			vertical-align: middle;
+			background-color: #2C2C2C;
+		}
+		[class*="col-"]:last-child {
+			margin-right: 0;
+		}
+
+		.col-1-4-box {
+			width: 25%;
+			max-height: 188px;
+			overflow: scroll;
+		}
+
+		.col-1-2-box {
+			width: 50%;
+		}
+
+		.col-full-box {
+			width: 100%;
+			text-align: left;
+			display: block;
+			float: none;
+			overflow: auto;
+		 }
+
+		 .col-image-box {
+			width: 100%;
+			text-align: center;
+			display: block;
+			float: none;
+			padding: 0px 0px;
+		 }
+
+		 .transformedResults {
+		 	margin: 0px auto;
+		 }
+
+		 .transformedResults th{
+		 	padding: 10px;
+		 	color: #999797;
+		 }
+
+		 .transformedResults td{
+		 	text-align: center;
+		 	color: #656565;
+		 }
+
+		 .transformedResults td.urlData {
+		 	text-align: left;
+		 }	
+
+		 .transformedResults td.increaseSize {
+		 	color: red;
+		 }
+
+		 .transformedResults td.noChangeSize {
+		 	color: #FFDE00;	
+		 }
+
+		 .transformedResults td.decreaseSize {
+		 	color: green;
+		 }
+
+		 .imageCompareTable {
+		 	margin: 0px auto;
+		 	margin-bottom:20px;
+		 	margin-top:10px;
+		 }
+
+		 .imageCompareTable th{
+		 	text-align: center;
+		 	padding-left: 20px;
+		 	padding-right: 20px;
+		 	text-decoration: underline;
+		 	min-width: 300px;
+		 }
+		 
+		 .imageCompareTableHover {
+		 	background-color: black;
+		 }
+
+		 .imageToggleBoxMessage {
+		 	margin-top:10px;
+		 	margin-bottom:20px;
+		 }
+
+		 .imageCompareViewer {
+		 	margin-top: 20px;
+		 	margin-bottom: 20px;
+		 }
+
+		 a:link {
+		 	color: #656565;
+		 }
+
+		 a:hover {
+		 	color: white;
+		 }
+
+		 a:visited {
+		 	color: #656565;
+		 }
+
+		 .piezConfigMessage {
+		 	font-size: 15px;
+		 	color: yellow;
+		 	text-align: left;
+		 	width: 50%;
+		 	margin: auto;
+		 }
+
+		 .piezConfigMessage ol {
+		 	list-style-position: inside;
+		 }
+
+		 .selectedImage {
+		 	border: solid 4px green;
+		 	color: green;
+		 	padding:10px;
+		 }
+		 
+		 .unselectedImage {
+		 	color: #656565;
+		 	border: solid 4px #2C2C2C;
+		 	padding:10px;
+		 }
+
+		 .selectedImage:hover {
+		 	cursor: pointer;
+		 	color: white;
+		 	background-color: black;
+		 }
+
+		 .unselectedImage:hover {
+		 	cursor: pointer;
+		 	color: white;
+		 	background-color: black;
+		 }
+
+		.toggleOriginalImage 	{ 
+			position: absolute;
+			border: 1px solid #999797;
+		 }
+
+		.toggleTransformedImage {
+			position: relative;
+			border: 1px solid #999797;
+		}
+
+		.imageToggleBox {
+			margin-bottom: 20px;
+		}
+
+		.imageToggleBox:hover { 
+			cursor: pointer;
+		 }  
+
+		#ajaxloader {
+			width: 60px;
+			height: 60px;
+			border: 1px solid #FFFFFF;
+			border-right-color: transparent;
+			border-radius: 50%;
+			box-shadow: 0 0 25px 2px #000000;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 40px;
+			margin-bottom: 40px;
+
+			-webkit-animation-duration: 1.0s;
+			-webkit-animation-iteration-count:infinite;
+			-webkit-animation-name:loader;
+			-webkit-animation-timing-function: linear;
+			
+		}
+
+
+		@-webkit-keyframes loader {
+			0%{ -webkit-transform:  rotate(0deg);}     
+			100%{ -webkit-transform:  rotate(360deg)  ;} 
+		}
+
+		.row {
+			display: flex;
+			flex-flow: row wrap;
+			margin: 0 -10px;
+			margin-bottom: 0px;
+		}
+
+		.details {
+			overflow: scroll;
+		}
+	
+		td {
+			padding-bottom:2px
+		}
+
+		@media all and ( max-width: 1200px ) {
+			h1 {
+			  margin-bottom: 12px;
+			  text-align: center;
+			  font-size: 20px;
+			  font-weight: 400;
+			  color: #999797;
+			  min-height: 48px;
+			}
+
+			h3 {
+			  font-size: 17px;
+			  font-weight: 600;
+			  color: #656565;
+			  text-align: center;
+			}
+
+			table {
+				font-size: 14px;
+			}
+
+			[class*="col-"] {
+				margin-right: 0px;
+				float: left;
+				border: 1px solid #030202;
+				padding: 0px 12px;
+				text-align: center;
+				display: table-cell;
+				vertical-align: middle;
+				background-color: #2C2C2C;
+			}
+		}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript" src="page.js"></script>
+		<script type="text/javascript" src="imagetoggle.js"></script>
+		<script type="text/javascript" src="headers.js"></script>
+		<script type="text/javascript" src="display.js"></script>
+		<script type="text/javascript" src="devtoolscontent.js"></script>
+
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-1-4-box"><h1>Realtime Conversions</h1><h3 id="totalICImagesTransformed">0</h3></div>
+				<div class="col-1-4-box"><h1>Optimized Conversions</h1><h3 id="totalIMImagesTransformed">0</h3></div>
+				<div class="col-1-4-box"><h1>Total Saved Bytes</h1><h3 id="totalByteReduction">0</h3></div>
+				<div class="col-1-4-box"><h1>% Bytes Change</h1><h3 id="pctByteReduction">0</h3></div>
+			</div>
+			<div class="clearfix">
+				<div style="display:none" id="imageBox" class="col-image-box">
+					<h1>Image Comparison</h1>
+					<a id="imageComareUrlTitle" target="_blank"></a>
+					<table id='imageToggleControls' class='imageCompareTable'>
+						<tr>
+							<th id="transformedImage" class="unselectedImage">Transformed Image</th>
+							<th id="originalImage" class="unselectedImage">Original Image</th>
+						</tr>
+					</table>
+					<div id="ajaxloader" style="display:none;"></div>
+					<div id='imageToggleBox' class="imageToggleBox">
+						<img id="toggleOriginalImage" class="toggleOriginalImage">
+						<img id="toggleTransformedImage" class="toggleTransformedImage">
+					</div>
+					<p id='imageToggleBoxMessage' class='imageToggleBoxMessage'>Click The Image To Toggle</p>
+				</div>
+			</div>
+			<div id="imConversionBox" style="display:none" class="row details clearfix">
+				<div class="col-full-box"><h1>Optimized Conversion Details</h1><h3 id="imDetailsTable"></h3></div>
+			</div>
+			<div id="icConversionBox" style="display:none" class="row details clearfix">
+				<div class="col-full-box"><h1>Realtime Conversion Details</h1><h3 id="icDetailsTable"></h3></div>
+			</div>
+			<div style="display:none" class="details clearfix">
+				<div class="col-full-box" id='debug'></div>
+			</div>
+		</div>
+	</body>
+</html>

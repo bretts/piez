@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<style>
+			body {
+			  margin: 10;
+			  background-color: #222222;
+			  font-size: 14px;
+			  color: #999797;
+			  font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+			}
+
+			div.main {
+				border-radius: 5px;
+				background: #2C2C2C;
+				font-size: 15px;
+				font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+				padding: 20px;
+				width: 500px;
+				box-shadow: inset 1px 1px 3px rgba(1,1,1,1);
+				overflow: hidden;
+			}
+		</style>	
+	</head>
+	<body>
+		<h1>Piez Configuration</h1>
+		<script src="popup.js"></script>
+		<div class='main'>
+			<form id='piezConfigForm' class=''>
+				<input type="radio" name="piezRadio" id="piezModeOff" value="piezModeOff">
+				<label for="piezModeOff">Disabled</label><br>
+				<input type="radio" name="piezRadio" id="piezModeSimple" value="piezModeSimple">
+				<label for="piezModeSimple">Enabled (Simple)</label><br>
+				<input type="radio" name="piezRadio" id="piezModeAdvanced" value="piezModeAdvanced">
+				<label for="piezModeAdvanced">Enabled (Advanced)</label><br>
+			</form>
+		</div>
+	</body>
+</html>

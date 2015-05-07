@@ -125,13 +125,8 @@ function fileSizeDiff(originalSize, transformedSize) {
 }
 
 function getEncodingQuality(contentType, encodingQuality) {
-	if(contentType == 'image/webp' || contentType == 'image/png') {
-		if(encodingQuality == '100') {
-			return "Not Applicable";
-		}
-		else {
-			return encodingQuality;
-		}
+	if(contentType == 'image/gif' || contentType == 'image/png') {
+		return "Not Applicable";
 	}
 	else {
 		return encodingQuality;

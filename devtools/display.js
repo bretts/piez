@@ -126,13 +126,7 @@ function fileSizeDiff(originalSize, transformedSize) {
 
 function getEncodingQuality(contentType, encodingQuality) {
 	if(contentType == 'image/gif' || contentType == 'image/png') {
-		if(encodingQuality != '100' && encodingQuality.toLowerCase() != 'n/a')
-		{
-			return '<span class="error">Found ' + encodingQuality + ' Expected 100 or N/A</span>';
-		}
-		else {
-			return "Not Applicable";
-		}
+		return "Not Applicable";
 	}
 	else {
 		return encodingQuality;

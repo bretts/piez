@@ -3,6 +3,7 @@ window.onload = function() {
 	
 	chrome.devtools.network.onRequestFinished.addListener(function(request) {
 		if(request.pageref != window.pageref) {
+			ga('send', 'pageview', '/devtoolscontent.html');
 			window.pageref = request.pageref;
 			page = new Page();
 		}

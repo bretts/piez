@@ -11,28 +11,42 @@ function displayResult(page) {
 	bindImageCompareListener();
 }
 
+function displayBytes(bytes) {
+	var bytesInt = parseInt(bytes);
+
+	if(bytesInt < 1000) {
+		return (bytesInt.toString() + " bytes");
+	}
+	else if(bytesInt >= 1000 && bytesInt < 1000000) {
+		return ((bytesInt / 1000).toFixed(2).toString() + " KB");
+	}
+	else {
+		return ((bytesInt / 1000000).toFixed(2).toString() + " MB");
+	}
+}
+
+function displayPercentChange(originalSize, transformedSize) {
+	var originalSizeInt = parseInt(originalSize);
+	var transformedSizeInt = parseInt(transformedSize);
+
+	var pctChange = (((transformedSize/originalSize) - 1) * 100).toFixed(2);
+
+    if(parseInt(pctChange) > 0) {
+    	return '<span class="error"> +' + Math.abs(pctChange).toString() + "%" + '</td>';
+    } 
+    else if(pctChange < 0) {
+        return '<span class="success"> -' + Math.abs(pctChange).toString() + "%" + '</td>';
+    }
+    else if(pctChange = 0) {
+    	return '<span class="warning">  ' + '0' + '</td>';	
+    }
+}
+
 function displaySummary(page) {
 	document.getElementById('totalIMImagesTransformed').textContent = page.totalIMImagesTransformed.toString();
 	document.getElementById('totalICImagesTransformed').textContent = page.totalICImagesTransformed.toString();
-	document.getElementById('totalByteReduction').textContent = (page.totalOriginalSize - page.totalImTransformSize).toString();
-
-	var pctChange = (((page.totalImTransformSize/page.totalOriginalSize) - 1) * 100).toFixed(2);
-    var pctChangePrefix = '-';
-
-    if(parseInt(pctChange) > 0) {
-        document.getElementById('pctByteReduction').style.color = 'red';
-        pctChangePrefix = '+';
-
-    } else {
-        document.getElementById('pctByteReduction').style.color = 'green';
-    }
-
-    if(isNaN(parseInt(pctChange))) {
-    	document.getElementById('pctByteReduction').textContent = '0';
-    }
-    else {
-    	document.getElementById('pctByteReduction').textContent = pctChangePrefix + Math.abs(pctChange).toString() + "%";
-    }
+	document.getElementById('totalByteReduction').textContent = displayBytes(page.totalOriginalSize - page.totalImTransformSize);
+	document.getElementById('pctByteReduction').innerHTML = displayPercentChange(page.totalOriginalSize, page.totalImTransformSize);
 }
 
 function displayICDetailsTable(page) {
@@ -76,13 +90,14 @@ function displayNotEnabledTable() {
 }
 
 function displaySimpleTable() {
-	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th></tr>';
+	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function(detail) {
 		imDetailsTable += '<tr class="urlInfo">'; 
 		imDetailsTable += '<td class="urlData imageCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
 		imDetailsTable += '<td>' + detail.contype + '</td>';
-		imDetailsTable += '<td>' + detail.orgsize + '</td>';
+		imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
 		imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+		imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 		imDetailsTable += '</tr>';
 		document.getElementById('imConversionBox').style.display = 'block';
 	});
@@ -92,7 +107,7 @@ function displaySimpleTable() {
 }
 
 function displayAdvandedTable() {
-	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Width</th><th>Pixel Density</th><th>File Chosen</th><th>Encoding Quality</th><th>Original Size</th><th>Transformed Size</th></tr>';
+	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Width</th><th>Pixel Density</th><th>File Chosen</th><th>Encoding Quality</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function(detail) {
 		imDetailsTable += '<tr class="urlInfo">'; 
 		imDetailsTable += '<td class="urlData imageCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
@@ -102,8 +117,9 @@ function displayAdvandedTable() {
 		imDetailsTable += '<td>' + detail.pixelDensity + '</td>';
 		imDetailsTable += '<td>' + detail.filename + '</td>';
 		imDetailsTable += '<td>' + getEncodingQuality(detail.contype, detail.encQuality) + '</td>';
-		imDetailsTable += '<td>' + detail.orgsize + '</td>';
+		imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
 		imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+		imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 		imDetailsTable += '</tr>';
 		document.getElementById('imConversionBox').style.display = 'block';
 	});
@@ -114,19 +130,19 @@ function displayAdvandedTable() {
 
 function fileSizeDiff(originalSize, transformedSize) {
 	if(parseInt(originalSize) > parseInt(transformedSize)) {
-		return '<td class="success">' + transformedSize + '</td>';	
+		return '<td class="success">' + displayBytes(transformedSize) + '</td>';	
 	}
 	else if (parseInt(originalSize) < parseInt(transformedSize)){
-		return '<td class="error">' + transformedSize + '</td>';	
+		return '<td class="error">' + displayBytes(transformedSize) + '</td>';	
 	}
 	else {
-		return '<td class="warning">' + transformedSize + '</td>';		
+		return '<td class="warning">' + displayBytes(transformedSize) + '</td>';		
 	}
 }
 
 function getEncodingQuality(contentType, encodingQuality) {
 	if(contentType == 'image/gif' || contentType == 'image/png') {
-		return "Not Applicable";
+		return "N/A";
 	}
 	else {
 		return encodingQuality;
@@ -157,6 +173,8 @@ function bindImageCompareListener() {
 }
 
 function dispayImageCompare() {
+	ga('send', 'event', 'displayImage', this.getAttribute('data-url'));
+	
 	document.getElementById('imageBox').style.display = 'none';
 
 	if(this.getAttribute('data-url').indexOf('?') == -1) {

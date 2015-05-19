@@ -8,7 +8,6 @@ function ImageToggle() {
     instance = this;
 
     this.toggleBox.onclick = function() {
-        document.getElementById("imageToggleBoxMessage").style.visibility = 'hidden';
         document.getElementById("imageToggleControls").style.visibility = 'visible';
         var swapIndex = instance.orImageElement.style.zIndex;
         instance.orImageElement.style.zIndex = instance.trImageElement.style.zIndex;

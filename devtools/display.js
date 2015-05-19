@@ -29,16 +29,16 @@ function displayPercentChange(originalSize, transformedSize) {
 	var originalSizeInt = parseInt(originalSize);
 	var transformedSizeInt = parseInt(transformedSize);
 
-	var pctChange = (((transformedSize/originalSize) - 1) * 100).toFixed(2);
+	var pctChange = (((transformedSizeInt/originalSizeInt) - 1) * 100).toFixed(2);
 
-    if(parseInt(pctChange) > 0) {
+	if(transformedSizeInt == originalSizeInt) {
+		return '<span class="warning">  ' + '0%' + '</td>';
+	}
+    else if(pctChange > 0) {
     	return '<span class="error"> +' + Math.abs(pctChange).toString() + "%" + '</td>';
     } 
     else if(pctChange < 0) {
         return '<span class="success"> -' + Math.abs(pctChange).toString() + "%" + '</td>';
-    }
-    else if(pctChange = 0) {
-    	return '<span class="warning">  ' + '0' + '</td>';	
     }
 }
 
@@ -113,7 +113,7 @@ function displayAdvandedTable() {
 		imDetailsTable += '<td class="urlData imageCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
 		
 		imDetailsTable += '<td>' + detail.contype + '</td>';
-		imDetailsTable += '<td>' + detail.originalWidth + '</td>';
+		imDetailsTable += '<td>' + detail.originalWidth + 'px</td>';
 		imDetailsTable += '<td>' + detail.pixelDensity + '</td>';
 		imDetailsTable += '<td>' + detail.filename + '</td>';
 		imDetailsTable += '<td>' + getEncodingQuality(detail.contype, detail.encQuality) + '</td>';
@@ -174,7 +174,7 @@ function bindImageCompareListener() {
 
 function dispayImageCompare() {
 	ga('send', 'event', 'displayImage', this.getAttribute('data-url'));
-	
+
 	document.getElementById('imageBox').style.display = 'none';
 
 	if(this.getAttribute('data-url').indexOf('?') == -1) {

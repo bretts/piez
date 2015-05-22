@@ -4,7 +4,7 @@ beforeSendCallback = function(details) {
       var url = tabs[0].url;
 
       if(url.indexOf('http') != -1) {
-        chrome.cookies.set({ url: url, name: "im-debug", value: "basic" });  
+        chrome.cookies.set({ url: getCookiesUrl(url), name: "im-debug", value: "basic" });  
       }
     }
   );
@@ -38,3 +38,8 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     return true;
 });
 
+var getCookiesUrl = function(href) {
+  var link = document.createElement("a");
+  link.href = href;
+  return('http://' + link.hostname);
+}

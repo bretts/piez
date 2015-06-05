@@ -1,17 +1,9 @@
 beforeSendCallback = function(details) {
-  chrome.tabs.query({'active': true},
-   function(tabs){
-      var url = tabs[0].url;
-
-      if(url.indexOf('http') != -1) {
-        chrome.cookies.set({ url: getCookiesUrl(url), name: "im-debug", value: "basic" });  
-      }
-    }
-  );
-
+  if(details.url.indexOf('http') != -1) {
+    chrome.cookies.set({ url: getCookiesUrl(details.url), name: "im-debug", value: "basic" });
+  }
   return {requestHeaders: details.requestHeaders};
 };
-
 
 var onMessageListener = function(message, sender, sendResponse) {
     switch(message.type) {

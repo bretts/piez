@@ -178,10 +178,10 @@ function dispayImageCompare() {
 	document.getElementById('imageBox').style.display = 'none';
 
 	if(this.getAttribute('data-url').indexOf('?') == -1) {
-		origImage = (this.getAttribute('data-url') + '?aki_bypass=true');
+		origImage = (this.getAttribute('data-url') + '?imbypass=true');
 	}
 	else {
-		origImage = (this.getAttribute('data-url') + '&aki_bypass=true');	
+		origImage = (this.getAttribute('data-url') + '&imbypass=true');	
 	}
 	tranImage = this.getAttribute('data-url')
 	

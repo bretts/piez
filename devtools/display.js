@@ -13,15 +13,30 @@ function displayResult(page) {
 
 function displayBytes(bytes) {
 	var bytesInt = parseInt(bytes);
+	var total_mb = 0;
+	var total_kb = 0;
+	var total_b  = 0;
 
-	if(bytesInt < 1000) {
-		return (bytesInt.toString() + " bytes");
+	while(bytesInt >= 1048576) {
+		total_mb += 1;
+		bytesInt -= 1048576;
 	}
-	else if(bytesInt >= 1000 && bytesInt < 1000000) {
-		return ((bytesInt / 1000).toFixed(2).toString() + " KB");
+
+	while(bytesInt >= 1024) {
+		total_kb += 1;
+		bytesInt -= 1024;
+	}
+
+	total_b = bytesInt;
+
+	if(total_mb == 0 && total_kb == 0) {
+		return (total_b.toString() + " bytes");
+	}
+	else if(total_mb == 0 && total_kb != 0) {
+		return (total_kb.toString() + '.' + parseInt((total_b / 1024) * 100).toString() + " KB")
 	}
 	else {
-		return ((bytesInt / 1000000).toFixed(2).toString() + " MB");
+		return (total_mb.toString() + '.' + parseInt(((total_kb * 1024 + total_b) / 1048576) * 100).toString() + " MB")
 	}
 }
 

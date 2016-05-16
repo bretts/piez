@@ -1,6 +1,6 @@
 {
   "name": "Piez",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "manifest_version": 2,
   "description" : "Piez is a developer tool to show byte savings on pages that use Akamai Image Manager",
   "icons": { "16": "icons/16x16.png", "19": "icons/19x19.png", "38": "icons/38x38.png", "48": "icons/48x48.png", "128": "icons/128x128.png" },

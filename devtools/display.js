@@ -12,32 +12,13 @@ function displayResult(page) {
 }
 
 function displayBytes(bytes) {
-	var bytesInt = parseInt(bytes);
-	var total_mb = 0;
-	var total_kb = 0;
-	var total_b  = 0;
+	var prefixes = ["","Ki","Mi","Gi","Ti","Pi","Ei"];
+	var value    = parseInt(bytes);
 
-	while(bytesInt >= 1048576) {
-		total_mb += 1;
-		bytesInt -= 1048576;
-	}
+	for (var prefix = 0; value >= 1023.995 && prefix < prefixes.length - 1; ++prefix) value /= 1024;
 
-	while(bytesInt >= 1024) {
-		total_kb += 1;
-		bytesInt -= 1024;
-	}
-
-	total_b = bytesInt;
-
-	if(total_mb == 0 && total_kb == 0) {
-		return (total_b.toString() + " bytes");
-	}
-	else if(total_mb == 0 && total_kb != 0) {
-		return (total_kb.toString() + '.' + parseInt((total_b / 1024) * 100).toString() + " KB")
-	}
-	else {
-		return (total_mb.toString() + '.' + parseInt(((total_kb * 1024 + total_b) / 1048576) * 100).toString() + " MB")
-	}
+	if (0 != prefix) value = value.toFixed(2);
+	return value + " " + prefixes[prefix] + "B";
 }
 
 function displayPercentChange(originalSize, transformedSize) {

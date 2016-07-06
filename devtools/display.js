@@ -59,18 +59,19 @@ function displayICDetailsTable(page) {
 }
 
 function displayIMDetailsTable(page) {
-	persistentState = JSON.parse(localStorage["piezSettings"]);
-	switch(persistentState.currentState) {
-		case "piezModeOff":
-        displayNotEnabledTable();
-        break;
-      case "piezModeSimple":
-        displaySimpleTable();
-        break;
-      case "piezModeAdvanced":
-        displayAdvandedTable();
-        break;
-	}
+	chrome.storage.local.get("piezCurrentState", function(result){
+		switch(result["piezCurrentState"]) {
+			case "piezModeOff":
+				displayNotEnabledTable();
+				break;
+			case "piezModeSimple":
+				displaySimpleTable();
+				break;
+			case "piezModeAdvanced":
+				displayAdvandedTable();
+				break;
+		}
+	});
 }
 
 function displayCacheEnableTable() {

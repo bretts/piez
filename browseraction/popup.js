@@ -19,7 +19,9 @@ window.onload = function() {
 	}
 
 	var setFormField = function(piezSettings) {
-		document.getElementById(JSON.parse(window.localStorage['piezSettings']).currentState).checked = true;
+		chrome.storage.local.get("piezCurrentState", function(result) {
+			document.getElementById(result["piezCurrentState"]).checked = true;
+		});
 	}
 
 	setFormField();

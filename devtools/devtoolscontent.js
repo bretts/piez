@@ -7,7 +7,10 @@ window.onload = function() {
 
 	chrome.devtools.network.onRequestFinished.addListener(function(request) {
 		if(request.pageref != PiezController.pageref) {
-			ga('send', 'pageview', '/devtoolscontent.html');
+
+			chrome.extension.sendMessage({
+				type: "use-piez-on-page"
+			});
 
 			chrome.storage.local.get("piezCurrentState", function(result) {
 				PiezController.current_page = new Page();

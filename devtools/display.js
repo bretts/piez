@@ -1,12 +1,13 @@
-function displayResult(page) {
-    displaySummary(page);
-    if(page.localCacheEnabled == true) {
-    	displayCacheEnableTable(page);
-    }
-    else {
-    	displayIMDetailsTable(page);
+function displayResult(page, display_mode) {
+	console.log('starting displayResult');
+	displaySummary(page);
+	if(page.localCacheEnabled == true) {
+		displayCacheEnableTable(page);
+	}
+	else {
+		displayIMDetailsTable(page, display_mode);
 		displayICDetailsTable(page);
-    }
+	}
 	bindRowHighlightingListener();
 	bindImageCompareListener();
 }
@@ -30,12 +31,12 @@ function displayPercentChange(originalSize, transformedSize) {
 	if(transformedSizeInt == originalSizeInt) {
 		return '<span class="warning">  ' + '0%' + '</td>';
 	}
-    else if(pctChange > 0) {
-    	return '<span class="error"> +' + Math.abs(pctChange).toString() + "%" + '</td>';
-    } 
-    else if(pctChange < 0) {
-        return '<span class="success"> -' + Math.abs(pctChange).toString() + "%" + '</td>';
-    }
+	else if(pctChange > 0) {
+		return '<span class="error"> +' + Math.abs(pctChange).toString() + "%" + '</td>';
+	} 
+	else if(pctChange < 0) {
+		return '<span class="success"> -' + Math.abs(pctChange).toString() + "%" + '</td>';
+	}
 }
 
 function displaySummary(page) {
@@ -58,20 +59,18 @@ function displayICDetailsTable(page) {
 	document.getElementById('icDetailsTable').innerHTML = icDetailsTable;
 }
 
-function displayIMDetailsTable(page) {
-	chrome.storage.local.get("piezCurrentState", function(result){
-		switch(result["piezCurrentState"]) {
-			case "piezModeOff":
-				displayNotEnabledTable();
-				break;
-			case "piezModeSimple":
-				displaySimpleTable();
-				break;
-			case "piezModeAdvanced":
-				displayAdvandedTable();
-				break;
-		}
-	});
+function displayIMDetailsTable(page, display_mode) {
+	switch(display_mode) {
+		case "piezModeOff":
+			displayNotEnabledTable();
+			break;
+		case "piezModeSimple":
+			displaySimpleTable(page);
+			break;
+		case "piezModeAdvanced":
+			displayAdvandedTable(page);
+			break;
+	}
 }
 
 function displayCacheEnableTable() {
@@ -86,7 +85,7 @@ function displayNotEnabledTable() {
 	document.getElementById('debug').textContent = (imDetailsTable);
 }
 
-function displaySimpleTable() {
+function displaySimpleTable(page) {
 	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function(detail) {
 		imDetailsTable += '<tr class="urlInfo">'; 
@@ -103,7 +102,7 @@ function displaySimpleTable() {
 	document.getElementById('debug').textContent = (imDetailsTable);
 }
 
-function displayAdvandedTable() {
+function displayAdvandedTable(page) {
 	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Width</th><th>Pixel Density</th><th>File Chosen</th><th>Encoding Quality</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function(detail) {
 		imDetailsTable += '<tr class="urlInfo">'; 

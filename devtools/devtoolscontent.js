@@ -1,14 +1,22 @@
+var PiezController = {}
+
 window.onload = function() {
-	window.pageref = 'pageref_0';
-	
+	PiezController.pageref              = 'pageref_0';
+	PiezController.current_page         = new Page();
+	PiezController.current_display_mode = "piezModeSimple";
+
 	chrome.devtools.network.onRequestFinished.addListener(function(request) {
-		if(request.pageref != window.pageref) {
+		if(request.pageref != PiezController.pageref) {
 			ga('send', 'pageview', '/devtoolscontent.html');
-			window.pageref = request.pageref;
-			page = new Page();
+
+			chrome.storage.local.get("piezCurrentState", function(result) {
+				PiezController.current_page = new Page();
+				PiezController.pageref = request.pageref;
+				PiezController.current_display_mode = result["piezCurrentState"];
+			 });
 		}
-		parseResult(request, page);
-		displayResult(page);
+		parseResult(request, PiezController.current_page);
+		displayResult(PiezController.current_page, PiezController.current_display_mode);
 	});
 }
 

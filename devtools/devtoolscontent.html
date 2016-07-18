@@ -11,7 +11,7 @@
 		<script type="text/javascript" src="googanalytics.js"></script>
 
 		<div class="container">
-			<div class="row clearfix">
+			<div id="conversionSummary" class="row clearfix">
 				<div class="col-1-4-box"><h1>Realtime Conversions</h1><h3 id="totalICImagesTransformed">0</h3></div>
 				<div class="col-1-4-box"><h1>Optimized Conversions</h1><h3 id="totalIMImagesTransformed">0</h3></div>
 				<div class="col-1-4-box"><h1>Total Saved Bytes</h1><h3 id="totalByteReduction">0</h3></div>
@@ -35,15 +35,15 @@
 					<p id='imageToggleBoxMessage' class='imageToggleBoxMessage'>Click The Image To Toggle</p>
 				</div>
 			</div>
-			<div id="imConversionBox" style="display:none" class="row details clearfix">
-				<div class="col-full-box"><h1>Optimized Conversion Details</h1><h3 id="imDetailsTable"></h3></div>
+			<div id="conversionDetails">
+				<div id="imConversionBox" style="display:none" class="row details clearfix">
+					<div class="col-full-box"><h1>Optimized Conversion Details</h1><h3 id="imDetailsTable"></h3></div>
+				</div>
+				<div id="icConversionBox" style="display:none" class="row details clearfix">
+					<div class="col-full-box"><h1>Realtime Conversion Details</h1><h3 id="icDetailsTable"></h3></div>
+				</div>
 			</div>
-			<div id="icConversionBox" style="display:none" class="row details clearfix">
-				<div class="col-full-box"><h1>Realtime Conversion Details</h1><h3 id="icDetailsTable"></h3></div>
-			</div>
-			<div style="display:none" class="details clearfix">
-				<div class="col-full-box" id='debug'></div>
-			</div>
+			<div id="notEnabled" style="display:none" class="details col-full-box clearfix"></div>
 		</div>
 	</body>
 </html>

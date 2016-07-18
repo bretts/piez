@@ -94,6 +94,10 @@ h3 {
 	}
 	.transformedResults td.urlData {
 	 text-align: left;
+	 white-space: nowrap;
+	 text-overflow:ellipsis;
+	 overflow: hidden;
+	 max-width:700px;
 	}	
 	.error {
 	 color: red;
@@ -242,5 +246,25 @@ td {
 		display: table-cell;
 		vertical-align: middle;
 		background-color: #2C2C2C;
+	}
+}
+
+@media all and ( max-width: 900px ) {
+	.transformedResults td.urlData {
+	 text-align: left;
+	 white-space: nowrap;
+	 text-overflow:ellipsis;
+	 overflow: hidden;
+	 max-width:300px;
+	}
+}
+
+@media all and ( max-width: 600px ) {
+	.transformedResults td.urlData {
+	 text-align: left;
+	 white-space: nowrap;
+	 text-overflow:ellipsis;
+	 overflow: hidden;
+	 max-width:200px;
 	}
 }

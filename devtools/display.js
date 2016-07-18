@@ -63,7 +63,7 @@ function displayImDetailsTable(page, display_mode) {
 function displayImSimpleTable(page) {
 	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function(detail) {
-		imDetailsTable += '<tr class="urlInfo">'; 
+		imDetailsTable += '<tr class="urlInfo">';
 		imDetailsTable += '<td class="urlData imageCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
 		imDetailsTable += '<td>' + detail.contype + '</td>';
 		imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';

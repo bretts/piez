@@ -12,10 +12,10 @@ window.onload = function() {
 				type: "use-piez-on-page"
 			});
 
-			chrome.storage.local.get("piezCurrentState", function(result) {
-				PiezController.current_page = new Page();
-				PiezController.pageref = http_transaction.pageref;
-				PiezController.current_display_mode = result["piezCurrentState"];
+			chrome.storage.local.get("piezCurrentState", function(state) {
+				PiezController.current_page         = new Page();
+				PiezController.pageref              = http_transaction.pageref;
+				PiezController.current_display_mode = state["piezCurrentState"];
 			 });
 		}
 		parseResult(http_transaction, PiezController.current_page);

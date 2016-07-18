@@ -1,26 +1,26 @@
-function parseResult(request, page) {
-    if(request.response.status == 304 && (request.request.url).indexOf('.js') == -1)
+function parseResult(http_transaction, page) {
+    if(http_transaction.response.status == 304 && (http_transaction.request.url).indexOf('.js') == -1)
     {
         page.localCacheEnabled = true;
     }
 
-    else if(/x-im-original-size/i.test(JSON.stringify(request.response.headers)))
+    else if(/x-im-original-size/i.test(JSON.stringify(http_transaction.response.headers)))
     {
         page.totalIMImagesTransformed += 1;
-        parseIMHeaders(request, page);
+        parseIMHeaders(http_transaction, page);
     }
-    else if(/akamai image server/i.test(JSON.stringify(request.response.headers)))
+    else if(/akamai image server/i.test(JSON.stringify(http_transaction.response.headers)))
     {
         page.totalICImagesTransformed += 1;
-        parseICHeaders(request, page);
+        parseICHeaders(http_transaction, page);
     }
 }
 
-function parseIMHeaders(request, page) {
+function parseIMHeaders(http_transaction, page) {
     var res = {};
-    res['url'] = request.request.url;
+    res['url'] = http_transaction.request.url;
 
-    request.response.headers.forEach(function(header) {
+    http_transaction.response.headers.forEach(function(header) {
         if(/x-im-original-size/i.test(header.name))
         {
             res['orgsize'] = header.value;
@@ -56,11 +56,11 @@ function parseIMHeaders(request, page) {
     page.imDownloadDetails.push(res);
 }
 
-function parseICHeaders(request, page) {
+function parseICHeaders(http_transaction, page) {
     var res = {}
-    res['url'] = request.request.url;
+    res['url'] = http_transaction.request.url;
 
-    request.response.headers.forEach(function(header) {
+    http_transaction.response.headers.forEach(function(header) {
         if(/content-type/i.test(header.name)) {
             res['contype'] = (header.value).split(';')[0];
         }

@@ -8,6 +8,7 @@ function Page() {
 	this.imDownloadDetails 			= [];
 	this.localCacheEnabled			= false;
 
+	this.totalIcTransformSize 		= 0;
 	this.totalICImagesTransformed	= 0;
 	this.icDownloadDetails			= [];
 }

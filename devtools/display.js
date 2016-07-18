@@ -1,5 +1,4 @@
 function displayResult(page, display_mode) {
-	console.log('starting displayResult');
 	displaySummary(page);
 	if(page.localCacheEnabled == true) {
 		displayCacheEnableTable(page);
@@ -42,16 +41,20 @@ function displayPercentChange(originalSize, transformedSize) {
 function displaySummary(page) {
 	document.getElementById('totalIMImagesTransformed').textContent = page.totalIMImagesTransformed.toString();
 	document.getElementById('totalICImagesTransformed').textContent = page.totalICImagesTransformed.toString();
-	document.getElementById('totalByteReduction').textContent = displayBytes(page.totalOriginalSize - page.totalImTransformSize);
-	document.getElementById('pctByteReduction').innerHTML = displayPercentChange(page.totalOriginalSize, page.totalImTransformSize);
+	document.getElementById('totalByteReduction').textContent       = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
+	document.getElementById('pctByteReduction').innerHTML           = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
 }
 
 function displayICDetailsTable(page) {
-	var icDetailsTable	= '<table id="icDetailsTable" class="transformedResults"><tr><th>URL</th><th>Ouput Image Type</th></tr>';
+	var icDetailsTable	= '<table id="icDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.icDownloadDetails.forEach(function(detail) {
+		console.log(detail);
 		icDetailsTable += '<tr class="urlInfo">'; 
 		icDetailsTable += '<td class="urlData"' + 'data-url="' + detail.url + '">' + '<a href="' + detail.url + '"' + ' target="_blank"' + '>' + detail.url + '</a>' + '</td>';
 		icDetailsTable += '<td>' + detail.contype + '</td>';
+		icDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
+		icDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+		icDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 		icDetailsTable += '</tr>';
 		document.getElementById('icConversionBox').style.display = 'block';
 	});
@@ -76,13 +79,11 @@ function displayIMDetailsTable(page, display_mode) {
 function displayCacheEnableTable() {
 	document.getElementById('imConversionBox').style.display = 'block';
 	document.getElementById('imDetailsTable').innerHTML = "<div class='piezConfigMessage'><p>In order for Piez to work properly, you must disable cache while devtools is open. The following steps are required:</p><ol><li>Click on the Settings cog gear (top right of this pane) to open up the General Settings pane, then, select 'Disable cache (while DevTools is open)'</li>.<li>Then, click and hold the Chrome browser re-load button and select 'Empty Cache and Hard Reload'</li></ol></div>";
-	document.getElementById('debug').textContent = (imDetailsTable);
 }
 
 function displayNotEnabledTable() {
 	document.getElementById('imConversionBox').style.display = 'block';
 	document.getElementById('imDetailsTable').innerHTML = "<div class='piezConfigMessage'><p>Piez Is Not Currently Enabled. The following steps are required:</p><ol><li>Enable Piez by clicking the Piez button in the top right of the browser and selecting enable.</li><li>Click the Chrome browser refresh button</li></ol></div>";
-	document.getElementById('debug').textContent = (imDetailsTable);
 }
 
 function displaySimpleTable(page) {
@@ -99,7 +100,6 @@ function displaySimpleTable(page) {
 	});
 	imDetailsTable += '</table>';
 	document.getElementById('imDetailsTable').innerHTML = imDetailsTable;
-	document.getElementById('debug').textContent = (imDetailsTable);
 }
 
 function displayAdvandedTable(page) {
@@ -121,7 +121,6 @@ function displayAdvandedTable(page) {
 	});
 	imDetailsTable += '</table>';
 	document.getElementById('imDetailsTable').innerHTML = imDetailsTable;
-	document.getElementById('debug').textContent = (imDetailsTable);
 }
 
 function fileSizeDiff(originalSize, transformedSize) {

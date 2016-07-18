@@ -8,8 +8,8 @@ function displayResult(page, display_mode) {
 	else {
 		displayConversionDetails()
 		displaySummary(page);
-		displayIMDetailsTable(page, display_mode);
-		displayICDetailsTable(page);
+		displayImDetailsTable(page, display_mode);
+		displayIcDetailsTable(page);
 	}
 	bindRowHighlightingListener();
 	bindImageCompareListener();
@@ -49,48 +49,18 @@ function displaySummary(page) {
 	document.getElementById('pctByteReduction').innerHTML           = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
 }
 
-function displayICDetailsTable(page) {
-	var icDetailsTable	= '<table id="icDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
-	page.icDownloadDetails.forEach(function(detail) {
-		console.log(detail);
-		icDetailsTable += '<tr class="urlInfo">'; 
-		icDetailsTable += '<td class="urlData"' + 'data-url="' + detail.url + '">' + '<a href="' + detail.url + '"' + ' target="_blank"' + '>' + detail.url + '</a>' + '</td>';
-		icDetailsTable += '<td>' + detail.contype + '</td>';
-		icDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-		icDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
-		icDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
-		icDetailsTable += '</tr>';
-		document.getElementById('icConversionBox').style.display = 'block';
-	});
-	icDetailsTable += '</table>';
-	document.getElementById('icDetailsTable').innerHTML = icDetailsTable;
-}
-
-function displayIMDetailsTable(page, display_mode) {
+function displayImDetailsTable(page, display_mode) {
 	switch(display_mode) {
 		case "piezModeSimple":
-			displaySimpleTable(page);
+			displayImSimpleTable(page);
 			break;
 		case "piezModeAdvanced":
-			displayAdvandedTable(page);
+			displayImAdvandedTable(page);
 			break;
 	}
 }
 
-function displayConversionDetails() {
-	document.getElementById('conversionSummary').style.display = 'block';
-	document.getElementById('conversionDetails').style.display = 'block';
-	document.getElementById('notEnabled').style.display        = 'none';
-}
-
-function displayPiezNotEnabledProperly(message_html) {
-	document.getElementById('conversionSummary').style.display = 'none';
-	document.getElementById('conversionDetails').style.display = 'none';
-	document.getElementById('notEnabled').style.display        = 'block';
-	document.getElementById('notEnabled').innerHTML            = "<div class='piezConfigMessage'>" + message_html + '</div>'
-}
-
-function displaySimpleTable(page) {
+function displayImSimpleTable(page) {
 	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function(detail) {
 		imDetailsTable += '<tr class="urlInfo">'; 
@@ -106,7 +76,7 @@ function displaySimpleTable(page) {
 	document.getElementById('imDetailsTable').innerHTML = imDetailsTable;
 }
 
-function displayAdvandedTable(page) {
+function displayImAdvandedTable(page) {
 	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Width</th><th>Pixel Density</th><th>File Chosen</th><th>Encoding Quality</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function(detail) {
 		imDetailsTable += '<tr class="urlInfo">'; 
@@ -125,6 +95,36 @@ function displayAdvandedTable(page) {
 	});
 	imDetailsTable += '</table>';
 	document.getElementById('imDetailsTable').innerHTML = imDetailsTable;
+}
+
+function displayIcDetailsTable(page) {
+	var icDetailsTable	= '<table id="icDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
+	page.icDownloadDetails.forEach(function(detail) {
+		console.log(detail);
+		icDetailsTable += '<tr class="urlInfo">';
+		icDetailsTable += '<td class="urlData"' + 'data-url="' + detail.url + '">' + '<a href="' + detail.url + '"' + ' target="_blank"' + '>' + detail.url + '</a>' + '</td>';
+		icDetailsTable += '<td>' + detail.contype + '</td>';
+		icDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
+		icDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+		icDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
+		icDetailsTable += '</tr>';
+		document.getElementById('icConversionBox').style.display = 'block';
+	});
+	icDetailsTable += '</table>';
+	document.getElementById('icDetailsTable').innerHTML = icDetailsTable;
+}
+
+function displayConversionDetails() {
+	document.getElementById('conversionSummary').style.display = 'block';
+	document.getElementById('conversionDetails').style.display = 'block';
+	document.getElementById('notEnabled').style.display        = 'none';
+}
+
+function displayPiezNotEnabledProperly(message_html) {
+	document.getElementById('conversionSummary').style.display = 'none';
+	document.getElementById('conversionDetails').style.display = 'none';
+	document.getElementById('notEnabled').style.display        = 'block';
+	document.getElementById('notEnabled').innerHTML            = "<div class='piezConfigMessage'>" + message_html + '</div>'
 }
 
 function fileSizeDiff(originalSize, transformedSize) {

@@ -100,7 +100,6 @@ function displayImAdvandedTable(page) {
 function displayIcDetailsTable(page) {
 	var icDetailsTable	= '<table id="icDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.icDownloadDetails.forEach(function(detail) {
-		console.log(detail);
 		icDetailsTable += '<tr class="urlInfo">';
 		icDetailsTable += '<td class="urlData"' + 'data-url="' + detail.url + '">' + '<a href="' + detail.url + '"' + ' target="_blank"' + '>' + detail.url + '</a>' + '</td>';
 		icDetailsTable += '<td>' + detail.contype + '</td>';

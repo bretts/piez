@@ -10,39 +10,39 @@ colour pallette:
 *,
 *:before,
 *:after {
-	 box-sizing: border-box;
+	box-sizing: border-box;
 }
 .clearfix:after {
-	 content: "";
-	 display: table;
-	 clear: both;
-	 display: block;
+	content: "";
+	display: table;
+	clear: both;
+	display: block;
 }
 body {
-	 margin: 0;
-	 background-color: #222222;
-	 font-size: 20px;
-	 color: white;
-	 font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: 0;
+	background-color: #222222;
+	font-size: 20px;
+	color: white;
+	font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 h1 {
-	 margin-bottom: 12px;
-	 text-align: center;
-	 font-size: 30px;
-	 font-weight: 400;
-	 color: #999797;
+	margin-bottom: 12px;
+	text-align: center;
+	font-size: 30px;
+	font-weight: 400;
+	color: #999797;
 }
 h3 {
-	 font-size: 25px;
-	 font-weight: 600;
-	 color: #656565;
-	 text-align: center;
+	font-size: 25px;
+	font-weight: 600;
+	color: #656565;
+	text-align: center;
 }
 [class*="row-"] {
-	 margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 [class*="row-"]:last-child {
-	 margin-bottom: 0;
+	margin-bottom: 0;
 }
 [class*="col-"] {
 }		 
@@ -73,103 +73,103 @@ h3 {
 	display: block;
 	float: none;
 	overflow: auto;
-	}
-	.col-image-box {
+}
+.col-image-box {
 	width: 100%;
 	text-align: center;
 	display: block;
 	float: none;
 	padding: 0px 0px;
-	}
-	.transformedResults {
+}
+.transformedResults {
 	 margin: 0px auto;
 	 color: #656565;
-	}
-	.transformedResults th{
+}
+.transformedResults th{
 	 padding: 10px;
 	 color: #999797;
-	}
-	.transformedResults td{
+}
+.transformedResults td{
 	 text-align: center;
-	}
-	.transformedResults td.urlData {
+}
+.transformedResults td.urlData {
 	 text-align: left;
 	 white-space: nowrap;
 	 text-overflow:ellipsis;
 	 overflow: hidden;
-	}	
-	.error {
-	 color: red;
-	}
-	.warning {
-	 color: #FFDE00;	
-	}
-	.success {
-	 color: green;
-	}
-	.imageCompareTable {
-	 margin: 0px auto;
-	 margin-bottom:20px;
-	 margin-top:10px;
-	}
-	.imageCompareTable th{
-	 text-align: center;
-	 padding-left: 20px;
-	 padding-right: 20px;
-	 text-decoration: underline;
-	 min-width: 300px;
-	}		 
-	.imageCompareTableHover {
-	 background-color: black;
-	}
-	.imageToggleBoxMessage {
-	 margin-top:10px;
-	 margin-bottom:20px;
-	 color: #eee9e9;
-	}
-	.imageCompareViewer {
-	 margin-top: 20px;
-	 margin-bottom: 20px;
-	}
-	a:link {
-	 color: #656565;
-	}
-	a:hover {
-	 color: white;
-	}
-	a:visited {
-	 color: #656565;
-	}
-	.piezConfigMessage {
-	 font-size: 15px;
-	 color: yellow;
-	 text-align: left;
-	 width: 50%;
-	 margin: auto;
-	}
-	.piezConfigMessage ol {
-	 list-style-position: inside;
-	}
-	.selectedImage {
-	 border: solid 4px green;
-	 color: green;
-	 padding:10px;
-	}		 
-	.unselectedImage {
-	 color: #656565;
-	 border: solid 4px #2C2C2C;
-	 padding:10px;
-	}
-	.selectedImage:hover {
-	 cursor: pointer;
-	 color: white;
-	 background-color: black;
-	}
-	.unselectedImage:hover {
-	 cursor: pointer;
-	 color: white;
-	 background-color: black;
-	}
+}
+.error {
+	color: red;
+}
+.warning {
+	color: #FFDE00;
+}
+.success {
+	color: green;
+}
+.imageCompareTable {
+	margin: 0px auto;
+	margin-bottom:20px;
+	margin-top:10px;
+}
+.imageCompareTable th{
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	text-decoration: underline;
+	min-width: 300px;
+}
+.imageCompareTableHover {
+	background-color: black;
+}
+.imageToggleBoxMessage {
+	margin-top:10px;
+	margin-bottom:20px;
+	color: #eee9e9;
+}
+.imageCompareViewer {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+a:link {
+	color: #656565;
+}
+a:hover {
+	color: white;
+}
+a:visited {
+	color: #656565;
+}
+.piezConfigMessage {
+	font-size: 15px;
+	color: yellow;
+	text-align: left;
+	width: 50%;
+	margin: auto;
+}
+.piezConfigMessage ol {
+	list-style-position: inside;
+}
+.selectedImage {
+	border: solid 4px green;
+	color: green;
+	padding:10px;
+}
+.unselectedImage {
+	color: #656565;
+	border: solid 4px #2C2C2C;
+	padding:10px;
+}
+.selectedImage:hover {
+	cursor: pointer;
+	color: white;
+	background-color: black;
+}
+.unselectedImage:hover {
+	cursor: pointer;
+	color: white;
+	background-color: black;
+}
 .toggleOriginalImage 	{ 
 	position: absolute;
 	border: 1px solid #999797;

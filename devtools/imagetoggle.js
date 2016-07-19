@@ -37,14 +37,11 @@ ImageToggle.prototype.addImages = function(originalImage, transformedImage) {
     this.transformedImage = tImage;
 
     tImage.onload = function() {
-        console.log('transformed images loaded');
         oImage.src = originalImage;
         instance.originalImage = oImage;
-        console.log('attempting to load original image');
     };
 
     oImage.onload = function() {
-        console.log('original images loaded');
         document.getElementById("imageToggleBoxMessage").style.visibility = 'visible';
         document.getElementById("imageToggleBox").style.display = 'block';
         document.getElementById("ajaxloader").style.display = 'none';

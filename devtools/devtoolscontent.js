@@ -19,7 +19,7 @@ window.onload = function() {
 
 	chrome.devtools.network.onRequestFinished.addListener(function(http_transaction) {
 		parseResult(http_transaction, PiezController.current_page);
-		report(PiezController.current_page, PiezController.current_display_mode);
+		Report.init(PiezController.current_page, PiezController.current_display_mode);
 	});
 }
 

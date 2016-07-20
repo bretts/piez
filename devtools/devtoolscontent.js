@@ -18,8 +18,8 @@ window.onload = function() {
 	});
 
 	chrome.devtools.network.onRequestFinished.addListener(function(http_transaction) {
-		parseResult(http_transaction, PiezController.current_page);
-		Report.init(PiezController.current_page, PiezController.current_display_mode);
+		ParseHeaders(http_transaction, PiezController.current_page);
+		Report(PiezController.current_page, PiezController.current_display_mode);
 	});
 }
 

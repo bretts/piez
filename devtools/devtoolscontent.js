@@ -9,7 +9,7 @@ window.onload = function() {
 		PiezController.current_page = new Page();
 
 		chrome.extension.sendMessage({
-			type: "use-piez-on-page"
+			type: "update-piez-analytics"
 		});
 
 		chrome.storage.local.get("piezCurrentState", function(state) {
@@ -21,10 +21,4 @@ window.onload = function() {
 		ParseHeaders(http_transaction, PiezController.current_page);
 		Report(PiezController.current_page, PiezController.current_display_mode);
 	});
-}
-
-var bglog = function(obj) {
-	if(chrome && chrome.runtime) {
-		chrome.runtime.sendMessage({type: "bglog", obj: obj});
-	}
-}
+};

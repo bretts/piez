@@ -5,15 +5,6 @@ beforeSendCallback = function(details) {
 	return {requestHeaders: details.requestHeaders};
 };
 
-var onMessageListener = function(message, sender, sendResponse) {
-		switch(message.type) {
-				case "bglog":
-						console.log(message.obj);
-				break;
-		}
-		return true;
-}
-
 var piezToggle = new PiezToggle();
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 		switch(request.type) {
@@ -26,7 +17,7 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 				case "piez-advanced":
 					piezToggle.turnPiezOnAdvanced();
 					break;
-				case "use-piez-on-page":
+				case "update-piez-analytics":
 					chrome.tabs.getSelected(null, function(tab) {
 							logUrlAnalytics(tab);
 					});

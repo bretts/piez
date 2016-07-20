@@ -5,6 +5,7 @@ window.onload = function() {
 	PiezController.current_display_mode = "piezModeSimple";
 
 	chrome.devtools.network.onNavigated.addListener(function(http_transaction) {
+		hideImageCompare();
 		PiezController.current_page = new Page();
 
 		chrome.extension.sendMessage({
@@ -18,7 +19,7 @@ window.onload = function() {
 
 	chrome.devtools.network.onRequestFinished.addListener(function(http_transaction) {
 		parseResult(http_transaction, PiezController.current_page);
-		displayResult(PiezController.current_page, PiezController.current_display_mode);
+		report(PiezController.current_page, PiezController.current_display_mode);
 	});
 }
 

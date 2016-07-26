@@ -15,6 +15,7 @@ function PiezToggle() {
       break;
     case "piezModeBrowserFormatCompare":
       instance.turnPiezOnModeBrowserFormatCompare();
+      break;
     default:
       instance.turnPiezOnSimple();
       break;

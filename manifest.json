@@ -4,7 +4,7 @@
   "manifest_version": 2,
   "description" : "Piez is a developer tool to show byte savings on pages that use Akamai Image Manager",
   "icons": { "16": "icons/16x16.png", "19": "icons/19x19.png", "38": "icons/38x38.png", "48": "icons/48x48.png", "128": "icons/128x128.png" },
-  "permissions": ["storage", "tabs", "cookies", "webRequest", "webRequestBlocking", "<all_urls>" ],
+  "permissions": ["tabs", "cookies", "webRequest", "webRequestBlocking", "<all_urls>"],
   "devtools_page": "devtools/devtools.html",
 
   "browser_action": {
@@ -16,6 +16,14 @@
     "default_popup": "browseraction/popup.html"
   },
 
+  "content_scripts": [
+    {
+      "run_at": "document_start",
+      "matches": ["<all_urls>"],
+      "js": ["content/content.js"]
+    }
+  ],
+
   "content_security_policy": "script-src 'self' https://www.google-analytics.com/analytics.js; object-src 'self'",
 
   "background": {
@@ -23,5 +31,5 @@
     "persistent": true
   },
 
-  "incognito" : "split"
+  "incognito" : "not_allowed"
 }

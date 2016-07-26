@@ -1,3 +1,19 @@
+function updateSummaryTable(page, display_mode) {
+	if(display_mode === 'piezModeBrowserFormatCompare') {
+		document.getElementById('generic').textContent = displayBytes(page.genericFormatTotal);
+		document.getElementById('chrome').textContent  = displayBytes(page.chromeFormatTotal);
+		document.getElementById('safari').textContent  = displayBytes(page.safariFormatTotal);
+		document.getElementById('ie').innerHTML        = displayBytes(page.ieFormatTotal);
+	}
+	else {
+		document.getElementById('totalIMImagesTransformed').textContent = page.totalIMImagesTransformed.toString();
+		document.getElementById('totalICImagesTransformed').textContent = page.totalICImagesTransformed.toString();
+		document.getElementById('totalByteReduction').textContent       = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
+		document.getElementById('pctByteReduction').innerHTML           = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
+	}
+	
+};
+
 function updateImDetailsTable(page, display_mode) {
 	switch(display_mode) {
 		case "piezModeSimple":
@@ -5,6 +21,12 @@ function updateImDetailsTable(page, display_mode) {
 			break;
 		case "piezModeAdvanced":
 			updateImAdvandedTable(page);
+			break;
+		case "piezModeBrowserFormatCompare":
+			updateImBrowserFormatCompareTable(page);
+			break;
+		default:
+			updateImSimpleTable(page);
 			break;
 	}
 }
@@ -18,6 +40,47 @@ function updateImSimpleTable(page) {
 		imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
 		imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
 		imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
+		imDetailsTable += '</tr>';
+		document.getElementById('imConversionBox').style.display = 'block';
+	});
+	imDetailsTable += '</table>';
+	document.getElementById('imDetailsTable').innerHTML = imDetailsTable;
+}
+
+function updateImBrowserFormatCompareTable(page) {
+	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Original Size</th><th>Generic</th><th>Chrome</th><th>Safari</th><th>IE</th>';
+	page.imDownloadDetails.forEach(function(detail) {
+		imDetailsTable += '<tr class="urlInfo">';
+		imDetailsTable += '<td class="urlData" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
+		 imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
+
+		 try {
+		 	imDetailsTable += '<td>' + displayBytes(detail.browserFormats.generic.contlen) + '</td>';
+		 }
+		 catch(err) {
+			imDetailsTable += '<td></td>'
+		 }
+
+		 try {
+		 	imDetailsTable += '<td>' + displayBytes(detail.browserFormats.chrome.contlen) + '</td>';
+		 }
+		 catch(err) {
+			imDetailsTable += '<td></td>'
+		 }
+		 
+		 try {
+			imDetailsTable += '<td>' + displayBytes(detail.browserFormats.safari.contlen) + '</td>';
+		 }
+		 catch(err) {
+			imDetailsTable += '<td></td>'
+		 }
+		 try {
+			imDetailsTable += '<td>' + displayBytes(detail.browserFormats.ie.contlen);
+		 }
+		 catch(err) {
+			imDetailsTable += '<td></td>'
+		 }
+
 		imDetailsTable += '</tr>';
 		document.getElementById('imConversionBox').style.display = 'block';
 	});

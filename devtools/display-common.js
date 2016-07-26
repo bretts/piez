@@ -28,12 +28,18 @@
 		}
 	};
 
-	global.showSummaryTable = function() {
-		document.getElementById('conversionSummary').style.display = 'block';
+	global.showSummaryTable = function(display_mode) {
+		if(display_mode == 'piezModeBrowserFormatCompare') {
+			document.getElementById('conversionSummary').style.display = 'none';
+			document.getElementById('browserFormatCompareSummary').style.display = 'block';
+		}
+		else {
+			document.getElementById('browserFormatCompareSummary').style.display = 'none';
+			document.getElementById('conversionSummary').style.display = 'block';
+		}
 	};
 
 	global.showDetailsTable = function() {
-		document.getElementById('conversionSummary').style.display = 'block';
 		document.getElementById('conversionDetails').style.display = 'block';
 	};
 
@@ -46,13 +52,6 @@
 		document.getElementById('conversionDetails').style.display = 'none';
 		document.getElementById('notEnabled').style.display        = 'block';
 		document.getElementById('notEnabled').innerHTML            = "<div class='piezConfigMessage'>" + message_html + '</div>';
-	};
-
-	global.updateSummaryTable = function(page) {
-		document.getElementById('totalIMImagesTransformed').textContent = page.totalIMImagesTransformed.toString();
-		document.getElementById('totalICImagesTransformed').textContent = page.totalICImagesTransformed.toString();
-		document.getElementById('totalByteReduction').textContent       = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
-		document.getElementById('pctByteReduction').innerHTML           = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
 	};
 
 	global.fileSizeDiff = function(originalSize, transformedSize) {

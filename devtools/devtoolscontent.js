@@ -1,9 +1,8 @@
-var PiezController = {}
+PiezController                      = {}
+PiezController.current_page         = new Page();
+PiezController.current_display_mode = 'piezModeSimple';
 
 window.onload = function() {
-	PiezController.current_page         = new Page();
-	PiezController.current_display_mode = "piezModeSimple";
-
 	chrome.devtools.network.onNavigated.addListener(function(http_transaction) {
 		hideImageCompare();
 		PiezController.current_page = new Page();
@@ -12,13 +11,11 @@ window.onload = function() {
 			type: "update-piez-analytics"
 		});
 
-		chrome.storage.local.get("piezCurrentState", function(state) {
-			PiezController.current_display_mode = state["piezCurrentState"];
-		 });
+		PiezController.current_display_mode = localStorage.getItem("piezCurrentState");
 	});
 
 	chrome.devtools.network.onRequestFinished.addListener(function(http_transaction) {
-		ParseHeaders(http_transaction, PiezController.current_page);
-		Report(PiezController.current_page, PiezController.current_display_mode);
+		ParseHeaders(http_transaction, PiezController.current_page, PiezController.current_display_mode);
+		Report(PiezController.current_page, PiezController.current_display_mode)
 	});
 };

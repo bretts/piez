@@ -10,13 +10,14 @@
 		}
 		else {
 			hidePiezNotEnabledTable();
-			showSummaryTable();
+			showSummaryTable(display_mode);
 			showDetailsTable();
-			updateSummaryTable(page);
+			updateSummaryTable(page, display_mode);
 			updateImDetailsTable(page, display_mode);
 			updateIcDetailsTable(page);
+
+			bindRowHighlightingListener();
+			bindImageCompareListener();
 		}
-		bindRowHighlightingListener();
-		bindImageCompareListener();
 	};
 })(this);

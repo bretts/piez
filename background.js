@@ -7,23 +7,32 @@ beforeSendCallback = function(details) {
 
 var piezToggle = new PiezToggle();
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
-		switch(request.type) {
-				case "piez-off":
-					piezToggle.turnPiezOff();
-					break;
-				case "piez-simple":
-					piezToggle.turnPiezOnSimple();
-					break;
-				case "piez-advanced":
-					piezToggle.turnPiezOnAdvanced();
-					break;
-				case "update-piez-analytics":
-					chrome.tabs.getSelected(null, function(tab) {
-							logUrlAnalytics(tab);
-					});
-					break;
-		}
-		return true;
+	switch(request.type) {
+		case "piez-off":
+			piezToggle.turnPiezOff();
+			break;
+		case "piez-simple":
+			piezToggle.turnPiezOnSimple();
+			break;
+		case "piez-advanced":
+			piezToggle.turnPiezOnAdvanced();
+			break;
+		case "piez-browser-format-compare":
+			piezToggle.turnPiezOnModeBrowserFormatCompare();
+			break;
+		case "update-piez-analytics":
+			chrome.tabs.getSelected(null, function(tab) {
+					logUrlAnalytics(tab);
+			});
+			break;
+		case "request-alternate-browser-formats":
+			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+				request["tabUrl"] = tabs[0].url
+				chrome.tabs.sendMessage(tabs[0].id, request);
+			});
+			break;
+	}
+	return true;
 });
 
 var getCookiesUrl = function(href) {

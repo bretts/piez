@@ -11,5 +11,9 @@
 		this.totalIcTransformSize       = 0;
 		this.totalICImagesTransformed   = 0;
 		this.icDownloadDetails          = [];
+		this.genericFormatTotal         = 0;
+		this.chromeFormatTotal          = 0;
+		this.safariFormatTotal          = 0;
+		this.ieFormatTotal              = 0;
 	};
 })(this);

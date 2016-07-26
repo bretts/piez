@@ -18,10 +18,15 @@ window.onload = function() {
 	    });
 	}
 
+	document.getElementById("piezModeBrowserFormatCompare").onclick = function() {
+		chrome.extension.sendMessage({
+	        type: "piez-browser-format-compare"
+	    });
+	}
+
 	var setFormField = function(piezSettings) {
-		chrome.storage.local.get("piezCurrentState", function(result) {
-			document.getElementById(result["piezCurrentState"]).checked = true;
-		});
+		result = localStorage.getItem("piezCurrentState");
+		document.getElementById(result).checked = true;
 	}
 
 	setFormField();

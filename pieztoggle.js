@@ -44,7 +44,7 @@ PiezToggle.prototype.turnPiezOnAdvanced = function() {
 
 PiezToggle.prototype.turnPiezOnModeBrowserFormatCompare = function() {
   localStorage.setItem("piezCurrentState", "piezModeBrowserFormatCompare");
-  chrome.browserAction.setBadgeText({"text": "bONd"});
+  chrome.browserAction.setBadgeText({"text": "ON +"});
   chrome.browserAction.setBadgeBackgroundColor({"color": [0, 255, 0, 255]});
   chrome.webRequest.onBeforeSendHeaders.addListener(beforeSendCallback, {urls: [ "<all_urls>" ]}, ['requestHeaders','blocking']);
 };

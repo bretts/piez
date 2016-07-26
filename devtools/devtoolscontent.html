@@ -8,17 +8,19 @@
 		<script type="text/javascript" src="parse-headers.js"></script>
 		<script type="text/javascript" src="headers-im.js"></script>
 		<script type="text/javascript" src="headers-ic.js"></script>
+        <script type="text/javascript" src="headers-cpi.js"></script>
 		<script type="text/javascript" src="display-im.js"></script>
+        <script type="text/javascript" src="display-cpi.js"></script>
 		<script type="text/javascript" src="display-common.js"></script>
 		<script type="text/javascript" src="googanalytics.js"></script>
 		<script type="text/javascript" src="report.js"></script>
 
 		<div class="container">
-			<div style="display:none" id="conversionSummary" class="row clearfix">
-				<div class="col-1-4-box"><h1>Realtime Conversions</h1><h3 id="totalICImagesTransformed">0</h3></div>
-				<div class="col-1-4-box"><h1>Optimized Conversions</h1><h3 id="totalIMImagesTransformed">0</h3></div>
-				<div class="col-1-4-box"><h1>Total Saved Bytes</h1><h3 id="totalByteReduction">0</h3></div>
-				<div class="col-1-4-box"><h1>% Bytes Change</h1><h3 id="pctByteReduction">0</h3></div>
+			<div id="conversionSummary" class="row clearfix">
+                <div class="col-1-4-box" id="totalICImagesTransformed"><h1>Realtime Conversions</h1><h3>&nbsp;</h3></div>
+				<div class="col-1-4-box" id="totalIMImagesTransformed"><h1>Optimized Conversions</h1><h3>&nbsp;</h3></div>
+				<div class="col-1-4-box" id="totalByteReduction"><h1>Total Saved Bytes</h1><h3>&nbsp;</h3></div>
+				<div class="col-1-4-box" id="pctByteReduction"><h1>% Bytes Change</h1><h3>&nbsp;</h3></div>
 			</div>
 			<div style="display:none" id="browserFormatCompareSummary" class="row clearfix">
 				<div class="col-1-4-box"><h1>Generic</h1><h3 id="generic">0</h3></div>

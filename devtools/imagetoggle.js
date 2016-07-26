@@ -58,10 +58,8 @@ ImageToggle.prototype.addImages = function(originalImage, transformedImage) {
         instance.orImageElement.setAttribute('width', tImage.width);
         instance.orImageElement.setAttribute('height', tImage.height);
         instance.orImageElement.style.zIndex = 1;
-        
+
         instance.toggleBox.setAttribute('width', tImage.width);
         instance.toggleBox.setAttribute('height', tImage.height);
     };
-}
-
-
+};

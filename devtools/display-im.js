@@ -6,13 +6,12 @@ function updateSummaryTable(page, display_mode) {
 		document.getElementById('ie').innerHTML        = displayBytes(page.ieFormatTotal);
 	}
 	else {
-		document.getElementById('totalIMImagesTransformed').textContent = page.totalIMImagesTransformed.toString();
-		document.getElementById('totalICImagesTransformed').textContent = page.totalICImagesTransformed.toString();
-		document.getElementById('totalByteReduction').textContent       = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
-		document.getElementById('pctByteReduction').innerHTML           = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
+        document.querySelector('#totalICImagesTransformed h3').textContent = page.totalIMImagesTransformed.toString();
+        document.querySelector('#totalIMImagesTransformed h3').textContent = page.totalICImagesTransformed.toString();
+        document.querySelector('#totalByteReduction h3').textContent       = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
+        document.querySelector('#pctByteReduction h3').innerHTML           = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
 	}
-	
-};
+}
 
 function updateImDetailsTable(page, display_mode) {
 	switch(display_mode) {
@@ -58,27 +57,27 @@ function updateImBrowserFormatCompareTable(page) {
 		 	imDetailsTable += '<td>' + displayBytes(detail.browserFormats.generic.contlen) + '</td>';
 		 }
 		 catch(err) {
-			imDetailsTable += '<td></td>'
+			imDetailsTable += '<td></td>';
 		 }
 
 		 try {
 		 	imDetailsTable += '<td>' + displayBytes(detail.browserFormats.chrome.contlen) + '</td>';
 		 }
 		 catch(err) {
-			imDetailsTable += '<td></td>'
+			imDetailsTable += '<td></td>';
 		 }
-		 
+
 		 try {
 			imDetailsTable += '<td>' + displayBytes(detail.browserFormats.safari.contlen) + '</td>';
 		 }
 		 catch(err) {
-			imDetailsTable += '<td></td>'
+			imDetailsTable += '<td></td>';
 		 }
 		 try {
 			imDetailsTable += '<td>' + displayBytes(detail.browserFormats.ie.contlen);
 		 }
 		 catch(err) {
-			imDetailsTable += '<td></td>'
+			imDetailsTable += '<td></td>';
 		 }
 
 		imDetailsTable += '</tr>';
@@ -91,9 +90,9 @@ function updateImBrowserFormatCompareTable(page) {
 function updateImAdvandedTable(page) {
 	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Width</th><th>Pixel Density</th><th>File Chosen</th><th>Encoding Quality</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function(detail) {
-		imDetailsTable += '<tr class="urlInfo">'; 
+		imDetailsTable += '<tr class="urlInfo">';
 		imDetailsTable += '<td class="urlData imageCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
-		
+
 		imDetailsTable += '<td>' + detail.contype + '</td>';
 		imDetailsTable += '<td>' + detail.originalWidth + 'px</td>';
 		imDetailsTable += '<td>' + detail.pixelDensity + '</td>';
@@ -126,12 +125,12 @@ function updateIcDetailsTable(page) {
 }
 
 function getEncodingQuality(contentType, encodingQuality) {
-	if(contentType == 'image/gif' || contentType == 'image/png') {
-		return "N/A";
-	}
-	else {
-		return encodingQuality;
-	}
+    if(contentType == 'image/gif' || contentType == 'image/png') {
+        return "N/A";
+    }
+    else {
+        return encodingQuality;
+    }
 }
 
 function bindImageCompareListener() {
@@ -154,19 +153,19 @@ function showImageCompare() {
 		origImage = (this.getAttribute('data-url') + '?imbypass=true');
 	}
 	else {
-		origImage = (this.getAttribute('data-url') + '&imbypass=true');	
+		origImage = (this.getAttribute('data-url') + '&imbypass=true');
 	}
-	tranImage = this.getAttribute('data-url')
-	
+	tranImage = this.getAttribute('data-url');
+
 	i = new ImageToggle();
 	i.addImages(origImage, tranImage);
 
 	document.getElementById('originalImage').onclick = function() {
 		window.open(i.originalImage.src);
-	}
+	};
 	document.getElementById('transformedImage').onclick = function() {
 		window.open(i.transformedImage.src);
-	}
+	};
 	document.getElementById('imageComareUrlTitle').href = this.getAttribute('data-url');
 	document.getElementById('imageComareUrlTitle').innerHTML = this.getAttribute('data-url');
 	document.getElementById('imageBox').style.display = 'block';

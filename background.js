@@ -2,7 +2,7 @@ var inspectedTab = {};
 var devtools_port;
 
 beforeSendCallback = function(details) {
-    if (details.tabId !== inspectedTab.id) {
+    if (details.tabId !== inspectedTab.id) { //make sure we're only affecting the inspected tab
         return;
     }
     if(details.url.indexOf('http') != -1) {

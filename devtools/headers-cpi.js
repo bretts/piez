@@ -106,7 +106,7 @@
             if (isAbsUrl.test(element)) {
                 urlStr = url.toString();
             }
-            else { //deal with the various relative urls
+            else { //deal with the various types of relative urls
                 if (urlStr.slice(-1) !== '/') {
                     urlStr = urlStr + '/';
                 }

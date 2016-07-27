@@ -1,14 +1,5 @@
 (function(global) {
 
-    global.updateCpiSummary = function(page) {
-        document.querySelector('#totalICImagesTransformed h3').textContent = (page.CPIEnabled) ? 'On' : 'Off';
-        document.querySelector('#totalIMImagesTransformed h3').textContent = (page.CPIPolicy) ? ('Version: ' + page.CPIPolicy) : 'None';
-        var total = page.preconnects.common.length + page.preconnects.unique.length;
-        document.querySelector('#totalByteReduction h3').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;
-        total = page.resourcesPushed.common.length + page.resourcesPushed.unique.length;
-        document.querySelector('#pctByteReduction h3').textContent = (total - page.resourcesPushed.notUsed.length) +  '/' + total;
-    };
-
     global.displayCPIView = function(page) {
         if (!page.CPIEnabled || !page.CPIPolicy) {
             return;

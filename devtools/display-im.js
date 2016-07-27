@@ -1,18 +1,3 @@
-function updateSummaryTable(page, display_mode) {
-	if(display_mode === 'piezModeBrowserFormatCompare') {
-		document.getElementById('generic').textContent = displayBytes(page.genericFormatTotal);
-		document.getElementById('chrome').textContent  = displayBytes(page.chromeFormatTotal);
-		document.getElementById('safari').textContent  = displayBytes(page.safariFormatTotal);
-		document.getElementById('ie').innerHTML        = displayBytes(page.ieFormatTotal);
-	}
-	else {
-        document.querySelector('#totalICImagesTransformed h3').textContent = page.totalIMImagesTransformed.toString();
-        document.querySelector('#totalIMImagesTransformed h3').textContent = page.totalICImagesTransformed.toString();
-        document.querySelector('#totalByteReduction h3').textContent       = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
-        document.querySelector('#pctByteReduction h3').innerHTML           = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
-	}
-}
-
 function updateImDetailsTable(page, display_mode) {
 	switch(display_mode) {
 		case "piezModeSimple":

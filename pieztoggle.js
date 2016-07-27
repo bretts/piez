@@ -23,7 +23,7 @@ function PiezToggle() {
       instance.turnPiezOnSimple();
       break;
   }
-};
+}
 
 PiezToggle.prototype.turnPiezOff = function() {
   localStorage.setItem("piezCurrentState", "piezModeOff");

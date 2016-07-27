@@ -29,27 +29,49 @@
 	};
 
 	global.showSummaryTable = function(display_mode) {
-        if(display_mode == 'piezModeBrowserFormatCompare') {
-            document.getElementById('conversionSummary').style.display = 'none';
-            document.getElementById('browserFormatCompareSummary').style.display = 'block';
-        }
-        else {
-            document.getElementById('browserFormatCompareSummary').style.display = 'none';
             document.getElementById('conversionSummary').style.display = 'block';
+        if (display_mode === 'piezModeBrowserFormatCompare') {
+            document.querySelector('#conversionSummary > .col1 > h1').textContent = 'Generic';
+            document.querySelector('#conversionSummary > .col2 > h1').textContent = 'Chrome';
+            document.querySelector('#conversionSummary > .col3 > h1').textContent = 'Safari';
+            document.querySelector('#conversionSummary > .col4 > h1').textContent = 'IE';
         }
-        if (display_mode == 'piezModeCPI') {
-            document.querySelector('#totalICImagesTransformed h1').textContent = 'CPI Status';
-            document.querySelector('#totalIMImagesTransformed h1').textContent = 'Policy Version';
-            document.querySelector('#totalByteReduction h1').textContent = 'Preconnects';
-            document.querySelector('#pctByteReduction h1').textContent = 'Pushed Resources';
+        else if (display_mode == 'piezModeCPI') {
+            document.querySelector('#conversionSummary > .col1 > h1').textContent = 'CPI Status';
+            document.querySelector('#conversionSummary > .col2 > h1').textContent = 'Policy Version';
+            document.querySelector('#conversionSummary > .col3 > h1').textContent = 'Preconnects';
+            document.querySelector('#conversionSummary > .col4 > h1').textContent = 'Pushed Resources';
         }
         else {
-            document.querySelector('#totalICImagesTransformed h1').textContent = 'Realtime Conversions';
-            document.querySelector('#totalIMImagesTransformed h1').textContent = 'Optimized Conversions';
-            document.querySelector('#totalByteReduction h1').textContent       = 'Total Saved Bytes';
-            document.querySelector('#pctByteReduction h1').textContent         = '% Bytes Change';
+            document.querySelector('#conversionSummary > .col1 > h1').textContent = 'Realtime Conversions';
+            document.querySelector('#conversionSummary > .col2 > h1').textContent = 'Optimized Conversions';
+            document.querySelector('#conversionSummary > .col3 > h1').textContent = 'Total Saved Bytes';
+            document.querySelector('#conversionSummary > .col4 > h1').textContent = '% Bytes Change';
         }
 	};
+
+    global.updateSummaryTable = function(page, display_mode) {
+    	if  (display_mode === 'piezModeBrowserFormatCompare') {
+    		document.querySelector('#conversionSummary > .col1 > h3').textContent = displayBytes(page.genericFormatTotal);
+    		document.querySelector('#conversionSummary > .col2 > h3').textContent = displayBytes(page.chromeFormatTotal);
+    		document.querySelector('#conversionSummary > .col3 > h3').textContent = displayBytes(page.safariFormatTotal);
+    		document.querySelector('#conversionSummary > .col4 > h3').innerHTML   = displayBytes(page.ieFormatTotal);
+    	}
+        else if (display_mode === 'piezModeCPI')  {
+            document.querySelector('#conversionSummary > .col1 > h3').textContent = (page.CPIEnabled) ? 'On' : 'Off';
+            document.querySelector('#conversionSummary > .col2 > h3').textContent = (page.CPIPolicy) ? ('Version: ' + page.CPIPolicy) : 'None';
+            var total = page.preconnects.common.length + page.preconnects.unique.length;
+            document.querySelector('#conversionSummary > .col3 > h3').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;
+            total = page.resourcesPushed.common.length + page.resourcesPushed.unique.length;
+            document.querySelector('#conversionSummary > .col4 > h3').textContent = (total - page.resourcesPushed.notUsed.length) +  '/' + total;
+        }
+    	else {
+            document.querySelector('#conversionSummary > .col1 > h3').textContent = page.totalIMImagesTransformed.toString();
+            document.querySelector('#conversionSummary > .col2 > h3').textContent = page.totalICImagesTransformed.toString();
+            document.querySelector('#conversionSummary > .col3 > h3').textContent = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
+            document.querySelector('#conversionSummary > .col4 > h3').innerHTML   = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
+    	}
+    }
 
 	global.showDetailsTable = function(display_mode) {
 		document.getElementById('conversionDetails').style.display = 'block';
@@ -95,12 +117,13 @@
 	};
 
     global.hideDetails = function() {
-        document.querySelector('#totalIMImagesTransformed h3').textContent  = '\u00A0';
-        document.querySelector('#totalICImagesTransformed h3').textContent  = '\u00A0';
-        document.querySelector('#totalByteReduction h3').textContent        = '\u00A0';
-        document.querySelector('#pctByteReduction h3').textContent          = '\u00A0';
-        document.getElementById('imageBox').style.display                   = 'none';
-        document.getElementById('imConversionBox').style.display            = 'none';
-        document.getElementById('icConversionBox').style.display            = 'none';
-    }
+        //insert blank space to keep box height
+        document.querySelector('#conversionSummary > .col1 > h3').textContent = '\u00A0';
+        document.querySelector('#conversionSummary > .col2 > h3').textContent = '\u00A0';
+        document.querySelector('#conversionSummary > .col3 > h3').textContent = '\u00A0';
+        document.querySelector('#conversionSummary > .col4 > h3').textContent = '\u00A0';
+        document.getElementById('imageBox').style.display                     = 'none';
+        document.getElementById('imConversionBox').style.display              = 'none';
+        document.getElementById('icConversionBox').style.display              = 'none';
+    };
 })(this);

@@ -12,19 +12,17 @@
 			hidePiezNotEnabledTable();
 			showSummaryTable(display_mode);
 			showDetailsTable(display_mode);
+            updateSummaryTable(page, display_mode);
             if(display_mode == 'piezModeCPI') {
-                updateCpiSummary(page);
                 displayCPIView(page);
             }
             else {
-    			updateSummaryTable(page, display_mode);
     			updateImDetailsTable(page, display_mode);
     			updateIcDetailsTable(page);
                 bindImageCompareListener();
             }
             bindRowHighlightingListener();
 		}
-
-
 	};
+
 })(this);

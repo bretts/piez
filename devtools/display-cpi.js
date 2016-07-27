@@ -1,5 +1,5 @@
 (function(global) {
-
+    'use strict';
     global.displayCPIView = function(page) {
         if (!page.CPIEnabled || !page.CPIPolicy) {
             return;
@@ -7,9 +7,9 @@
 
         //preconnects
         if (page.preconnects.common.length + page.preconnects.unique.length + page.preconnects.notUsed.length > 0) {
-            document.getElementById('imConversionBox').style.display = 'block';
+            document.getElementById('detailsBox1').style.display = 'block';
         }
-        var preconnectsTable = '<table id="imDetailsTable" class="transformedResults">';
+        var preconnectsTable = '<table class="transformedResults">';
         preconnectsTable += '<thead><tr>' + '<th>Peconnect URL</th>' + '<th>Type</th>' + '<th>Status</th>' + '</tr></thead>';
         preconnectsTable += '<tbody>';
         page.preconnects.common.forEach(function(info) {
@@ -21,13 +21,13 @@
             preconnectsTable += '<td>' + ((page.preconnects.notUsed.indexOf(info) === -1) ? 'Connected' : 'Not connected!') + '</td></tr>';
         });
         preconnectsTable += '</tbody></table>';
-        document.getElementById('imDetailsTable').innerHTML = preconnectsTable;
+        document.getElementById('detailsBox1Table').innerHTML = preconnectsTable;
 
         //pushed resources
         if (page.resourcesPushed.common.length + page.resourcesPushed.unique.length + page.resourcesPushed.notUsed.length > 0) {
-            document.getElementById('icConversionBox').style.display = 'block';
+            document.getElementById('detailsBox2').style.display = 'block';
         }
-        var pushedTables = '<table id="icDetailsTable" class="transformedResults">';
+        var pushedTables = '<table class="transformedResults">';
         pushedTables += '<thead><tr>' + '<th>Pushed Resource</th>' + '<th>Type</th>' + '<th>Status</th>' + '<th>Resource Size</th>' + '</tr></thead>';
         pushedTables += '<tbody>';
         page.resourcesPushed.common.forEach(function(info) {
@@ -41,7 +41,7 @@
             pushedTables += '<td>' + ((typeof info.transferSize === 'number') ? displayBytes(info.transferSize) : 'N/A') +'</td></tr>';
         });
         pushedTables += '</tbody></table>';
-        document.getElementById('icDetailsTable').innerHTML = pushedTables;
+        document.getElementById('detailsBox2Table').innerHTML = pushedTables;
     };
 
 })(this);

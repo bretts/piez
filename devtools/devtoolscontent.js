@@ -5,7 +5,7 @@ showSummaryTable(PiezController.current_display_mode); //choose correct summary 
 
 var port = chrome.runtime.connect({name:'piez'});
 
-function parseRequest(http_transaction) {
+function parseImResponse(http_transaction) {
     ParseHeaders(http_transaction, PiezController.current_page);
     Report(PiezController.current_page, PiezController.current_display_mode);
 }
@@ -20,10 +20,10 @@ function newPageRequest(url) {
     //toggle the IM on request listener depending on what mode Piez is on
     if (PiezController.current_display_mode === 'piezModeCPI') {
         port.postMessage({type:'cpiPageLoad'});
-        chrome.devtools.network.onRequestFinished.removeListener(parseRequest);
+        chrome.devtools.network.onRequestFinished.removeListener(parseImResponse);
     }
     else {
-        chrome.devtools.network.onRequestFinished.addListener(parseRequest);
+        chrome.devtools.network.onRequestFinished.addListener(parseImResponse);
     }
 }
 
@@ -32,14 +32,14 @@ window.onload = function() {
     var state = localStorage.getItem("piezCurrentState");
     PiezController.current_display_mode = state;
     if (PiezController.current_display_mode !== 'piezModeCPI') {
-        chrome.devtools.network.onRequestFinished.addListener(parseRequest);
+        chrome.devtools.network.onRequestFinished.addListener(parseImResponse);
     }
 
 	chrome.devtools.network.onNavigated.addListener(newPageRequest);
 };
 
 
-port.onMessage.addListener(function cpiListener(message) {
+port.onMessage.addListener(function(message) {
     switch(message.type) {
         case 'cpiPageLoaded':
             chrome.devtools.network.getHAR(function(har) {

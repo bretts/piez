@@ -17,10 +17,10 @@
 
 		<div class="container">
 			<div id="conversionSummary" class="row clearfix">
-                <div class="col-1-4-box col1"><h1>Realtime Conversions</h1><h3>&nbsp;</h3></div>
-				<div class="col-1-4-box col2"><h1>Optimized Conversions</h1><h3>&nbsp;</h3></div>
-				<div class="col-1-4-box col3"><h1>Total Saved Bytes</h1><h3>&nbsp;</h3></div>
-				<div class="col-1-4-box col4"><h1>% Bytes Change</h1><h3>&nbsp;</h3></div>
+                <div class="col-1-4-box"><h1 id="col-1-title">Realtime Conversions</h1><h3 id="col-1-info">&nbsp;</h3></div>
+				<div class="col-1-4-box"><h1 id="col-2-title">Optimized Conversions</h1><h3 id="col-2-info">&nbsp;</h3></div>
+				<div class="col-1-4-box"><h1 id="col-3-title">Total Saved Bytes</h1><h3 id="col-3-info">&nbsp;</h3></div>
+				<div class="col-1-4-box"><h1 id="col-4-title">% Bytes Change</h1><h3 id="col-4-info">&nbsp;</h3></div>
 			</div>
 			<div class="clearfix">
 				<div style="display:none" id="imageBox" class="col-image-box">
@@ -41,11 +41,11 @@
 				</div>
 			</div>
 			<div id="conversionDetails">
-				<div id="imConversionBox" style="display:none" class="row details clearfix">
-					<div class="col-full-box"><h1>Optimized Conversion Details</h1><h3 id="imDetailsTable"></h3></div>
+				<div id="detailsBox1" style="display:none" class="row details clearfix">
+					<div class="col-full-box"><h1 id="detailsBox1Title">Optimized Conversion Details</h1><h3 id="detailsBox1Table"></h3></div>
 				</div>
-				<div id="icConversionBox" style="display:none" class="row details clearfix">
-					<div class="col-full-box"><h1>Realtime Conversion Details</h1><h3 id="icDetailsTable"></h3></div>
+				<div id="detailsBox2" style="display:none" class="row details clearfix">
+					<div class="col-full-box"><h1 id="detailsBox2Title">Realtime Conversion Details</h1><h3 id="detailsBox2Table"></h3></div>
 				</div>
 			</div>
 			<div id="notEnabled" style="display:none" class="details col-full-box clearfix"></div>

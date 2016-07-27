@@ -31,57 +31,57 @@
 	global.showSummaryTable = function(display_mode) {
             document.getElementById('conversionSummary').style.display = 'block';
         if (display_mode === 'piezModeBrowserFormatCompare') {
-            document.querySelector('#conversionSummary > .col1 > h1').textContent = 'Generic';
-            document.querySelector('#conversionSummary > .col2 > h1').textContent = 'Chrome';
-            document.querySelector('#conversionSummary > .col3 > h1').textContent = 'Safari';
-            document.querySelector('#conversionSummary > .col4 > h1').textContent = 'IE';
+            document.getElementById('col-1-title').textContent = 'Generic';
+            document.getElementById('col-2-title').textContent = 'Chrome';
+            document.getElementById('col-3-title').textContent = 'Safari';
+            document.getElementById('col-4-title').textContent = 'IE';
         }
         else if (display_mode == 'piezModeCPI') {
-            document.querySelector('#conversionSummary > .col1 > h1').textContent = 'CPI Status';
-            document.querySelector('#conversionSummary > .col2 > h1').textContent = 'Policy Version';
-            document.querySelector('#conversionSummary > .col3 > h1').textContent = 'Preconnects';
-            document.querySelector('#conversionSummary > .col4 > h1').textContent = 'Pushed Resources';
+            document.getElementById('col-1-title').textContent = 'CPI Status';
+            document.getElementById('col-2-title').textContent = 'Policy Version';
+            document.getElementById('col-3-title').textContent = 'Preconnects';
+            document.getElementById('col-4-title').textContent = 'Pushed Resources';
         }
         else {
-            document.querySelector('#conversionSummary > .col1 > h1').textContent = 'Realtime Conversions';
-            document.querySelector('#conversionSummary > .col2 > h1').textContent = 'Optimized Conversions';
-            document.querySelector('#conversionSummary > .col3 > h1').textContent = 'Total Saved Bytes';
-            document.querySelector('#conversionSummary > .col4 > h1').textContent = '% Bytes Change';
+            document.getElementById('col-1-title').textContent = 'Realtime Conversions';
+            document.getElementById('col-2-title').textContent = 'Optimized Conversions';
+            document.getElementById('col-3-title').textContent = 'Total Saved Bytes';
+            document.getElementById('col-4-title').textContent = '% Bytes Change';
         }
 	};
 
     global.updateSummaryTable = function(page, display_mode) {
     	if  (display_mode === 'piezModeBrowserFormatCompare') {
-    		document.querySelector('#conversionSummary > .col1 > h3').textContent = displayBytes(page.genericFormatTotal);
-    		document.querySelector('#conversionSummary > .col2 > h3').textContent = displayBytes(page.chromeFormatTotal);
-    		document.querySelector('#conversionSummary > .col3 > h3').textContent = displayBytes(page.safariFormatTotal);
-    		document.querySelector('#conversionSummary > .col4 > h3').innerHTML   = displayBytes(page.ieFormatTotal);
+    		document.getElementById('col-1-info').textContent = displayBytes(page.genericFormatTotal);
+    		document.getElementById('col-2-info').textContent = displayBytes(page.chromeFormatTotal);
+    		document.getElementById('col-3-info').textContent = displayBytes(page.safariFormatTotal);
+    		document.getElementById('col-4-info').innerHTML   = displayBytes(page.ieFormatTotal);
     	}
         else if (display_mode === 'piezModeCPI')  {
-            document.querySelector('#conversionSummary > .col1 > h3').textContent = (page.CPIEnabled) ? 'On' : 'Off';
-            document.querySelector('#conversionSummary > .col2 > h3').textContent = (page.CPIPolicy) ? ('Version: ' + page.CPIPolicy) : 'None';
+            document.getElementById('col-1-info').textContent = (page.CPIEnabled) ? 'On' : 'Off';
+            document.getElementById('col-2-info').textContent = (page.CPIPolicy) ? ('Version: ' + page.CPIPolicy) : 'None';
             var total = page.preconnects.common.length + page.preconnects.unique.length;
-            document.querySelector('#conversionSummary > .col3 > h3').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;
+            document.getElementById('col-3-info').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;
             total = page.resourcesPushed.common.length + page.resourcesPushed.unique.length;
-            document.querySelector('#conversionSummary > .col4 > h3').textContent = (total - page.resourcesPushed.notUsed.length) +  '/' + total;
+            document.getElementById('col-4-info').textContent = (total - page.resourcesPushed.notUsed.length) +  '/' + total;
         }
     	else {
-            document.querySelector('#conversionSummary > .col1 > h3').textContent = page.totalIMImagesTransformed.toString();
-            document.querySelector('#conversionSummary > .col2 > h3').textContent = page.totalICImagesTransformed.toString();
-            document.querySelector('#conversionSummary > .col3 > h3').textContent = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
-            document.querySelector('#conversionSummary > .col4 > h3').innerHTML   = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
+            document.getElementById('col-1-info').textContent = page.totalIMImagesTransformed.toString();
+            document.getElementById('col-2-info').textContent = page.totalICImagesTransformed.toString();
+            document.getElementById('col-3-info').textContent = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
+            document.getElementById('col-4-info').innerHTML   = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
     	}
-    }
+    };
 
 	global.showDetailsTable = function(display_mode) {
 		document.getElementById('conversionDetails').style.display = 'block';
         if (display_mode === 'piezModeCPI') {
-            document.querySelector('#imConversionBox > div > h1').textContent = 'Preconnected Resources';
-            document.querySelector('#icConversionBox > div > h1').textContent = 'Pushed Resources';
+            document.getElementById('detailsBox1Title').textContent = 'Preconnected Resources';
+            document.getElementById('detailsBox2Title').textContent = 'Pushed Resources';
         }
         else {
-            document.querySelector('#imConversionBox > div > h1').textContent = 'Optimized Conversion Details';
-            document.querySelector('#icConversionBox > div > h1').textContent = 'Realtime Conversion Details';
+            document.getElementById('detailsBox1Title').textContent = 'Optimized Conversion Details';
+            document.getElementById('detailsBox2Title').textContent = 'Realtime Conversion Details';
         }
 	};
 
@@ -118,12 +118,12 @@
 
     global.hideDetails = function() {
         //insert blank space to keep box height
-        document.querySelector('#conversionSummary > .col1 > h3').textContent = '\u00A0';
-        document.querySelector('#conversionSummary > .col2 > h3').textContent = '\u00A0';
-        document.querySelector('#conversionSummary > .col3 > h3').textContent = '\u00A0';
-        document.querySelector('#conversionSummary > .col4 > h3').textContent = '\u00A0';
-        document.getElementById('imageBox').style.display                     = 'none';
-        document.getElementById('imConversionBox').style.display              = 'none';
-        document.getElementById('icConversionBox').style.display              = 'none';
+        document.getElementById('col-1-info').textContent        = '\u00A0';
+        document.getElementById('col-2-info').textContent        = '\u00A0';
+        document.getElementById('col-3-info').textContent        = '\u00A0';
+        document.getElementById('col-4-info').textContent        = '\u00A0';
+        document.getElementById('imageBox').style.display        = 'none';
+        document.getElementById('detailsBox1').style.display = 'none';
+        document.getElementById('detailsBox2').style.display = 'none';
     };
 })(this);

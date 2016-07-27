@@ -1,6 +1,6 @@
 var PiezController = {};
 PiezController.current_page         = new Page();
-PiezController.current_display_mode = localStorage.getItem("piezCurrentState") || 'piezModeSimple';
+PiezController.current_display_mode = localStorage.getItem("piezCurrentState") || 'piezModeImSimple';
 showSummaryTable(PiezController.current_display_mode); //choose correct summary header before page actually loads
 
 var port = chrome.runtime.connect({name:'piez'});

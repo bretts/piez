@@ -45,7 +45,7 @@ var parseImHeadersBrowserFormatCompare = function(http_transaction, page, displa
         extractImHeaders(http_transaction, page, res);
         page.imDownloadDetails.push(res);
 
-        chrome.extension.sendMessage({
+        chrome.runtime.sendMessage({
             type: "request-alternate-browser-formats",
             url: res.url
         });

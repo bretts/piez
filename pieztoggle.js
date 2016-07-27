@@ -7,11 +7,11 @@ function PiezToggle() {
     case "piezModeOff":
       instance.turnPiezOff();
       break;
-    case "piezModeSimple":
-      instance.turnPiezOnSimple();
+    case "piezModeImSimple":
+      instance.turnPiezOnImSimple();
       break;
-    case "piezModeAdvanced":
-      instance.turnPiezOnAdvanced();
+    case "piezModeImAdvanced":
+      instance.turnPiezOnImAdvanced();
       break;
     case "piezModeBrowserFormatCompare":
       instance.turnPiezOnModeBrowserFormatCompare();
@@ -20,7 +20,7 @@ function PiezToggle() {
       instance.turnPiezOnCPI();
       break;
     default:
-      instance.turnPiezOnSimple();
+      instance.turnPiezOnImSimple();
       break;
   }
 }
@@ -32,15 +32,15 @@ PiezToggle.prototype.turnPiezOff = function() {
   chrome.webRequest.onBeforeSendHeaders.removeListener(beforeSendCallback);
 };
 
-PiezToggle.prototype.turnPiezOnSimple = function() {
-  localStorage.setItem("piezCurrentState", "piezModeSimple");
+PiezToggle.prototype.turnPiezOnImSimple = function() {
+  localStorage.setItem("piezCurrentState", "piezModeImSimple");
   chrome.browserAction.setBadgeText({"text": "ON"});
   chrome.browserAction.setBadgeBackgroundColor({"color": [0, 255, 0, 255]});
   chrome.webRequest.onBeforeSendHeaders.addListener(beforeSendCallback, {urls: [ "<all_urls>" ]}, ['requestHeaders','blocking']);
 };
 
-PiezToggle.prototype.turnPiezOnAdvanced = function() {
-  localStorage.setItem("piezCurrentState", "piezModeAdvanced");
+PiezToggle.prototype.turnPiezOnImAdvanced = function() {
+  localStorage.setItem("piezCurrentState", "piezModeImAdvanced");
   chrome.browserAction.setBadgeText({"text": "ON +"});
   chrome.browserAction.setBadgeBackgroundColor({"color": [0, 255, 0, 255]});
   chrome.webRequest.onBeforeSendHeaders.addListener(beforeSendCallback, {urls: [ "<all_urls>" ]}, ['requestHeaders','blocking']);

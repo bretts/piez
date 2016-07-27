@@ -6,15 +6,15 @@ window.onload = function() {
 	    });
 	};
 
-	document.getElementById("piezModeSimple").onclick = function() {
+	document.getElementById("piezModeImSimple").onclick = function() {
 		chrome.runtime.sendMessage({
-	        type: "piez-simple"
+	        type: "piez-im-simple"
 	    });
 	};
 
-	document.getElementById("piezModeAdvanced").onclick = function() {
+	document.getElementById("piezModeImAdvanced").onclick = function() {
 		chrome.runtime.sendMessage({
-	        type: "piez-advanced"
+	        type: "piez-im-advanced"
 	    });
 	};
 

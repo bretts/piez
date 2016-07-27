@@ -75,11 +75,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			case "piez-off":
 				piezToggle.turnPiezOff();
 				break;
-			case "piez-simple":
-				piezToggle.turnPiezOnSimple();
+			case "piez-im-simple":
+				piezToggle.turnPiezOnImSimple();
 				break;
-			case "piez-advanced":
-				piezToggle.turnPiezOnAdvanced();
+			case "piez-im-advanced":
+				piezToggle.turnPiezOnImAdvanced();
 				break;
             case "piez-cpi":
                 piezToggle.turnPiezOnCPI();

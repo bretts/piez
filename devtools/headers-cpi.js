@@ -7,27 +7,56 @@
         return this.length; //same signature as Array.push
     };
 
-    global.ParseCPIHeaders = function(request, page) {
-        if(request.response.status === 304) {
-            page.localCacheEnabled = true;
-        }
-        else if (request.response.status === 302) { //ignore all redirects
-            return;
-        }
+    global.ParsePageCpi = function(har, page) {
+        var basePageUrl = har.pages[0].title; //current Chrome har implementation only keeps track of latest page navigated to
+        har.entries.forEach(function(entry) {
+            if(entry.response.status === 304) {
+                page.localCacheEnabled = true;
+            }
+            //get CPI info from base page
+            if (entry.request.url === basePageUrl) {
+                //base page redirected, get the new one from location header
+                if (entry.response.status >= 300 && entry.response.status < 400) {
+                    var newLocation = entry.response.headers.find(function(header) {
+                        return header.name === 'location';
+                    });
+                    if (newLocation && newLocation.value) {
+                        basePageUrl = newLocation.value;
+                    }
+                }
+                else {
+                    parseBasePage(entry, page);
+                }
+            }
+            //header from Akamai edge verifies push
+            else{
+                var pushHeader = entry.response.headers.find(function(header) {
+                    return /x-akamai-http2-push/i.test(header.name);
+                });
+                if (pushHeader !== undefined) {
+                    page.resourcesPushed.edgePushed.push({url: entry.request.url, transferSize: entry.response._transferSize});
+                }
+            }
+        });
+
+        verifyCpiPreconnects(page);
+        verifyCpiPushed(page);
+    };
+
+    function parseBasePage(request, page) {
         var actualPreconnects = [];
         request.response.headers.forEach(function(header) {
-            var preArr;
-            //if CPI enabled, set flag and get the page base URL
+
+            page.baseUrl = request.request.url;
             if (/x-akamai-cpi-enabled/i.test(header.name)) {
-                page.CPIEnabled = page.CPIEnabled || (header.value === 'true')? true : false;
-                if (page.baseUrl === undefined) {
-                    page.baseUrl = request.request.url;
-                }
+                page.CPIEnabled = (header.value === 'true') ? true : false;
             }
             if (/x-akamai-cpi-policy-version/i.test(header.name)) {
                 page.CPIPolicy = header.value;
             }
+
             //get all preconnects
+            var preArr;
             if(/x-akamai-rua-debug-common-preconnect-link-value/i.test(header.name)) {
                 preArr = header.value.match(/<([^>]+)>/g);
                 if (preArr) {
@@ -77,13 +106,10 @@
                     });
                 }
             }
-            if (/x-akamai-http2-push/i.test(header.name)) { //header from Akamai edge verifies push
-                page.resourcesPushed.edgePushed.push({url: request.request.url, transferSize: request.response._transferSize});
-            }
         });
-    };
+    }
 
-    global.verifyCpiPreconnects = function(page) {
+    function verifyCpiPreconnects (page) {
         //make sure every resource the debug headers list is actually there
         page.preconnects.common.forEach(function(url, index) {
             if(page.preconnects.linkHeader.indexOf(url) === -1) {
@@ -95,34 +121,15 @@
                 page.preconnects.notUsed.push(url);
             }
         });
-    };
+    }
 
-    global.verifyCpiPushed = function(page) {
-        var baseUrl = parseUrl(page.baseUrl);
-        var isAbsUrl = new RegExp('^(?:[a-z]+:)?//', 'i');
-        //expands out relative urls reported by CPI debug to compare to absolute urls given by Akamai edge servers
-        function expandUrl(element) {
-            var urlStr = baseUrl.protocol + '//' + baseUrl.host + baseUrl.path;
-            if (isAbsUrl.test(element)) {
-                urlStr = url.toString();
-            }
-            else { //deal with the various types of relative urls
-                if (urlStr.slice(-1) !== '/') {
-                    urlStr = urlStr + '/';
-                }
-                if (element.slice(0,1) === '/') { //relative to base
-                    urlStr = baseUrl.protocol + '//' + baseUrl.host; //the relative url element already has a slash
-                }
-                var newUrl = parseUrl(urlStr + element);
-                urlStr = newUrl.protocol + '//' + newUrl.host + newUrl.path;
-            }
-            return urlStr;
-        }
+    function verifyCpiPushed (page) {
         function matchUrl(el) {
             return el.url === this.valueOf();
         }
         page.resourcesPushed.common.forEach(function(element, index) {
-            var urlStr = expandUrl(element.url);
+            var urlStr = expandUrl(element.url, page.baseUrl);
+            if(element.url.indexOf('?') !== -1) { console.log(element.url, ' : ', urlStr); }
             var found = page.resourcesPushed.edgePushed.findIndex(matchUrl, urlStr);
             if(found === -1) {
                 page.resourcesPushed.notUsed.push(element);
@@ -132,16 +139,18 @@
             }
         });
         page.resourcesPushed.unique.forEach(function(element, index) {
-            var urlStr = expandUrl(element.url);
+            var urlStr = expandUrl(element.url, page.baseUrl);
+            if(element.url.indexOf('?') !== -1) { console.log(element.url, ' : ', urlStr); }
             var found = page.resourcesPushed.edgePushed.findIndex(matchUrl, urlStr);
             if(found === -1) {
+                console.log("cpi, ghost ",  urlStr, page.resourcesPushed.edgePushed);
                 page.resourcesPushed.notUsed.push(element);
             }
             else {
                 element.transferSize = page.resourcesPushed.edgePushed[found].transferSize;
             }
         });
-    };
+    }
 
     function parseUrl(url) {
         var a =  document.createElement('a');
@@ -156,4 +165,26 @@
             path: a.pathname
         };
     }
+
+    //expands out relative urls reported by CPI debug to compare to absolute urls given by Akamai edge servers
+    global.expandUrl = function(element, baseUrl) {
+        var parsedUrl = parseUrl(baseUrl);
+        var urlStr = parsedUrl.protocol + '//' + parsedUrl.host + parsedUrl.path;
+        var isAbsUrl = new RegExp('^(?:[a-z]+:)?//', 'i');
+        if (isAbsUrl.test(element)) {
+            urlStr = url.toString();
+        }
+        else { //deal with the various types of relative urls
+            if (urlStr.slice(-1) !== '/') {
+                urlStr = urlStr + '/';
+            }
+            if (element.slice(0,1) === '/') { //relative to base
+                urlStr = parsedUrl.protocol + '//' + parsedUrl.host; //the relative url element already has a slash
+            }
+            var newUrl = parseUrl(urlStr + element);
+            urlStr = newUrl.protocol + '//' + newUrl.host + newUrl.path + (newUrl.query || '');
+        }
+        return urlStr;
+    };
+
 })(this);

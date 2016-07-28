@@ -15,11 +15,4 @@
         }
     };
 
-    global.ParsePageCpi = function (har, page) {
-        har.entries.forEach(function(entry) {
-            ParseCPIHeaders(entry, page);
-        });
-        verifyCpiPreconnects(page);
-        verifyCpiPushed(page);
-    }
 })(this);

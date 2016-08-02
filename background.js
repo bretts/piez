@@ -16,19 +16,20 @@ beforeSendCallback = function(details) {
 
 //get the URL that the tab is navigating to
 chrome.webNavigation.onBeforeNavigate.addListener(function beforeNavigate(details) {
-    if (details.tabId !== inspectedTab.id && details.frameId !== 0) {
-        return;
+    if (details.tabId === inspectedTab.id && details.frameId === 0) {
+        inspectedTab.url = details.url;
     }
-    inspectedTab.url = details.url;
 });
 
 //get the actual url to use if there's a redirect for the base page
 chrome.webRequest.onBeforeRedirect.addListener(function getNewUrl(redirect) {
+    if (redirect.tabId === inspectedTab.id && redirect.frameId === 0) {
+    }
     if (redirect.tabId === inspectedTab.id && redirect.frameId === 0 && redirect.url === inspectedTab.url) {
         var newLocation = redirect.responseHeaders.find(function(header) {
-            return header.name === 'location';
+            return /location/i.test(header.name);
         });
-        if (newLocation && newLocation.value) {
+        if (newLocation !== undefined) {
             inspectedTab.url = newLocation.value;
         }
     }
@@ -89,7 +90,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     			break;
     		case "request-alternate-browser-formats":
     			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    				request["tabUrl"] = tabs[0].url
+    				request["tabUrl"] = tabs[0].url;
     				chrome.tabs.sendMessage(tabs[0].id, request);
     			});
     			break;

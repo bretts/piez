@@ -18,9 +18,9 @@
                 //base page redirected, get the new one from location header
                 if (entry.response.status >= 300 && entry.response.status < 400) {
                     var newLocation = entry.response.headers.find(function(header) {
-                        return header.name === 'location';
+                        return /location/i.test(header.name);
                     });
-                    if (newLocation && newLocation.value) {
+                    if (newLocation !== undefined) {
                         basePageUrl = newLocation.value;
                     }
                 }
@@ -43,13 +43,12 @@
         verifyCpiPushed(page);
     };
 
-    function parseBasePage(request, page) {
-        var actualPreconnects = [];
-        request.response.headers.forEach(function(header) {
+    function parseBasePage(http_transaction, page) {
+        http_transaction.response.headers.forEach(function(header) {
 
-            page.baseUrl = request.request.url;
+            page.baseUrl = http_transaction.request.url;
             if (/x-akamai-cpi-enabled/i.test(header.name)) {
-                page.CPIEnabled = (header.value === 'true') ? true : false;
+                page.CPIEnabled = (header.value === 'true');
             }
             if (/x-akamai-cpi-policy-version/i.test(header.name)) {
                 page.CPIPolicy = header.value;
@@ -109,27 +108,28 @@
         });
     }
 
-    function verifyCpiPreconnects (page) {
-        //make sure every resource the debug headers list is actually there
-        page.preconnects.common.forEach(function(url, index) {
-            if(page.preconnects.linkHeader.indexOf(url) === -1) {
-                page.preconnects.notUsed.push(url);
-            }
-        });
-        page.preconnects.unique.forEach(function(url, index) {
-            if(page.preconnects.linkHeader.indexOf(url) === -1) {
-                page.preconnects.notUsed.push(url);
-            }
-        });
-    }
+    //make sure every resource the debug headers list is actually there
+    global.verifyCpiPreconnects = function(page) {
 
-    function verifyCpiPushed (page) {
+        page.preconnects.common.forEach(function(url) {
+            if(page.preconnects.linkHeader.indexOf(url) === -1) {
+                page.preconnects.notUsed.push(url);
+            }
+        });
+        page.preconnects.unique.forEach(function(url) {
+            if(page.preconnects.linkHeader.indexOf(url) === -1) {
+                page.preconnects.notUsed.push(url);
+            }
+        });
+    };
+
+    //check against edge servers to make sure pushes are actually there
+    global.verifyCpiPushed = function(page) {
         function matchUrl(el) {
             return el.url === this.valueOf();
         }
-        page.resourcesPushed.common.forEach(function(element, index) {
+        page.resourcesPushed.common.forEach(function(element) {
             var urlStr = expandUrl(element.url, page.baseUrl);
-            if(element.url.indexOf('?') !== -1) { console.log(element.url, ' : ', urlStr); }
             var found = page.resourcesPushed.edgePushed.findIndex(matchUrl, urlStr);
             if(found === -1) {
                 page.resourcesPushed.notUsed.push(element);
@@ -138,19 +138,17 @@
                 element.transferSize = page.resourcesPushed.edgePushed[found].transferSize;
             }
         });
-        page.resourcesPushed.unique.forEach(function(element, index) {
+        page.resourcesPushed.unique.forEach(function(element) {
             var urlStr = expandUrl(element.url, page.baseUrl);
-            if(element.url.indexOf('?') !== -1) { console.log(element.url, ' : ', urlStr); }
             var found = page.resourcesPushed.edgePushed.findIndex(matchUrl, urlStr);
             if(found === -1) {
-                console.log("cpi, ghost ",  urlStr, page.resourcesPushed.edgePushed);
                 page.resourcesPushed.notUsed.push(element);
             }
             else {
                 element.transferSize = page.resourcesPushed.edgePushed[found].transferSize;
             }
         });
-    }
+    };
 
     function parseUrl(url) {
         var a =  document.createElement('a');
@@ -167,21 +165,21 @@
     }
 
     //expands out relative urls reported by CPI debug to compare to absolute urls given by Akamai edge servers
-    global.expandUrl = function(element, baseUrl) {
+    global.expandUrl = function(url, baseUrl) {
         var parsedUrl = parseUrl(baseUrl);
         var urlStr = parsedUrl.protocol + '//' + parsedUrl.host + parsedUrl.path;
         var isAbsUrl = new RegExp('^(?:[a-z]+:)?//', 'i');
-        if (isAbsUrl.test(element)) {
-            urlStr = url.toString();
+        if (isAbsUrl.test(url)) {
+            urlStr = url;
         }
         else { //deal with the various types of relative urls
-            if (urlStr.slice(-1) !== '/') {
+            if (url.slice(0,1) === '/') { //relative to base
+                urlStr = parsedUrl.protocol + '//' + parsedUrl.host; //the relative url already begins with a slash
+            }
+            else if (urlStr.slice(-1) !== '/') {
                 urlStr = urlStr + '/';
             }
-            if (element.slice(0,1) === '/') { //relative to base
-                urlStr = parsedUrl.protocol + '//' + parsedUrl.host; //the relative url element already has a slash
-            }
-            var newUrl = parseUrl(urlStr + element);
+            var newUrl = parseUrl(urlStr + url); //parse our new base url with the relative
             urlStr = newUrl.protocol + '//' + newUrl.host + newUrl.path + (newUrl.query || '');
         }
         return urlStr;

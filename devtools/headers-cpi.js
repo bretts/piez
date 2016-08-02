@@ -90,7 +90,7 @@
                 if (pushArr) {
                     pushArr.forEach(function(res) {
                         if(res !== '') {
-                            page.resourcesPushed.common.pushIfUnique(res);
+                            page.resourcesPushed.common.pushIfUnique({url: res});
                         }
                     });
                 }

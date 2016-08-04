@@ -167,12 +167,12 @@
     //expands out relative urls reported by CPI debug to compare to absolute urls given by Akamai edge servers
     global.expandUrl = function(url, baseUrl) {
         var parsedUrl = parseUrl(baseUrl);
-        var urlStr = parsedUrl.protocol + '//' + parsedUrl.host + parsedUrl.path;
         var isAbsUrl = new RegExp('^(?:[a-z]+:)?//', 'i');
         if (isAbsUrl.test(url)) {
-            urlStr = url;
+            return url;
         }
         else { //deal with the various types of relative urls
+            var urlStr = parsedUrl.protocol + '//' + parsedUrl.host + parsedUrl.path;
             if (url.slice(0,1) === '/') { //relative to base
                 urlStr = parsedUrl.protocol + '//' + parsedUrl.host; //the relative url already begins with a slash
             }
@@ -180,9 +180,8 @@
                 urlStr = urlStr + '/';
             }
             var newUrl = parseUrl(urlStr + url); //parse our new base url with the relative
-            urlStr = newUrl.protocol + '//' + newUrl.host + newUrl.path + (newUrl.query || '');
+            return newUrl.protocol + '//' + newUrl.host + newUrl.path + (newUrl.query || '');
         }
-        return urlStr;
     };
 
 })(this);

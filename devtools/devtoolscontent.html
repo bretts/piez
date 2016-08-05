@@ -8,23 +8,19 @@
 		<script type="text/javascript" src="parse-headers.js"></script>
 		<script type="text/javascript" src="headers-im.js"></script>
 		<script type="text/javascript" src="headers-ic.js"></script>
+        <script type="text/javascript" src="headers-cpi.js"></script>
 		<script type="text/javascript" src="display-im.js"></script>
+        <script type="text/javascript" src="display-cpi.js"></script>
 		<script type="text/javascript" src="display-common.js"></script>
 		<script type="text/javascript" src="googanalytics.js"></script>
 		<script type="text/javascript" src="report.js"></script>
 
 		<div class="container">
-			<div style="display:none" id="conversionSummary" class="row clearfix">
-				<div class="col-1-4-box"><h1>Realtime Conversions</h1><h3 id="totalICImagesTransformed">0</h3></div>
-				<div class="col-1-4-box"><h1>Optimized Conversions</h1><h3 id="totalIMImagesTransformed">0</h3></div>
-				<div class="col-1-4-box"><h1>Total Saved Bytes</h1><h3 id="totalByteReduction">0</h3></div>
-				<div class="col-1-4-box"><h1>% Bytes Change</h1><h3 id="pctByteReduction">0</h3></div>
-			</div>
-			<div style="display:none" id="browserFormatCompareSummary" class="row clearfix">
-				<div class="col-1-4-box"><h1>Generic</h1><h3 id="generic">0</h3></div>
-				<div class="col-1-4-box"><h1>Chrome</h1><h3 id="chrome">0</h3></div>
-				<div class="col-1-4-box"><h1>Safari</h1><h3 id="safari">0</h3></div>
-				<div class="col-1-4-box"><h1>IE</h1><h3 id="ie">0</h3></div>
+			<div id="conversionSummary" class="row clearfix">
+                <div class="col-1-4-box"><h1 id="col-1-title">Realtime Conversions</h1><h3 id="col-1-info">&nbsp;</h3></div>
+				<div class="col-1-4-box"><h1 id="col-2-title">Optimized Conversions</h1><h3 id="col-2-info">&nbsp;</h3></div>
+				<div class="col-1-4-box"><h1 id="col-3-title">Total Saved Bytes</h1><h3 id="col-3-info">&nbsp;</h3></div>
+				<div class="col-1-4-box"><h1 id="col-4-title">% Bytes Change</h1><h3 id="col-4-info">&nbsp;</h3></div>
 			</div>
 			<div class="clearfix">
 				<div style="display:none" id="imageBox" class="col-image-box">
@@ -45,11 +41,11 @@
 				</div>
 			</div>
 			<div id="conversionDetails">
-				<div id="imConversionBox" style="display:none" class="row details clearfix">
-					<div class="col-full-box"><h1>Optimized Conversion Details</h1><h3 id="imDetailsTable"></h3></div>
+				<div id="detailsBox1" style="display:none" class="row details clearfix">
+					<div class="col-full-box"><h1 id="detailsBox1Title">Optimized Conversion Details</h1><h3 id="detailsBox1Table"></h3></div>
 				</div>
-				<div id="icConversionBox" style="display:none" class="row details clearfix">
-					<div class="col-full-box"><h1>Realtime Conversion Details</h1><h3 id="icDetailsTable"></h3></div>
+				<div id="detailsBox2" style="display:none" class="row details clearfix">
+					<div class="col-full-box"><h1 id="detailsBox2Title">Realtime Conversion Details</h1><h3 id="detailsBox2Table"></h3></div>
 				</div>
 			</div>
 			<div id="notEnabled" style="display:none" class="details col-full-box clearfix"></div>

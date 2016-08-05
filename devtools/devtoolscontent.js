@@ -1,21 +1,56 @@
-PiezController                      = {}
+var PiezController = {};
 PiezController.current_page         = new Page();
-PiezController.current_display_mode = 'piezModeSimple';
+PiezController.current_display_mode = localStorage.getItem("piezCurrentState") || 'piezModeImSimple';
+showSummaryTable(PiezController.current_display_mode); //choose correct summary header before page actually loads
+
+var port = chrome.runtime.connect({name:'piez'});
+
+function parseImResponse(http_transaction) {
+    ParseHeaders(http_transaction, PiezController.current_page);
+    Report(PiezController.current_page, PiezController.current_display_mode);
+}
+
+function newPageRequest(url) {
+    hideDetails();
+    PiezController.current_page = new Page();
+    port.postMessage({
+        type: "update-piez-analytics"
+    });
+    PiezController.current_display_mode = localStorage.getItem("piezCurrentState");
+    //toggle the IM on request listener depending on what mode Piez is on
+    if (PiezController.current_display_mode === 'piezModeCPI') {
+        port.postMessage({type:'cpiPageLoad'});
+        chrome.devtools.network.onRequestFinished.removeListener(parseImResponse);
+    }
+    else {
+        chrome.devtools.network.onRequestFinished.addListener(parseImResponse);
+    }
+}
 
 window.onload = function() {
-	chrome.devtools.network.onNavigated.addListener(function(http_transaction) {
-		hideImageCompare();
-		PiezController.current_page = new Page();
+    port.postMessage({type:'inspectedTab', tab: chrome.devtools.inspectedWindow.tabId});
+    var state = localStorage.getItem("piezCurrentState");
+    PiezController.current_display_mode = state;
+    if (PiezController.current_display_mode !== 'piezModeCPI') {
+        chrome.devtools.network.onRequestFinished.addListener(parseImResponse);
+    }
 
-		chrome.extension.sendMessage({
-			type: "update-piez-analytics"
-		});
-
-		PiezController.current_display_mode = localStorage.getItem("piezCurrentState");
-	});
-
-	chrome.devtools.network.onRequestFinished.addListener(function(http_transaction) {
-		ParseHeaders(http_transaction, PiezController.current_page, PiezController.current_display_mode);
-		Report(PiezController.current_page, PiezController.current_display_mode)
-	});
+	chrome.devtools.network.onNavigated.addListener(newPageRequest);
 };
+
+
+port.onMessage.addListener(function(message) {
+    switch(message.type) {
+        case 'cpiPageLoaded':
+            chrome.devtools.network.getHAR(function(har) {
+                if (PiezController.current_display_mode === 'piezModeCPI') {
+                    ParsePageCpi(har, PiezController.current_page);
+                }
+                Report(PiezController.current_page, PiezController.current_display_mode);
+            });
+            break;
+        default:
+            console.log('unexpected message on background port: ', message);
+            break;
+    }
+});

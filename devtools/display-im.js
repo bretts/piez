@@ -1,25 +1,9 @@
-function updateSummaryTable(page, display_mode) {
-	if(display_mode === 'piezModeBrowserFormatCompare') {
-		document.getElementById('generic').textContent = displayBytes(page.genericFormatTotal);
-		document.getElementById('chrome').textContent  = displayBytes(page.chromeFormatTotal);
-		document.getElementById('safari').textContent  = displayBytes(page.safariFormatTotal);
-		document.getElementById('ie').innerHTML        = displayBytes(page.ieFormatTotal);
-	}
-	else {
-		document.getElementById('totalIMImagesTransformed').textContent = page.totalIMImagesTransformed.toString();
-		document.getElementById('totalICImagesTransformed').textContent = page.totalICImagesTransformed.toString();
-		document.getElementById('totalByteReduction').textContent       = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
-		document.getElementById('pctByteReduction').innerHTML           = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
-	}
-	
-};
-
 function updateImDetailsTable(page, display_mode) {
 	switch(display_mode) {
-		case "piezModeSimple":
+		case "piezModeImSimple":
 			updateImSimpleTable(page);
 			break;
-		case "piezModeAdvanced":
+		case "piezModeImAdvanced":
 			updateImAdvandedTable(page);
 			break;
 		case "piezModeBrowserFormatCompare":
@@ -32,7 +16,7 @@ function updateImDetailsTable(page, display_mode) {
 }
 
 function updateImSimpleTable(page) {
-	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
+	var imDetailsTable	= '<table class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function(detail) {
 		imDetailsTable += '<tr class="urlInfo">';
 		imDetailsTable += '<td class="urlData imageCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
@@ -41,14 +25,14 @@ function updateImSimpleTable(page) {
 		imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
 		imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 		imDetailsTable += '</tr>';
-		document.getElementById('imConversionBox').style.display = 'block';
+		document.getElementById('detailsBox1').style.display = 'block';
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('imDetailsTable').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
 }
 
 function updateImBrowserFormatCompareTable(page) {
-	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Original Size</th><th>Generic</th><th>Chrome</th><th>Safari</th><th>IE</th>';
+	var imDetailsTable	= '<table class="transformedResults"><tr><th>URL</th><th>Original Size</th><th>Generic</th><th>Chrome</th><th>Safari</th><th>IE</th>';
 	page.imDownloadDetails.forEach(function(detail) {
 		imDetailsTable += '<tr class="urlInfo">';
 		imDetailsTable += '<td class="urlData" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
@@ -58,42 +42,42 @@ function updateImBrowserFormatCompareTable(page) {
 		 	imDetailsTable += '<td>' + displayBytes(detail.browserFormats.generic.contlen) + '</td>';
 		 }
 		 catch(err) {
-			imDetailsTable += '<td></td>'
+			imDetailsTable += '<td></td>';
 		 }
 
 		 try {
 		 	imDetailsTable += '<td>' + displayBytes(detail.browserFormats.chrome.contlen) + '</td>';
 		 }
 		 catch(err) {
-			imDetailsTable += '<td></td>'
+			imDetailsTable += '<td></td>';
 		 }
-		 
+
 		 try {
 			imDetailsTable += '<td>' + displayBytes(detail.browserFormats.safari.contlen) + '</td>';
 		 }
 		 catch(err) {
-			imDetailsTable += '<td></td>'
+			imDetailsTable += '<td></td>';
 		 }
 		 try {
 			imDetailsTable += '<td>' + displayBytes(detail.browserFormats.ie.contlen);
 		 }
 		 catch(err) {
-			imDetailsTable += '<td></td>'
+			imDetailsTable += '<td></td>';
 		 }
 
 		imDetailsTable += '</tr>';
-		document.getElementById('imConversionBox').style.display = 'block';
+		document.getElementById('detailsBox1').style.display = 'block';
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('imDetailsTable').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
 }
 
 function updateImAdvandedTable(page) {
-	var imDetailsTable	= '<table id="imDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Width</th><th>Pixel Density</th><th>File Chosen</th><th>Encoding Quality</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
+	var imDetailsTable	= '<table class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Width</th><th>Pixel Density</th><th>File Chosen</th><th>Encoding Quality</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function(detail) {
-		imDetailsTable += '<tr class="urlInfo">'; 
+		imDetailsTable += '<tr class="urlInfo">';
 		imDetailsTable += '<td class="urlData imageCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
-		
+
 		imDetailsTable += '<td>' + detail.contype + '</td>';
 		imDetailsTable += '<td>' + detail.originalWidth + 'px</td>';
 		imDetailsTable += '<td>' + detail.pixelDensity + '</td>';
@@ -103,14 +87,14 @@ function updateImAdvandedTable(page) {
 		imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
 		imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 		imDetailsTable += '</tr>';
-		document.getElementById('imConversionBox').style.display = 'block';
+		document.getElementById('detailsBox1').style.display = 'block';
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('imDetailsTable').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
 }
 
 function updateIcDetailsTable(page) {
-	var icDetailsTable	= '<table id="icDetailsTable" class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
+	var icDetailsTable	= '<table class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.icDownloadDetails.forEach(function(detail) {
 		icDetailsTable += '<tr class="urlInfo">';
 		icDetailsTable += '<td class="urlData"' + 'data-url="' + detail.url + '">' + '<a href="' + detail.url + '"' + ' target="_blank"' + '>' + detail.url + '</a>' + '</td>';
@@ -119,19 +103,19 @@ function updateIcDetailsTable(page) {
 		icDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
 		icDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 		icDetailsTable += '</tr>';
-		document.getElementById('icConversionBox').style.display = 'block';
+		document.getElementById('detailsBox2').style.display = 'block';
 	});
 	icDetailsTable += '</table>';
-	document.getElementById('icDetailsTable').innerHTML = icDetailsTable;
+	document.getElementById('detailsBox2Table').innerHTML = icDetailsTable;
 }
 
 function getEncodingQuality(contentType, encodingQuality) {
-	if(contentType == 'image/gif' || contentType == 'image/png') {
-		return "N/A";
-	}
-	else {
-		return encodingQuality;
-	}
+    if(contentType == 'image/gif' || contentType == 'image/png') {
+        return "N/A";
+    }
+    else {
+        return encodingQuality;
+    }
 }
 
 function bindImageCompareListener() {
@@ -154,19 +138,19 @@ function showImageCompare() {
 		origImage = (this.getAttribute('data-url') + '?imbypass=true');
 	}
 	else {
-		origImage = (this.getAttribute('data-url') + '&imbypass=true');	
+		origImage = (this.getAttribute('data-url') + '&imbypass=true');
 	}
-	tranImage = this.getAttribute('data-url')
-	
+	tranImage = this.getAttribute('data-url');
+
 	i = new ImageToggle();
 	i.addImages(origImage, tranImage);
 
 	document.getElementById('originalImage').onclick = function() {
 		window.open(i.originalImage.src);
-	}
+	};
 	document.getElementById('transformedImage').onclick = function() {
 		window.open(i.transformedImage.src);
-	}
+	};
 	document.getElementById('imageComareUrlTitle').href = this.getAttribute('data-url');
 	document.getElementById('imageComareUrlTitle').innerHTML = this.getAttribute('data-url');
 	document.getElementById('imageBox').style.display = 'block';

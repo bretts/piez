@@ -14,4 +14,5 @@
             ParseIcHeaders(http_transaction, page);
         }
     };
+
 })(this);

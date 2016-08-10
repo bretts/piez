@@ -12,7 +12,7 @@ var parseImHeadersBrowserFormatCompare = function(http_transaction, page, displa
     res.url = http_transaction.request.url;
 
     if(/imFormat=safari|imFormat=generic|imFormat=chrome|imFormat=ie/i.test(res.url)) {
-        browserFormat = {}
+        browserFormat = {};
         browserFormat.url = res.url;
         http_transaction.response.headers.forEach(function(header) {
             if(/content-length/i.test(header.name)) {
@@ -29,11 +29,11 @@ var parseImHeadersBrowserFormatCompare = function(http_transaction, page, displa
             formats.forEach(function(format) {
                 if(browserFormat.url == (entry.url + '?' + format) || browserFormat.url == entry.url + '&' + format) {
                     if(entry.browserFormats == undefined) {
-                        entry.browserFormats = {}
+                        entry.browserFormats = {};
                     }
-                    formatType = format.split('=')[1]
-                    entry.browserFormats[formatType] = {}
-                    entry.browserFormats[formatType] = browserFormat
+                    formatType = format.split('=')[1];
+                    entry.browserFormats[formatType] = {};
+                    entry.browserFormats[formatType] = browserFormat;
 
                     page[formatType + 'FormatTotal'] += parseInt(browserFormat.contlen);
                     console.log(page);
@@ -45,12 +45,12 @@ var parseImHeadersBrowserFormatCompare = function(http_transaction, page, displa
         extractImHeaders(http_transaction, page, res);
         page.imDownloadDetails.push(res);
 
-        chrome.extension.sendMessage({
+        chrome.runtime.sendMessage({
             type: "request-alternate-browser-formats",
             url: res.url
         });
     }
-}
+};
 
 var parseImHeadersNormal = function(http_transaction, page, display_mode) {
     var res = {};
@@ -58,7 +58,7 @@ var parseImHeadersNormal = function(http_transaction, page, display_mode) {
 
     extractImHeaders(http_transaction, page, res);
     page.imDownloadDetails.push(res);
-}
+};
 
 var extractImHeaders = function(http_transaction, page, res) {
     http_transaction.response.headers.forEach(function(header) {
@@ -87,4 +87,4 @@ var extractImHeaders = function(http_transaction, page, res) {
         }
 
     });
-}
+};

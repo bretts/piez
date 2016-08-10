@@ -29,18 +29,60 @@
 	};
 
 	global.showSummaryTable = function(display_mode) {
-		if(display_mode == 'piezModeBrowserFormatCompare') {
-			document.getElementById('conversionSummary').style.display = 'none';
-			document.getElementById('browserFormatCompareSummary').style.display = 'block';
-		}
-		else {
-			document.getElementById('browserFormatCompareSummary').style.display = 'none';
-			document.getElementById('conversionSummary').style.display = 'block';
-		}
+            document.getElementById('conversionSummary').style.display = 'block';
+        if (display_mode === 'piezModeBrowserFormatCompare') {
+            document.getElementById('col-1-title').textContent = 'Generic';
+            document.getElementById('col-2-title').textContent = 'Chrome';
+            document.getElementById('col-3-title').textContent = 'Safari';
+            document.getElementById('col-4-title').textContent = 'IE';
+        }
+        else if (display_mode == 'piezModeCPI') {
+            document.getElementById('col-1-title').textContent = 'CPI Status';
+            document.getElementById('col-2-title').textContent = 'Policy Version';
+            document.getElementById('col-3-title').textContent = 'Preconnects';
+            document.getElementById('col-4-title').textContent = 'Pushed Resources';
+        }
+        else {
+            document.getElementById('col-1-title').textContent = 'Realtime Conversions';
+            document.getElementById('col-2-title').textContent = 'Optimized Conversions';
+            document.getElementById('col-3-title').textContent = 'Total Saved Bytes';
+            document.getElementById('col-4-title').textContent = '% Bytes Change';
+        }
 	};
 
-	global.showDetailsTable = function() {
+    global.updateSummaryTable = function(page, display_mode) {
+    	if  (display_mode === 'piezModeBrowserFormatCompare') {
+    		document.getElementById('col-1-info').textContent = displayBytes(page.genericFormatTotal);
+    		document.getElementById('col-2-info').textContent = displayBytes(page.chromeFormatTotal);
+    		document.getElementById('col-3-info').textContent = displayBytes(page.safariFormatTotal);
+    		document.getElementById('col-4-info').innerHTML   = displayBytes(page.ieFormatTotal);
+    	}
+        else if (display_mode === 'piezModeCPI')  {
+            document.getElementById('col-1-info').textContent = (page.CPIEnabled) ? 'On' : 'Off';
+            document.getElementById('col-2-info').textContent = (page.CPIPolicy) ? ('Version: ' + page.CPIPolicy) : 'None';
+            var total = page.preconnects.common.length + page.preconnects.unique.length;
+            document.getElementById('col-3-info').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;
+            total = page.resourcesPushed.common.length + page.resourcesPushed.unique.length;
+            document.getElementById('col-4-info').textContent = (total - page.resourcesPushed.notUsed.length) +  '/' + total;
+        }
+    	else {
+            document.getElementById('col-1-info').textContent = page.totalIMImagesTransformed.toString();
+            document.getElementById('col-2-info').textContent = page.totalICImagesTransformed.toString();
+            document.getElementById('col-3-info').textContent = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
+            document.getElementById('col-4-info').innerHTML   = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
+    	}
+    };
+
+	global.showDetailsTable = function(display_mode) {
 		document.getElementById('conversionDetails').style.display = 'block';
+        if (display_mode === 'piezModeCPI') {
+            document.getElementById('detailsBox1Title').textContent = 'Preconnected Resources';
+            document.getElementById('detailsBox2Title').textContent = 'Pushed Resources';
+        }
+        else {
+            document.getElementById('detailsBox1Title').textContent = 'Optimized Conversion Details';
+            document.getElementById('detailsBox2Title').textContent = 'Realtime Conversion Details';
+        }
 	};
 
 	global.hidePiezNotEnabledTable = function() {
@@ -73,4 +115,15 @@
 			rows[i].addEventListener('mouseout',  function() { this.className = 'urlInfo'; });
 		}
 	};
+
+    global.hideDetails = function() {
+        //insert blank space to keep box height
+        document.getElementById('col-1-info').textContent        = '\u00A0';
+        document.getElementById('col-2-info').textContent        = '\u00A0';
+        document.getElementById('col-3-info').textContent        = '\u00A0';
+        document.getElementById('col-4-info').textContent        = '\u00A0';
+        document.getElementById('imageBox').style.display        = 'none';
+        document.getElementById('detailsBox1').style.display = 'none';
+        document.getElementById('detailsBox2').style.display = 'none';
+    };
 })(this);

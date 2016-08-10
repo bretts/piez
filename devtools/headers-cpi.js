@@ -1,7 +1,11 @@
 (function(global) {
     'use strict';
-    Array.prototype.pushIfUnique = function(item) {
-        if (this.indexOf(item) === -1) {
+
+    //pushes an item to an array if it doesn't already exist
+    Array.prototype.pushIfUnique = function(item, comparator) {
+        var compareFunc = comparator || function(el) { return item === el; };
+        var found = this.find(compareFunc, item); //use custom comparator if given
+        if (found === undefined) {
             this.push(item);
         }
         return this.length; //same signature as Array.push
@@ -34,7 +38,7 @@
                     return /x-akamai-http2-push/i.test(header.name);
                 });
                 if (pushHeader !== undefined) {
-                    page.resourcesPushed.edgePushed.push({url: entry.request.url, transferSize: entry.response._transferSize});
+                    page.resourcesPushed.edgePushed.pushIfUnique({url: entry.request.url, transferSize: entry.response._transferSize});
                 }
             }
         });
@@ -90,7 +94,7 @@
                 if (pushArr) {
                     pushArr.forEach(function(res) {
                         if(res !== '') {
-                            page.resourcesPushed.common.pushIfUnique({url: res});
+                            page.resourcesPushed.common.pushIfUnique({url: res}, function(el) { return this.url === el.url; });
                         }
                     });
                 }
@@ -100,7 +104,7 @@
                 if (pushArr) {
                     pushArr.forEach(function(res) {
                         if(res !== '') {
-                            page.resourcesPushed.unique.pushIfUnique({url: res});
+                            page.resourcesPushed.unique.pushIfUnique({url: res}, function(el) { return this.url === el.url; });
                         }
                     });
                 }

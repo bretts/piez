@@ -1,8 +1,9 @@
 var PiezController = {};
 PiezController.current_page         = new Page();
-PiezController.current_display_mode = localStorage.getItem("piezCurrentState") || 'piezModeImSimple';
-showSummaryTable(PiezController.current_display_mode); //choose correct summary header before page actually loads
-
+chrome.storage.local.get('piezCurrentState', function(result) {
+    PiezController.current_display_mode = result['piezCurrentState'] || 'piezModeImSimple';
+    showSummaryTable(PiezController.current_display_mode); //choose correct summary header before page actually loads
+});
 var port = chrome.runtime.connect({name:'piez'});
 
 function parseImResponse(http_transaction) {
@@ -16,26 +17,29 @@ function newPageRequest(url) {
     port.postMessage({
         type: "update-piez-analytics"
     });
-    PiezController.current_display_mode = localStorage.getItem("piezCurrentState");
-    //toggle the IM on request listener depending on what mode Piez is on
-    if (PiezController.current_display_mode === 'piezModeCPI') {
-        port.postMessage({type:'cpiPageLoad'});
-        chrome.devtools.network.onRequestFinished.removeListener(parseImResponse);
-    }
-    else {
-        chrome.devtools.network.onRequestFinished.addListener(parseImResponse);
-    }
+    chrome.storage.local.get('piezCurrentState', function(result) {
+        PiezController.current_display_mode = result['piezCurrentState'] || 'piezModeImSimple';
+        //toggle the IM on request listener depending on what mode Piez is on
+        if (PiezController.current_display_mode === 'piezModeCPI') {
+            port.postMessage({type:'cpiPageLoad'});
+            chrome.devtools.network.onRequestFinished.removeListener(parseImResponse);
+        }
+        else {
+            chrome.devtools.network.onRequestFinished.addListener(parseImResponse);
+        }
+    });
 }
 
 window.onload = function() {
-    port.postMessage({type:'inspectedTab', tab: chrome.devtools.inspectedWindow.tabId});
-    var state = localStorage.getItem("piezCurrentState");
-    PiezController.current_display_mode = state;
-    if (PiezController.current_display_mode !== 'piezModeCPI') {
-        chrome.devtools.network.onRequestFinished.addListener(parseImResponse);
-    }
-
-	chrome.devtools.network.onNavigated.addListener(newPageRequest);
+    chrome.storage.local.get('piezCurrentState', function(result) {
+        port.postMessage({type:'inspectedTab', tab: chrome.devtools.inspectedWindow.tabId});
+        var state = result['piezCurrentState'];
+        PiezController.current_display_mode = state;
+        if (PiezController.current_display_mode !== 'piezModeCPI') {
+            chrome.devtools.network.onRequestFinished.addListener(parseImResponse);
+        }
+        chrome.devtools.network.onNavigated.addListener(newPageRequest);
+    });
 };
 
 

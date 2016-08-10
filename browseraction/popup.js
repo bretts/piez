@@ -31,8 +31,9 @@ window.onload = function() {
     };
 
 	var setFormField = function(piezSettings) {
-		result = localStorage.getItem("piezCurrentState");
-		document.getElementById(result).checked = true;
+        chrome.storage.local.get("piezCurrentState", function(result) {
+			document.getElementById(result["piezCurrentState"]).checked = true;
+		});
 	};
 
 	setFormField();

@@ -23,8 +23,6 @@ chrome.webNavigation.onBeforeNavigate.addListener(function beforeNavigate(detail
 
 //get the actual url to use if there's a redirect for the base page
 chrome.webRequest.onBeforeRedirect.addListener(function getNewUrl(redirect) {
-    if (redirect.tabId === inspectedTab.id && redirect.frameId === 0) {
-    }
     if (redirect.tabId === inspectedTab.id && redirect.frameId === 0 && redirect.url === inspectedTab.url) {
         var newLocation = redirect.responseHeaders.find(function(header) {
             return /location/i.test(header.name);

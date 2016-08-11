@@ -54,7 +54,7 @@
             if (/x-akamai-cpi-enabled/i.test(header.name)) {
                 page.CPIEnabled = (header.value === 'true');
             }
-            if (/x-akamai-cpi-policy-version/i.test(header.name)) {
+            if (/x-akamai-rua-debug-policy-version/i.test(header.name)) {
                 page.CPIPolicy = header.value;
             }
 
@@ -136,7 +136,7 @@
             var urlStr = expandUrl(element.url, page.baseUrl);
             var found = page.resourcesPushed.edgePushed.findIndex(matchUrl, urlStr);
             if(found === -1) {
-                page.resourcesPushed.notUsed.push(element);
+                page.resourcesPushed.notUsed.pushIfUnique(element);
             }
             else {
                 element.transferSize = page.resourcesPushed.edgePushed[found].transferSize;
@@ -146,7 +146,7 @@
             var urlStr = expandUrl(element.url, page.baseUrl);
             var found = page.resourcesPushed.edgePushed.findIndex(matchUrl, urlStr);
             if(found === -1) {
-                page.resourcesPushed.notUsed.push(element);
+                page.resourcesPushed.notUsed.pushIfUnique(element);
             }
             else {
                 element.transferSize = page.resourcesPushed.edgePushed[found].transferSize;

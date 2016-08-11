@@ -169,7 +169,7 @@ QUnit.module('Parsing resources from HAR', {
                         status: 200,
                         headers: [
                             {name: 'x-akamai-cpi-enabled', value: 'true'},
-                            {name: 'x-akamai-cpi-policy-version', value: '1'}
+                            {name: 'x-akamai-rua-debug-policy-version', value: '1'}
                         ]
                     }
                 }
@@ -186,7 +186,7 @@ QUnit.test('CPI status and policy version', function(assert) {
 
     this.har.entries[0].response.headers = [
         {name: 'x-akamai-cpi-enabled', value: 'false'},
-        {name: 'x-akamai-cpi-policy-version', value: ''}
+        {name: 'x-akamai-rua-debug-policy-version', value: ''}
     ];
     this.page = new Page();
     ParsePageCpi(this.har, this.page);

@@ -1,6 +1,6 @@
 {
   "name": "Piez",
-  "version": "1.3.2",
+  "version": "1.4",
   "manifest_version": 2,
   "description" : "Piez is a developer tool to show optimizations made by Akamai Image Manager and Cloud Performance Intelligence.",
   "icons": { "16": "icons/16x16.png", "19": "icons/19x19.png", "38": "icons/38x38.png", "48": "icons/48x48.png", "128": "icons/128x128.png" },

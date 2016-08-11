@@ -22,24 +22,14 @@ function newPageRequest(url) {
         //toggle the IM on request listener depending on what mode Piez is on
         if (PiezController.current_display_mode === 'piezModeCPI') {
             port.postMessage({type:'cpiPageLoad'});
-            chrome.devtools.network.onRequestFinished.removeListener(parseImResponse);
-        }
-        else {
-            chrome.devtools.network.onRequestFinished.addListener(parseImResponse);
         }
     });
 }
 
 window.onload = function() {
-    chrome.storage.local.get('piezCurrentState', function(result) {
-        port.postMessage({type:'inspectedTab', tab: chrome.devtools.inspectedWindow.tabId});
-        var state = result['piezCurrentState'];
-        PiezController.current_display_mode = state;
-        if (PiezController.current_display_mode !== 'piezModeCPI') {
-            chrome.devtools.network.onRequestFinished.addListener(parseImResponse);
-        }
-        chrome.devtools.network.onNavigated.addListener(newPageRequest);
-    });
+    port.postMessage({type:'inspectedTab', tab: chrome.devtools.inspectedWindow.tabId});
+    chrome.devtools.network.onRequestFinished.addListener(parseImResponse);
+    chrome.devtools.network.onNavigated.addListener(newPageRequest);
 };
 
 

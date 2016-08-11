@@ -66,8 +66,8 @@
             document.getElementById('col-4-info').textContent = (total - page.resourcesPushed.notUsed.length) +  '/' + total;
         }
     	else {
-            document.getElementById('col-1-info').textContent = page.totalIMImagesTransformed.toString();
-            document.getElementById('col-2-info').textContent = page.totalICImagesTransformed.toString();
+            document.getElementById('col-1-info').textContent = page.totalICImagesTransformed.toString();
+            document.getElementById('col-2-info').textContent = page.totalIMImagesTransformed.toString();
             document.getElementById('col-3-info').textContent = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
             document.getElementById('col-4-info').innerHTML   = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
     	}

@@ -108,14 +108,6 @@
 		}
 	};
 
-	global.bindRowHighlightingListener = function() {
-		var rows = document.querySelectorAll('.urlInfo');
-		for (var i = 0, len = rows.length; i < len; i++) {
-			rows[i].addEventListener('mouseover', function() { this.className = 'urlInfoHover'; });
-			rows[i].addEventListener('mouseout',  function() { this.className = 'urlInfo'; });
-		}
-	};
-
     global.hideDetails = function() {
         //insert blank space to keep box height
         document.getElementById('col-1-info').textContent        = '\u00A0';

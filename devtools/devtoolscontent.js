@@ -7,7 +7,7 @@ chrome.storage.local.get('piezCurrentState', function(result) {
 var port = chrome.runtime.connect({name:'piez'});
 
 function parseImResponse(http_transaction) {
-    ParseHeaders(http_transaction, PiezController.current_page);
+    ParseHeaders(http_transaction, PiezController.current_page, PiezController.current_display_mode);
     Report(PiezController.current_page, PiezController.current_display_mode);
 }
 
@@ -19,7 +19,6 @@ function newPageRequest(url) {
     });
     chrome.storage.local.get('piezCurrentState', function(result) {
         PiezController.current_display_mode = result['piezCurrentState'] || 'piezModeImSimple';
-        //toggle the IM on request listener depending on what mode Piez is on
         if (PiezController.current_display_mode === 'piezModeCPI') {
             port.postMessage({type:'cpiPageLoad'});
         }

@@ -2,6 +2,9 @@
     'use strict';
 
     global.ParseHeaders = function(http_transaction, page, display_mode) {
+        if (display_mode === 'piezModeCPI') { //CPI does parsing separate from this
+            return;
+        }
         if(http_transaction.response.status == 304 && (http_transaction.request.url).indexOf('.js') == -1) {
             page.localCacheEnabled = true;
         }

@@ -1,6 +1,38 @@
 (function(global) {
     'use strict';
+
+    var timeoutID;
+
+    function CPILoadingPage() {
+        hideDetails();
+        document.getElementById('notEnabled').style.display = 'block';
+        document.getElementById('notEnabled').innerHTML = '<div class="piezConfigMessage">Please wait while page loads before CPI data is parsed.\n'
+            + 'If the page takes longer than 20s to load, Piez will try to parse the current available data.</div>';
+    }
+
+    global.displayCPILoading = function(page, display) {
+        clearTimeout(timeoutID);
+        if (display !== 'piezModeCPI') {
+            return;
+        }
+        CPILoadingPage();
+        timeoutID = setTimeout(function() {
+            chrome.devtools.network.getHAR(function(har) {
+                if (display === 'piezModeCPI') {
+                    ParsePageCpi(har, page);
+                }
+                Report(page, display);
+            });
+        }, 20000);
+    }
+
     global.displayCPIView = function(page) {
+        if(page.pageLoaded) {
+            clearTimeout(timeoutID);
+        }
+        else {
+            CPILoadingPage();
+        }
         function isCpiEnabled() {
             return (page.CPIEnabled && page.CPIPolicy)
                 || (page.preconnects.common.length + page.preconnects.unique.length)

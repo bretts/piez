@@ -1,5 +1,5 @@
 var PiezController = {};
-PiezController.current_page         = new Page();
+PiezController.current_page = new Page();
 chrome.storage.local.get('piezCurrentState', function(result) {
     PiezController.current_display_mode = result['piezCurrentState'] || 'piezModeImSimple';
     showSummaryTable(PiezController.current_display_mode); //choose correct summary header before page actually loads
@@ -20,6 +20,7 @@ function newPageRequest(url) {
     chrome.storage.local.get('piezCurrentState', function(result) {
         PiezController.current_display_mode = result['piezCurrentState'] || 'piezModeImSimple';
         if (PiezController.current_display_mode === 'piezModeCPI') {
+            displayCPILoading(PiezController.current_page, PiezController.current_display_mode);
             port.postMessage({type:'cpiPageLoad'});
         }
     });
@@ -36,6 +37,7 @@ port.onMessage.addListener(function(message) {
     switch(message.type) {
         case 'cpiPageLoaded':
             chrome.devtools.network.getHAR(function(har) {
+                PiezController.current_page.pageLoaded = true;
                 if (PiezController.current_display_mode === 'piezModeCPI') {
                     ParsePageCpi(har, PiezController.current_page);
                 }

@@ -5,9 +5,11 @@
 
     function CPILoadingPage() {
         hideDetails();
-        document.getElementById('notEnabled').style.display = 'block';
-        document.getElementById('notEnabled').innerHTML = '<div class="piezConfigMessage">Please wait while page loads before CPI data is parsed.\n'
-            + 'If the page takes longer than 20s to load, Piez will try to parse the current available data.</div>';
+        if (PiezController.current_page.CpiStarted) {
+            document.getElementById('notEnabled').style.display = 'block';
+            document.getElementById('notEnabled').innerHTML = '<div class="piezConfigMessage">Please wait while page loads before CPI data is parsed.\n'
+                + 'If the page takes longer than 20s to load, Piez will try to parse the current available data.</div>';
+        }
     }
 
     global.displayCPILoading = function(page, display) {

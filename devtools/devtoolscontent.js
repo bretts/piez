@@ -20,6 +20,7 @@ function newPageRequest(url) {
     chrome.storage.local.get('piezCurrentState', function(result) {
         PiezController.current_display_mode = result['piezCurrentState'] || 'piezModeImSimple';
         if (PiezController.current_display_mode === 'piezModeCPI') {
+            PiezController.current_page.CpiStarted = true;
             displayCPILoading(PiezController.current_page, PiezController.current_display_mode);
             port.postMessage({type:'cpiPageLoad'});
         }

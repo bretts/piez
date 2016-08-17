@@ -25,14 +25,16 @@
                         return /location/i.test(header.name);
                     });
                     if (newLocation !== undefined) {
-                        basePageUrl = newLocation.value;
+                        var parsedUrl = parseUrl(newLocation.value);
+                        //browser ignores the hash portion of the URL
+                        basePageUrl = parsedUrl.protocol + '//' + parsedUrl.host + parsedUrl.path + parsedUrl.query;
                     }
                 }
                 else {
                     parseBasePage(entry, page);
                 }
             }
-            //header from Akamai edge verifies push
+            //header from Akamai edge server verifies push
             else{
                 var pushHeader = entry.response.headers.find(function(header) {
                     return /x-akamai-http2-push/i.test(header.name);
@@ -157,34 +159,42 @@
     function parseUrl(url) {
         var a =  document.createElement('a');
         a.href = url;
-        return {
+        var urlObj = {
             source: url,
             protocol: a.protocol,
-            host: a.hostname,
+            host: a.host,
+            hostname: a.hostname,
             port: a.port,
             query: a.search,
             hash: a.hash,
-            path: a.pathname
+            path: a.pathname,
+
+            toString: function() {
+                return this.protocol + '//' + this.host + this.path + this.query + this.hash;
+            }
         };
+        if (/^\/\//i.test(url)) { //protocol relative URL case, since we're in a chrome extension, that defaults to the protocol instead of https
+            urlObj.protocol = 'https:';
+        }
+        return urlObj;
     }
 
     //expands out relative urls reported by CPI debug to compare to absolute urls given by Akamai edge servers
     global.expandUrl = function(url, baseUrl) {
-        var parsedUrl = parseUrl(baseUrl);
         var isAbsUrl = new RegExp('^(?:[a-z]+:)?//', 'i');
         if (isAbsUrl.test(url)) {
-            return url;
+            return parseUrl(url).toString(); //fully expand out in case of protocol-relative urls
         }
         else { //deal with the various types of relative urls
-            var urlStr = parsedUrl.protocol + '//' + parsedUrl.host + parsedUrl.path;
+            var parsedBase = parseUrl(baseUrl);
+            var urlStr = parsedBase.protocol + '//' + parsedBase.host + parsedBase.path;
             if (url.slice(0,1) === '/') { //relative to base
-                urlStr = parsedUrl.protocol + '//' + parsedUrl.host; //the relative url already begins with a slash
+                urlStr = parsedBase.protocol + '//' + parsedBase.host; //the relative url already begins with a slash
             }
             else if (urlStr.slice(-1) !== '/') {
                 urlStr = urlStr + '/';
             }
-            var newUrl = parseUrl(urlStr + url); //parse our new base url with the relative
-            return newUrl.protocol + '//' + newUrl.host + newUrl.path + (newUrl.query || '');
+            return parseUrl(urlStr + url).toString(); //parse our new base url with the relative
         }
     };
 

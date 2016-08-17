@@ -13,24 +13,27 @@
     }
 
     global.displayCPILoading = function(page, display) {
-        clearTimeout(timeoutID);
         if (display !== 'piezModeCPI') {
             return;
         }
         CPILoadingPage();
-        timeoutID = setTimeout(function() {
-            chrome.devtools.network.getHAR(function(har) {
-                if (display === 'piezModeCPI') {
-                    ParsePageCpi(har, page);
-                }
-                Report(page, display);
-            });
-        }, 20000);
-    }
+        if (!timeoutID) {
+            timeoutID = setTimeout(function() {
+                chrome.devtools.network.getHAR(function(har) {
+                    if (display === 'piezModeCPI') {
+                        ParsePageCpi(har, page);
+                    }
+                    page.pageLoaded = true;
+                    Report(page, display);
+                });
+            }, 20000);
+        }
+    };
 
     global.displayCPIView = function(page) {
         if(page.pageLoaded) {
             clearTimeout(timeoutID);
+            timeoutID = undefined;
         }
         else {
             CPILoadingPage();

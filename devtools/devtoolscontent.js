@@ -1,5 +1,5 @@
 var PiezController = {};
-PiezController.current_page         = new Page();
+PiezController.current_page = new Page();
 chrome.storage.local.get('piezCurrentState', function(result) {
     PiezController.current_display_mode = result['piezCurrentState'] || 'piezModeImSimple';
     showSummaryTable(PiezController.current_display_mode); //choose correct summary header before page actually loads
@@ -7,7 +7,7 @@ chrome.storage.local.get('piezCurrentState', function(result) {
 var port = chrome.runtime.connect({name:'piez'});
 
 function parseImResponse(http_transaction) {
-    ParseHeaders(http_transaction, PiezController.current_page);
+    ParseHeaders(http_transaction, PiezController.current_page, PiezController.current_display_mode);
     Report(PiezController.current_page, PiezController.current_display_mode);
 }
 
@@ -19,8 +19,9 @@ function newPageRequest(url) {
     });
     chrome.storage.local.get('piezCurrentState', function(result) {
         PiezController.current_display_mode = result['piezCurrentState'] || 'piezModeImSimple';
-        //toggle the IM on request listener depending on what mode Piez is on
         if (PiezController.current_display_mode === 'piezModeCPI') {
+            PiezController.current_page.CpiStarted = true;
+            displayCPILoading(PiezController.current_page, PiezController.current_display_mode);
             port.postMessage({type:'cpiPageLoad'});
         }
     });
@@ -37,6 +38,7 @@ port.onMessage.addListener(function(message) {
     switch(message.type) {
         case 'cpiPageLoaded':
             chrome.devtools.network.getHAR(function(har) {
+                PiezController.current_page.pageLoaded = true;
                 if (PiezController.current_display_mode === 'piezModeCPI') {
                     ParsePageCpi(har, PiezController.current_page);
                 }

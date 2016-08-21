@@ -2,13 +2,14 @@ var inspectedTab = {};
 var devtools_port;
 
 beforeSendCallback = function(details) {
+    var urlMatch = new RegExp('(' + inspectedTab.url + '|' + inspectedTab.url + '/)', 'i');
     if (details.tabId !== inspectedTab.id) { //make sure we're only affecting the inspected tab
         return;
     }
     if(details.url.indexOf('http') != -1) {
         chrome.cookies.set({ url: getCookiesUrl(details.url), name: "im-debug", value: "basic" });
     }
-    if(details.url.indexOf('https') != -1 && details.frameId === 0 && details.url == inspectedTab.url ) {
+    if(details.url.indexOf('https') != -1 && details.frameId === 0 && urlMatch.test(details.url)) {
         details.requestHeaders.push({name: 'x-akamai-rua-debug', value: ''}, {name:'pragma', value: 'x-akamai-cpi-trace'});
     }
     return {requestHeaders: details.requestHeaders};
@@ -23,7 +24,8 @@ chrome.webNavigation.onBeforeNavigate.addListener(function beforeNavigate(detail
 
 //get the actual url to use if there's a redirect for the base page
 chrome.webRequest.onBeforeRedirect.addListener(function getNewUrl(redirect) {
-    if (redirect.tabId === inspectedTab.id && redirect.frameId === 0 && redirect.url === inspectedTab.url) {
+    var urlMatch = new RegExp('(' + inspectedTab.url + '|' + inspectedTab.url + '/)', 'i');
+    if (redirect.tabId === inspectedTab.id && redirect.frameId === 0 && urlMatch.test(redirect.url)) {
         var newLocation = redirect.responseHeaders.find(function(header) {
             return /location/i.test(header.name);
         });

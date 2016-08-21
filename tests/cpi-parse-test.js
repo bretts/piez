@@ -24,6 +24,11 @@ QUnit.test('Query Strings', function(assert) {
     assert.equal(expandedUrl, 'http://example.com/abc?a=1&b=2&c=3', 'should be http://example.com/abc?a=1&b=2&c=3');
 });
 
+QUnit.test('Protocol relative Url', function(assert) {
+    assert.expect(1);
+    var expandedUrl = expandUrl('//example.com/foo/bar/res.js', 'https://example.com/tests');
+    assert.equal(expandedUrl, 'https://example.com/foo/bar/res.js', 'protocol relative should expand out to https');
+});
 
 QUnit.module('Detecting base page', {
     beforeEach: function() {
@@ -169,7 +174,7 @@ QUnit.module('Parsing resources from HAR', {
                         status: 200,
                         headers: [
                             {name: 'x-akamai-cpi-enabled', value: 'true'},
-                            {name: 'x-akamai-cpi-policy-version', value: '1'}
+                            {name: 'x-akamai-rua-debug-policy-version', value: '1'}
                         ]
                     }
                 }
@@ -186,7 +191,7 @@ QUnit.test('CPI status and policy version', function(assert) {
 
     this.har.entries[0].response.headers = [
         {name: 'x-akamai-cpi-enabled', value: 'false'},
-        {name: 'x-akamai-cpi-policy-version', value: ''}
+        {name: 'x-akamai-rua-debug-policy-version', value: ''}
     ];
     this.page = new Page();
     ParsePageCpi(this.har, this.page);

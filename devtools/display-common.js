@@ -43,8 +43,8 @@
             document.getElementById('col-4-title').textContent = 'Pushed Resources';
         }
         else {
-            document.getElementById('col-1-title').textContent = 'Realtime Conversions';
-            document.getElementById('col-2-title').textContent = 'Optimized Conversions';
+            document.getElementById('col-1-title').textContent = 'Optimized Realtime';
+            document.getElementById('col-2-title').textContent = 'Optimized Offline';
             document.getElementById('col-3-title').textContent = 'Total Saved Bytes';
             document.getElementById('col-4-title').textContent = '% Bytes Change';
         }
@@ -80,8 +80,8 @@
             document.getElementById('detailsBox2Title').textContent = 'Pushed Resources';
         }
         else {
-            document.getElementById('detailsBox1Title').textContent = 'Optimized Conversion Details';
-            document.getElementById('detailsBox2Title').textContent = 'Realtime Conversion Details';
+            document.getElementById('detailsBox1Title').textContent = 'Optimized Offline Details';
+            document.getElementById('detailsBox2Title').textContent = 'Optimized Realtime Details';
         }
 	};
 

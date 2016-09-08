@@ -7,7 +7,7 @@ beforeSendCallback = function(details) {
         return;
     }
     if(details.url.indexOf('http') != -1) {
-        chrome.cookies.set({ url: getCookiesUrl(details.url), name: "im-debug", value: "basic" });
+        details.requestHeaders.push({name: 'x-im-piez', value: 'on'});
     }
     if(details.url.indexOf('https') != -1 && details.frameId === 0 && urlMatch.test(details.url)) {
         details.requestHeaders.push({name: 'x-akamai-rua-debug', value: ''}, {name:'pragma', value: 'x-akamai-cpi-trace'});

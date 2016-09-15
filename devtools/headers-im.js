@@ -83,7 +83,12 @@ var extractImHeaders = function(http_transaction, page, res) {
             res.originalWidth = header.value;
         }
         else if(/x-im-encoding-quality/i.test(header.name)) {
-            res.encQuality = header.value;
+            if(parseInt(header.value) < 0 || parseInt(header.value) > 100) {
+                res.encQuality = 'IMG-2834';
+            }
+            else {
+                res.encQuality = header.value;
+            }
         }
 
     });

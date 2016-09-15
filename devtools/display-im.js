@@ -113,6 +113,9 @@ function getEncodingQuality(contentType, encodingQuality) {
     if(contentType == 'image/gif' || contentType == 'image/png') {
         return "N/A";
     }
+    else if(encodingQuality == 'IMG-2834') {
+		return '-';
+    }
     else {
         return encodingQuality;
     }

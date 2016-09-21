@@ -82,6 +82,7 @@
         else {
             document.getElementById('detailsBox1Title').textContent = 'Optimized Offline Details';
             document.getElementById('detailsBox2Title').textContent = 'Optimized Realtime Details';
+            document.getElementById('detailsBox3Title').textContent = 'Non Image Manager Images';
         }
 	};
 
@@ -117,5 +118,6 @@
         document.getElementById('imageBox').style.display        = 'none';
         document.getElementById('detailsBox1').style.display = 'none';
         document.getElementById('detailsBox2').style.display = 'none';
+        document.getElementById('detailsBox3').style.display = 'none';
     };
 })(this);

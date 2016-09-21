@@ -17,6 +17,10 @@
 		this.safariFormatTotal          = 0;
 		this.ieFormatTotal              = 0;
 
+		this.totalNonImImages           = 0;
+		this.nonImOrIcImageDetails      = [];
+		this.totalNonImOrIcSize         = 0;
+
         this.preconnects                = {common: [], unique: [], notUsed: [], linkHeader: []};
         this.resourcesPushed            = {common: [], unique: [], notUsed: [], edgePushed: []};
 	};

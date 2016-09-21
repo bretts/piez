@@ -19,6 +19,7 @@
             else {
     			updateImDetailsTable(page, display_mode);
     			updateIcDetailsTable(page);
+    			updateNonImIcDetailsTable(page);
                 bindImageCompareListener();
             }
 		}

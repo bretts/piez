@@ -109,6 +109,21 @@ function updateIcDetailsTable(page) {
 	document.getElementById('detailsBox2Table').innerHTML = icDetailsTable;
 }
 
+function updateNonImIcDetailsTable(page) {
+	var nonImIcDetailsTable	= '<table class="transformedResults"><tr><th>URL</th><th>Image Type</th><th>Size</th>';
+	page.nonImOrIcImageDetails.forEach(function(detail) {
+		nonImIcDetailsTable += '<tr class="urlInfo">';
+		nonImIcDetailsTable += '<td class="urlData"' + 'data-url="' + detail.url + '">' + '<a href="' + detail.url + '"' + ' target="_blank"' + '>' + detail.url + '</a>' + '</td>';
+		nonImIcDetailsTable += '<td>' + detail.contype + '</td>';
+		nonImIcDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
+		nonImIcDetailsTable += '</tr>';
+		document.getElementById('detailsBox3').style.display = 'block';
+		document.getElementById('nonImIcBytes').textContent = displayBytes(page.totalNonImOrIcSize);
+	});
+	nonImIcDetailsTable += '</table>';
+	document.getElementById('detailsBox3Table').innerHTML = nonImIcDetailsTable;
+}
+
 function getEncodingQuality(contentType, encodingQuality) {
     if(contentType == 'image/gif' || contentType == 'image/png') {
         return "N/A";

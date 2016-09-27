@@ -55,7 +55,7 @@
         if (page.preconnects.common.length + page.preconnects.unique.length + page.preconnects.notUsed.length > 0) {
             document.getElementById('detailsBox1').style.display = 'block';
         }
-        var preconnectsTable = '<table class="transformedResults">';
+        var preconnectsTable = '<table class="detailed-results-a2">';
         preconnectsTable += '<thead><tr>' + '<th>Peconnect URL</th>' + '<th>Type</th>' + '<th>Status</th>' + '</tr></thead>';
         preconnectsTable += '<tbody>';
         page.preconnects.common.forEach(function(info) {
@@ -73,7 +73,7 @@
         if (page.resourcesPushed.common.length + page.resourcesPushed.unique.length + page.resourcesPushed.notUsed.length > 0) {
             document.getElementById('detailsBox2').style.display = 'block';
         }
-        var pushedTables = '<table class="transformedResults">';
+        var pushedTables = '<table class="detailed-results-a2">';
         pushedTables += '<thead><tr>' + '<th>Pushed Resource</th>' + '<th>Type</th>' + '<th>Status</th>' + '<th>Resource Size</th>' + '</tr></thead>';
         pushedTables += '<tbody>';
         page.resourcesPushed.common.forEach(function(info) {

@@ -16,7 +16,7 @@ function updateImDetailsTable(page, display_mode) {
 }
 
 function updateImSimpleTable(page) {
-	var imDetailsTable	= '<table class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
+	var imDetailsTable	= '<table class="detailed-results"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function(detail) {
 		imDetailsTable += '<tr class="urlInfo">';
 		imDetailsTable += '<td class="urlData imageCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
@@ -32,7 +32,7 @@ function updateImSimpleTable(page) {
 }
 
 function updateImBrowserFormatCompareTable(page) {
-	var imDetailsTable	= '<table class="transformedResults"><tr><th>URL</th><th>Original Size</th><th>Generic</th><th>Chrome</th><th>Safari</th><th>IE</th>';
+	var imDetailsTable	= '<table class="detailed-results"><tr><th>URL</th><th>Original Size</th><th>Generic</th><th>Chrome</th><th>Safari</th><th>IE</th>';
 	page.imDownloadDetails.forEach(function(detail) {
 		imDetailsTable += '<tr class="urlInfo">';
 		imDetailsTable += '<td class="urlData" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
@@ -73,7 +73,7 @@ function updateImBrowserFormatCompareTable(page) {
 }
 
 function updateImAdvandedTable(page) {
-	var imDetailsTable	= '<table class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Width</th><th>Pixel Density</th><th>File Chosen</th><th>Encoding Quality</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
+	var imDetailsTable	= '<table class="detailed-results"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Width</th><th>Pixel Density</th><th>File Chosen</th><th>Encoding Quality</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function(detail) {
 		imDetailsTable += '<tr class="urlInfo">';
 		imDetailsTable += '<td class="urlData imageCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
@@ -94,7 +94,7 @@ function updateImAdvandedTable(page) {
 }
 
 function updateIcDetailsTable(page) {
-	var icDetailsTable	= '<table class="transformedResults"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
+	var icDetailsTable	= '<table class="detailed-results"><tr><th>URL</th><th>Transformed Image Type</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.icDownloadDetails.forEach(function(detail) {
 		icDetailsTable += '<tr class="urlInfo">';
 		icDetailsTable += '<td class="urlData"' + 'data-url="' + detail.url + '">' + '<a href="' + detail.url + '"' + ' target="_blank"' + '>' + detail.url + '</a>' + '</td>';
@@ -110,7 +110,7 @@ function updateIcDetailsTable(page) {
 }
 
 function updateNonImIcDetailsTable(page) {
-	var nonImIcDetailsTable	= '<table class="transformedResults"><tr><th>URL</th><th>Image Type</th><th>Size</th>';
+	var nonImIcDetailsTable	= '<table class="detailed-results"><tr><th>URL</th><th>Image Type</th><th>Size</th>';
 	page.nonImOrIcImageDetails.forEach(function(detail) {
 		nonImIcDetailsTable += '<tr class="urlInfo">';
 		nonImIcDetailsTable += '<td class="urlData"' + 'data-url="' + detail.url + '">' + '<a href="' + detail.url + '"' + ' target="_blank"' + '>' + detail.url + '</a>' + '</td>';

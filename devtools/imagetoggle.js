@@ -28,7 +28,7 @@ function ImageToggle() {
 ImageToggle.prototype.addImages = function(originalImage, transformedImage) {
     document.getElementById("imageToggleControls").style.visibility = 'hidden';
     document.getElementById("imageToggleBox").style.display = 'none';
-    document.getElementById("ajaxloader").style.display = 'block';
+    document.getElementById("ImageAjaxloader").style.display = 'block';
     instance = this;
 
     var oImage = new Image();
@@ -44,7 +44,7 @@ ImageToggle.prototype.addImages = function(originalImage, transformedImage) {
     oImage.onload = function() {
         document.getElementById("imageToggleBoxMessage").style.visibility = 'visible';
         document.getElementById("imageToggleBox").style.display = 'block';
-        document.getElementById("ajaxloader").style.display = 'none';
+        document.getElementById("ImageAjaxloader").style.display = 'none';
 
         instance.transformedSelected.className = 'unselectedImage';
         instance.originalSelected.className = 'unselectedImage';

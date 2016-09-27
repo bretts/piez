@@ -6,9 +6,7 @@
     function A2LoadingPage() {
         hideDetails();
         if (PiezController.current_page.A2Started) {
-            document.getElementById('notEnabled').style.display = 'block';
-            document.getElementById('notEnabled').innerHTML = '<div class="piezConfigMessage">Please wait while page loads before A2 data is parsed.\n'
-                + 'If the page takes longer than 20s to load, Piez will try to parse the current available data.</div>';
+            document.getElementById("conversionDetailsAjaxLoader").style.display = 'block';
         }
     }
 
@@ -31,6 +29,8 @@
     };
 
     global.displayA2View = function(page) {
+        document.getElementById("conversionDetailsAjaxLoader").style.display = 'none';
+
         if(page.pageLoaded) {
             clearTimeout(timeoutID);
             timeoutID = undefined;

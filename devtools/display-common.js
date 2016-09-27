@@ -36,8 +36,8 @@
             document.getElementById('col-3-title').textContent = 'Safari';
             document.getElementById('col-4-title').textContent = 'IE';
         }
-        else if (display_mode == 'piezModeCPI') {
-            document.getElementById('col-1-title').textContent = 'CPI Status';
+        else if (display_mode == 'piezModeA2') {
+            document.getElementById('col-1-title').textContent = 'Adaptive Acceleration Status';
             document.getElementById('col-2-title').textContent = 'Policy Version';
             document.getElementById('col-3-title').textContent = 'Preconnects';
             document.getElementById('col-4-title').textContent = 'Pushed Resources';
@@ -57,9 +57,9 @@
     		document.getElementById('col-3-info').textContent = displayBytes(page.safariFormatTotal);
     		document.getElementById('col-4-info').innerHTML   = displayBytes(page.ieFormatTotal);
     	}
-        else if (display_mode === 'piezModeCPI')  {
-            document.getElementById('col-1-info').textContent = (page.CPIEnabled) ? 'On' : 'Off';
-            document.getElementById('col-2-info').textContent = (page.CPIPolicy) ? ('Version: ' + page.CPIPolicy) : 'None';
+        else if (display_mode === 'piezModeA2')  {
+            document.getElementById('col-1-info').textContent = (page.A2Enabled) ? 'On' : 'Off';
+            document.getElementById('col-2-info').textContent = (page.A2Policy) ? ('Version: ' + page.A2Policy) : 'None';
             var total = page.preconnects.common.length + page.preconnects.unique.length;
             document.getElementById('col-3-info').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;
             total = page.resourcesPushed.common.length + page.resourcesPushed.unique.length;
@@ -75,7 +75,7 @@
 
 	global.showDetailsTable = function(display_mode) {
 		document.getElementById('conversionDetails').style.display = 'block';
-        if (display_mode === 'piezModeCPI') {
+        if (display_mode === 'piezModeA2') {
             document.getElementById('detailsBox1Title').textContent = 'Preconnected Resources';
             document.getElementById('detailsBox2Title').textContent = 'Pushed Resources';
         }

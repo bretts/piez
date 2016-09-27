@@ -3,25 +3,25 @@
 
     var timeoutID;
 
-    function CPILoadingPage() {
+    function A2LoadingPage() {
         hideDetails();
-        if (PiezController.current_page.CpiStarted) {
+        if (PiezController.current_page.A2Started) {
             document.getElementById('notEnabled').style.display = 'block';
-            document.getElementById('notEnabled').innerHTML = '<div class="piezConfigMessage">Please wait while page loads before CPI data is parsed.\n'
+            document.getElementById('notEnabled').innerHTML = '<div class="piezConfigMessage">Please wait while page loads before A2 data is parsed.\n'
                 + 'If the page takes longer than 20s to load, Piez will try to parse the current available data.</div>';
         }
     }
 
-    global.displayCPILoading = function(page, display) {
-        if (display !== 'piezModeCPI') {
+    global.displayA2Loading = function(page, display) {
+        if (display !== 'piezModeA2') {
             return;
         }
-        CPILoadingPage();
+        A2LoadingPage();
         if (!timeoutID) {
             timeoutID = setTimeout(function() {
                 chrome.devtools.network.getHAR(function(har) {
-                    if (display === 'piezModeCPI') {
-                        ParsePageCpi(har, page);
+                    if (display === 'piezModeA2') {
+                        ParsePageA2(har, page);
                     }
                     page.pageLoaded = true;
                     Report(page, display);
@@ -30,24 +30,24 @@
         }
     };
 
-    global.displayCPIView = function(page) {
+    global.displayA2View = function(page) {
         if(page.pageLoaded) {
             clearTimeout(timeoutID);
             timeoutID = undefined;
         }
         else {
-            CPILoadingPage();
+            A2LoadingPage();
         }
-        function isCpiEnabled() {
-            return (page.CPIEnabled && page.CPIPolicy)
+        function isA2Enabled() {
+            return (page.A2Enabled && page.A2Policy)
                 || (page.preconnects.common.length + page.preconnects.unique.length)
                 || (page.resourcesPushed.common.length + page.resourcesPushed.unique.length);
         }
-        if (!isCpiEnabled()) {
+        if (!isA2Enabled()) {
             return;
-        } //do nothing if we don't have a valid policy or CPI not enabled
+        } //do nothing if we don't have a valid policy or A2 not enabled
         else {
-            page.CPIEnabled = true;
+            page.A2Enabled = true;
             document.getElementById('col-1-info').textContent = 'On';
         }
 

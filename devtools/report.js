@@ -13,8 +13,8 @@
 			showSummaryTable(display_mode);
 			showDetailsTable(display_mode);
             updateSummaryTable(page, display_mode);
-            if(display_mode == 'piezModeCPI') {
-                displayCPIView(page);
+            if(display_mode == 'piezModeA2') {
+                displayA2View(page);
             }
             else {
     			updateImDetailsTable(page, display_mode);

@@ -15,8 +15,8 @@ function PiezToggle() {
         case "piezModeBrowserFormatCompare":
           instance.turnPiezOnModeBrowserFormatCompare();
           break;
-        case "piezModeCPI":
-          instance.turnPiezOnCPI();
+        case "piezModeA2":
+          instance.turnPiezOnA2();
           break;
         default:
           instance.turnPiezOnImSimple();
@@ -63,9 +63,9 @@ PiezToggle.prototype.turnPiezOnModeBrowserFormatCompare = function() {
     });
 };
 
-PiezToggle.prototype.turnPiezOnCPI = function() {
-    chrome.storage.local.set({"piezCurrentState": "piezModeCPI"}, function() {
-        chrome.browserAction.setBadgeText({"text": "CPI"});
+PiezToggle.prototype.turnPiezOnA2 = function() {
+    chrome.storage.local.set({"piezCurrentState": "piezModeA2"}, function() {
+        chrome.browserAction.setBadgeText({"text": "A2"});
         chrome.browserAction.setBadgeBackgroundColor({"color": [0, 255, 0, 255]});
         if (!chrome.webRequest.onBeforeSendHeaders.hasListener(beforeSendCallback)) {
           chrome.webRequest.onBeforeSendHeaders.addListener(beforeSendCallback, {urls: [ "<all_urls>" ]}, ['requestHeaders','blocking']);

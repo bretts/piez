@@ -19,10 +19,10 @@ function newPageRequest(url) {
     });
     chrome.storage.local.get('piezCurrentState', function(result) {
         PiezController.current_display_mode = result['piezCurrentState'] || 'piezModeImSimple';
-        if (PiezController.current_display_mode === 'piezModeCPI') {
-            PiezController.current_page.CpiStarted = true;
-            displayCPILoading(PiezController.current_page, PiezController.current_display_mode);
-            port.postMessage({type:'cpiPageLoad'});
+        if (PiezController.current_display_mode === 'piezModeA2') {
+            PiezController.current_page.A2Started = true;
+            displayA2Loading(PiezController.current_page, PiezController.current_display_mode);
+            port.postMessage({type:'a2PageLoad'});
         }
     });
 }
@@ -36,11 +36,11 @@ window.onload = function() {
 
 port.onMessage.addListener(function(message) {
     switch(message.type) {
-        case 'cpiPageLoaded':
+        case 'a2PageLoaded':
             chrome.devtools.network.getHAR(function(har) {
                 PiezController.current_page.pageLoaded = true;
-                if (PiezController.current_display_mode === 'piezModeCPI') {
-                    ParsePageCpi(har, PiezController.current_page);
+                if (PiezController.current_display_mode === 'piezModeA2') {
+                    ParsePageA2(har, PiezController.current_page);
                 }
                 Report(PiezController.current_page, PiezController.current_display_mode);
             });

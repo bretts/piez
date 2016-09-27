@@ -24,9 +24,9 @@ window.onload = function() {
 	    });
 	};*/
 
-    document.getElementById("piezModeCPI").onclick = function() {
+    document.getElementById("piezModeA2").onclick = function() {
         chrome.runtime.sendMessage({
-            type: "piez-cpi"
+            type: "piez-a2"
         });
     };
 

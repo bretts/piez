@@ -3,7 +3,7 @@ Piez
 
 PURPOSE
 -------
-The purpose of this program is to show how the Akamai Image Manager and Cloud Performance Intelligence services help to optimize a web page.
+The purpose of this program is to show how the Akamai Image Manager and Adaptive Acceleration services help to optimize a web page.
 
 USAGE
 -------------
@@ -15,7 +15,7 @@ USAGE
 
 		4) Ensure that cache is disabled when developer tools is open by navigating to settings in the developer tool pane, then select the "Disable cache (while devtools is open)" checkbox
 
-		5) OK, you're all good. Navigate to a page that uses Akamai Image Manager or Cloud Performance Intelligence and watch your page get optimized
+		5) OK, you're all good. Navigate to a page that uses Akamai Image Manager or Adaptive Acceleration and watch your page get optimized
 
 License
 -------------

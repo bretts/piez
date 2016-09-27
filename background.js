@@ -42,11 +42,11 @@ chrome.runtime.onConnect.addListener(function(port) {
             case "inspectedTab":
                 inspectedTab.id = message.tab;
                 break;
-            case "cpiPageLoad":
+            case "a2PageLoad":
                 chrome.webNavigation.onCompleted.addListener(function pageComplete(details) {
                     if (details.tabId === inspectedTab.id && details.frameId === 0) {
                         try {
-                            port.postMessage({type:'cpiPageLoaded'});
+                            port.postMessage({type:'a2PageLoaded'});
                         }
                         finally {
                             chrome.webNavigation.onCompleted.removeListener(pageComplete);
@@ -82,8 +82,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			case "piez-im-advanced":
 				piezToggle.turnPiezOnImAdvanced();
 				break;
-            case "piez-cpi":
-                piezToggle.turnPiezOnCPI();
+            case "piez-a2":
+                piezToggle.turnPiezOnA2();
                 break;
             case "piez-browser-format-compare":
     			piezToggle.turnPiezOnModeBrowserFormatCompare();

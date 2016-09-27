@@ -11,13 +11,13 @@
         return this.length; //same signature as Array.push
     };
 
-    global.ParsePageCpi = function(har, page) {
+    global.ParsePageA2 = function(har, page) {
         var basePageUrl = har.pages[0].title; //current Chrome har implementation only keeps track of latest page navigated to
         har.entries.forEach(function(entry) {
             if(entry.response.status === 304) {
                 page.localCacheEnabled = true;
             }
-            //get CPI info from base page
+            //get A2 info from base page
             if (entry.request.url === basePageUrl) {
                 //base page redirected, get the new one from location header
                 if (entry.response.status >= 300 && entry.response.status < 400) {
@@ -45,8 +45,8 @@
             }
         });
 
-        verifyCpiPreconnects(page);
-        verifyCpiPushed(page);
+        verifyA2Preconnects(page);
+        verifyA2Pushed(page);
     };
 
     function parseBasePage(http_transaction, page) {
@@ -54,10 +54,10 @@
 
             page.baseUrl = http_transaction.request.url;
             if (/x-akamai-cpi-enabled/i.test(header.name)) {
-                page.CPIEnabled = (header.value === 'true');
+                page.A2Enabled = (header.value === 'true');
             }
             if (/x-akamai-rua-debug-policy-version/i.test(header.name)) {
-                page.CPIPolicy = header.value;
+                page.A2Policy = header.value;
             }
 
             //get all preconnects
@@ -115,7 +115,7 @@
     }
 
     //make sure every resource the debug headers list is actually there
-    global.verifyCpiPreconnects = function(page) {
+    global.verifyA2Preconnects = function(page) {
 
         page.preconnects.common.forEach(function(url) {
             if(page.preconnects.linkHeader.indexOf(url) === -1) {
@@ -130,7 +130,7 @@
     };
 
     //check against edge servers to make sure pushes are actually there
-    global.verifyCpiPushed = function(page) {
+    global.verifyA2Pushed = function(page) {
         function matchUrl(el) {
             return el.url === this.valueOf();
         }
@@ -179,7 +179,7 @@
         return urlObj;
     }
 
-    //expands out relative urls reported by CPI debug to compare to absolute urls given by Akamai edge servers
+    //expands out relative urls reported by A2 debug to compare to absolute urls given by Akamai edge servers
     global.expandUrl = function(url, baseUrl) {
         var isAbsUrl = new RegExp('^(?:[a-z]+:)?//', 'i');
         if (isAbsUrl.test(url)) {

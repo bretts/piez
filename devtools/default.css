@@ -223,6 +223,10 @@ td {
 	padding-right: 1px;
 }
 
+.subHeaderInfo {
+	text-align: center;
+}
+
 @media all and ( max-width: 1920px ) {
 	.detailed-results td.urlData {
 		max-width:1000px;

@@ -97,6 +97,8 @@ h3 {
 	white-space: nowrap;
 	text-overflow:ellipsis;
 	overflow: hidden;
+	text-align: left;
+	max-width:1200px;
 }
 [class='detailed-results-a2'] th {
 	padding-left: 100px;

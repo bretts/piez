@@ -13,6 +13,7 @@
 
     global.ParsePageA2 = function(har, page) {
         var basePageUrl = har.pages[0].title; //current Chrome har implementation only keeps track of latest page navigated to
+        page.pageLoadTime = Math.round(har.pages[0].pageTimings.onLoad);
         har.entries.forEach(function(entry) {
             if(entry.response.status === 304) {
                 page.localCacheEnabled = true;

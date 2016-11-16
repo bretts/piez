@@ -54,7 +54,7 @@
         http_transaction.response.headers.forEach(function(header) {
 
             page.baseUrl = http_transaction.request.url;
-            if (/x-akamai-cpi-enabled/i.test(header.name)) {
+            if (/x-akamai-a2-enabled/i.test(header.name)) {
                 page.A2Enabled = (header.value === 'true');
             }
             if (/x-akamai-rua-debug-policy-version/i.test(header.name)) {
@@ -135,8 +135,11 @@
         function matchUrl(el) {
             return el.url === this.valueOf();
         }
+        var lastParsedUrl = null;
         page.resourcesPushed.common.forEach(function(element) {
-            var urlStr = expandUrl(element.url, page.baseUrl);
+            var parsedUrl = expandUrl(element.url, page.baseUrl, lastParsedUrl);
+            var urlStr = parsedUrl.toString();
+            lastParsedUrl = parsedUrl;
             var found = page.resourcesPushed.edgePushed.findIndex(matchUrl, urlStr);
             if(found === -1) {
                 page.resourcesPushed.notUsed.pushIfUnique(element);
@@ -146,7 +149,9 @@
             }
         });
         page.resourcesPushed.unique.forEach(function(element) {
-            var urlStr = expandUrl(element.url, page.baseUrl);
+            var parsedUrl = expandUrl(element.url, page.baseUrl, lastParsedUrl);
+            var urlStr = parsedUrl.toString();
+            lastParsedUrl = parsedUrl;
             var found = page.resourcesPushed.edgePushed.findIndex(matchUrl, urlStr);
             if(found === -1) {
                 page.resourcesPushed.notUsed.pushIfUnique(element);
@@ -181,13 +186,13 @@
     }
 
     //expands out relative urls reported by A2 debug to compare to absolute urls given by Akamai edge servers
-    global.expandUrl = function(url, baseUrl) {
+    global.expandUrl = function(url, baseUrl, lastParsedUrl) {
         var isAbsUrl = new RegExp('^(?:[a-z]+:)?//', 'i');
         if (isAbsUrl.test(url)) {
-            return parseUrl(url).toString(); //fully expand out in case of protocol-relative urls
+            return parseUrl(url); //fully expand out in case of protocol-relative urls
         }
         else { //deal with the various types of relative urls
-            var parsedBase = parseUrl(baseUrl);
+            var parsedBase = lastParsedUrl == null ? parseUrl(baseUrl) : lastParsedUrl;
             var urlStr = parsedBase.protocol + '//' + parsedBase.host + parsedBase.path;
             if (url.slice(0,1) === '/') { //relative to base
                 urlStr = parsedBase.protocol + '//' + parsedBase.host; //the relative url already begins with a slash
@@ -195,7 +200,7 @@
             else if (urlStr.slice(-1) !== '/') {
                 urlStr = urlStr + '/';
             }
-            return parseUrl(urlStr + url).toString(); //parse our new base url with the relative
+            return parseUrl(urlStr + url); //parse our new base url with the relative
         }
     };
 

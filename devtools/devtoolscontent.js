@@ -12,7 +12,7 @@ function parseImResponse(http_transaction) {
 }
 
 function newPageRequest(url) {
-    hideDetails();
+    hideDetails(PiezController.current_display_mode);
     PiezController.current_page = new Page();
     port.postMessage({
         type: "update-piez-analytics"

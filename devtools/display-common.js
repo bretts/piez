@@ -29,24 +29,26 @@
 	};
 
 	global.showSummaryTable = function(display_mode) {
-            document.getElementById('conversionSummary').style.display = 'block';
+            var summaryTable = document.getElementById('conversionSummary');
+            summaryTable.style.display = 'block';
         if (display_mode === 'piezModeBrowserFormatCompare') {
-            document.getElementById('col-1-title').textContent = 'Generic';
-            document.getElementById('col-2-title').textContent = 'Chrome';
-            document.getElementById('col-3-title').textContent = 'Safari';
-            document.getElementById('col-4-title').textContent = 'IE';
+            summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Generic</h1><h3 id="col-1-info">&nbsp</h3></div>' +
+                                        '<div class="col-1-4-box"><h1 id="col-2-title">Chrome</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
+                                        '<div class="col-1-4-box"><h1 id="col-3-title">Safari</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
+                                        '<div class="col-1-4-box"><h1 id="col-4-title">IE</h1><h3 id="col-4-info">&nbsp;</h3></div>';
         }
         else if (display_mode == 'piezModeA2') {
-            document.getElementById('col-1-title').textContent = 'Adaptive Acceleration Status';
-            document.getElementById('col-2-title').textContent = 'Policy Version';
-            document.getElementById('col-3-title').textContent = 'Preconnects';
-            document.getElementById('col-4-title').textContent = 'Pushed Resources';
+            summaryTable.innerHTML =    '<div class="col-1-5-box"><h1 id="col-1-title">Adaptive Acceleration Status</h1><h3 id="col-1-info">&nbsp</h3></div>' +
+                                        '<div class="col-1-5-box"><h1 id="col-2-title">Policy Version</h1><h3 id="col-2-info">&nbsp</h3></div>' +
+                                        '<div class="col-1-5-box"><h1 id="col-3-title">Preconnects</h1><h3 id="col-3-info">&nbsp</h3></div>' +
+                                        '<div class="col-1-5-box"><h1 id="col-4-title">Pushed Resources</h1><h3 id="col-4-info">&nbsp</h3></div>' +
+                                        '<div class="col-1-5-box"><h1 id="col-5-title">Page Load Time (ms)</h1><h3 id="col-5-info">&nbsp</h3></div>';
         }
         else {
-            document.getElementById('col-1-title').textContent = 'Optimized Realtime';
-            document.getElementById('col-2-title').textContent = 'Optimized Offline';
-            document.getElementById('col-3-title').textContent = 'Total Saved Bytes';
-            document.getElementById('col-4-title').textContent = '% Bytes Change';
+            summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Optimized Realtime</h1><h3 id="col-1-info">&nbsp</h3></div>' +
+                                        '<div class="col-1-4-box"><h1 id="col-2-title">Optimized Offline</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
+                                        '<div class="col-1-4-box"><h1 id="col-3-title">Total Saved Bytes</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
+                                        '<div class="col-1-4-box"><h1 id="col-4-title">% Bytes Change</h1><h3 id="col-4-info">&nbsp;</h3></div>';
         }
 	};
 
@@ -64,6 +66,11 @@
             document.getElementById('col-3-info').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;
             total = page.resourcesPushed.common.length + page.resourcesPushed.unique.length;
             document.getElementById('col-4-info').textContent = (total - page.resourcesPushed.notUsed.length) +  '/' + total;
+            if (page.pageLoaded) {
+                document.getElementById('col-5-info').textContent = page.pageLoadTime;
+            } else {
+                document.getElementById('col-5-info').textContent = '\u00A0';
+            }
         }
     	else {
             document.getElementById('col-1-info').textContent = page.totalICImagesTransformed.toString();
@@ -109,12 +116,15 @@
 		}
 	};
 
-    global.hideDetails = function() {
+    global.hideDetails = function(display_mode) {
         //insert blank space to keep box height
         document.getElementById('col-1-info').textContent        = '\u00A0';
         document.getElementById('col-2-info').textContent        = '\u00A0';
         document.getElementById('col-3-info').textContent        = '\u00A0';
         document.getElementById('col-4-info').textContent        = '\u00A0';
+        if (document.getElementById('col-5-info'))  {
+            document.getElementById('col-5-info').textContent        = '\u00A0';
+        }
         document.getElementById('imageBox').style.display        = 'none';
         document.getElementById('detailsBox1').style.display = 'none';
         document.getElementById('detailsBox2').style.display = 'none';

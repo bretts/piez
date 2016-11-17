@@ -56,7 +56,7 @@
             document.getElementById('detailsBox1').style.display = 'block';
         }
         var preconnectsTable = '<table class="detailed-results-a2">';
-        preconnectsTable += '<thead><tr>' + '<th>Peconnect URL</th>' + '<th>Type</th>' + '<th>Status</th>' + '</tr></thead>';
+        preconnectsTable += '<thead><tr>' + '<th>Preconnect URL</th>' + '<th>Type</th>' + '<th>Status</th>' + '</tr></thead>';
         preconnectsTable += '<tbody>';
         page.preconnects.common.forEach(function(info) {
             preconnectsTable += '<tr class="urlInfo"><td class="urlData" title="' + info + '">'  + info +'</td>' ;

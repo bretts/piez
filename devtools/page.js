@@ -3,6 +3,7 @@
 
 	global.Page = function() {
         this.pageLoaded                 = false;
+        this.pageLoadTime				= 0;
 		this.totalOriginalSize          = 0;
 		this.totalImTransformSize       = 0;
 		this.totalIMImagesTransformed   = 0;

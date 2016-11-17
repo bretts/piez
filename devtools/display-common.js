@@ -38,11 +38,10 @@
                                         '<div class="col-1-4-box"><h1 id="col-4-title">IE</h1><h3 id="col-4-info">&nbsp;</h3></div>';
         }
         else if (display_mode == 'piezModeA2') {
-            summaryTable.innerHTML =    '<div class="col-1-5-box"><h1 id="col-1-title">Adaptive Acceleration Status</h1><h3 id="col-1-info">&nbsp</h3></div>' +
-                                        '<div class="col-1-5-box"><h1 id="col-2-title">Policy Version</h1><h3 id="col-2-info">&nbsp</h3></div>' +
-                                        '<div class="col-1-5-box"><h1 id="col-3-title">Preconnects</h1><h3 id="col-3-info">&nbsp</h3></div>' +
-                                        '<div class="col-1-5-box"><h1 id="col-4-title">Pushed Resources</h1><h3 id="col-4-info">&nbsp</h3></div>' +
-                                        '<div class="col-1-5-box"><h1 id="col-5-title">Page Load Time (ms)</h1><h3 id="col-5-info">&nbsp</h3></div>';
+            summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Policy Version</h1><h3 id="col-1-info">&nbsp</h3></div>' +
+                                        '<div class="col-1-4-box"><h1 id="col-2-title">Preconnects</h1><h3 id="col-2-info">&nbsp</h3></div>' +
+                                        '<div class="col-1-4-box"><h1 id="col-3-title">Pushed Resources</h1><h3 id="col-3-info">&nbsp</h3></div>' +
+                                        '<div class="col-1-4-box"><h1 id="col-4-title">Page Load Time (ms)</h1><h3 id="col-4-info">&nbsp</h3></div>';
         }
         else {
             summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Optimized Realtime</h1><h3 id="col-1-info">&nbsp</h3></div>' +
@@ -60,16 +59,15 @@
     		document.getElementById('col-4-info').innerHTML   = displayBytes(page.ieFormatTotal);
     	}
         else if (display_mode === 'piezModeA2')  {
-            document.getElementById('col-1-info').textContent = (page.A2Enabled) ? 'On' : 'Off';
-            document.getElementById('col-2-info').textContent = (page.A2Policy) ? ('Version: ' + page.A2Policy) : 'None';
+            document.getElementById('col-1-info').textContent = (page.A2Policy) ? ('Version: ' + page.A2Policy) : 'None';
             var total = page.preconnects.common.length + page.preconnects.unique.length;
-            document.getElementById('col-3-info').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;
+            document.getElementById('col-2-info').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;
             total = page.resourcesPushed.common.length + page.resourcesPushed.unique.length;
-            document.getElementById('col-4-info').textContent = (total - page.resourcesPushed.notUsed.length) +  '/' + total;
+            document.getElementById('col-3-info').textContent = (total - page.resourcesPushed.notUsed.length) +  '/' + total;
             if (page.pageLoaded) {
-                document.getElementById('col-5-info').textContent = page.pageLoadTime;
+                document.getElementById('col-4-info').textContent = page.pageLoadTime;
             } else {
-                document.getElementById('col-5-info').textContent = '\u00A0';
+                document.getElementById('col-4-info').textContent = '\u00A0';
             }
         }
     	else {
@@ -97,11 +95,11 @@
 		document.getElementById('notEnabled').style.display = 'none';
 	};
 
-	global.showPiezNotEnabledTable = function(message_html) {
+	global.showPiezNotEnabledTable = function(message_header, message_steps) {
 		document.getElementById('conversionSummary').style.display = 'none';
 		document.getElementById('conversionDetails').style.display = 'none';
 		document.getElementById('notEnabled').style.display        = 'block';
-		document.getElementById('notEnabled').innerHTML            = "<div class='piezConfigMessage'>" + message_html + '</div>';
+		document.getElementById('notEnabled').innerHTML            = "<div class='piezConfigMessageHeader'>" + message_header + '</div>' + "<div class='piezConfigMessageSteps'>" + message_steps + '</div>';
 	};
 
 	global.fileSizeDiff = function(originalSize, transformedSize) {
@@ -122,9 +120,6 @@
         document.getElementById('col-2-info').textContent        = '\u00A0';
         document.getElementById('col-3-info').textContent        = '\u00A0';
         document.getElementById('col-4-info').textContent        = '\u00A0';
-        if (document.getElementById('col-5-info'))  {
-            document.getElementById('col-5-info').textContent        = '\u00A0';
-        }
         document.getElementById('imageBox').style.display        = 'none';
         document.getElementById('detailsBox1').style.display = 'none';
         document.getElementById('detailsBox2').style.display = 'none';

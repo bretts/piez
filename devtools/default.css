@@ -59,11 +59,6 @@ h3 {
 [class*="col-"]:last-child {
 	margin-right: 0;
 }
-.col-1-5-box {
-	width: 20%;
-	max-height: 188px;
-	overflow: hidden;
-}
 .col-1-4-box {
 	width: 25%;
 	max-height: 188px;
@@ -151,15 +146,20 @@ a:hover {
 a:visited {
 	color: #656565;
 }
-.piezConfigMessage {
-	font-size: 15px;
+.piezConfigMessageHeader {
+	font-size: 25px;
 	color: yellow;
-	text-align: left;
+	text-align: center;
 	width: 50%;
 	margin: auto;
 }
-.piezConfigMessage ol {
+.piezConfigMessageSteps ol {
 	list-style-position: inside;
+	font-size: 15px;
+	color: yellow;
+	text-align: left;
+	width: 30%;
+	margin: auto;
 }
 .selectedImage {
 	border: solid 4px green;

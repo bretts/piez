@@ -43,12 +43,14 @@
                 || (page.preconnects.common.length + page.preconnects.unique.length)
                 || (page.resourcesPushed.common.length + page.resourcesPushed.unique.length);
         }
-        if (!isA2Enabled()) {
+        if (page.pageLoaded && !isA2Enabled()) {
+            document.getElementById('notEnabled').style.display  = 'block';
+            document.getElementById('notEnabled').innerHTML      = "<div class='piezConfigMessageHeader'>" + 'A2 is not enabled for this site' + '</div>';
             return;
         } //do nothing if we don't have a valid policy or A2 not enabled
         else {
             page.A2Enabled = true;
-            document.getElementById('col-1-info').textContent = 'On';
+            document.getElementById('notEnabled').style.display = 'none';
         }
 
         //preconnects

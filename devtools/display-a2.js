@@ -45,7 +45,7 @@
         }
         if (page.pageLoaded && !isA2Enabled()) {
             document.getElementById('notEnabled').style.display  = 'block';
-            document.getElementById('notEnabled').innerHTML      = "<div class='piezConfigMessageHeader'>" + 'A2 is not enabled for this site' + '</div>';
+            document.getElementById('notEnabled').innerHTML      = "<div class='piezConfigMessageHeader'>" + 'A2 was not applied on this response' + '</div>';
             return;
         } //do nothing if we don't have a valid policy or A2 not enabled
         else {

@@ -3,9 +3,9 @@
 
     var timeoutID;
 
-    function A2LoadingPage() {
+    function a2LoadingPage() {
         hideDetails();
-        if (PiezController.current_page.A2Started) {
+        if (piezController.current_page.a2Started) {
             document.getElementById("conversionDetailsAjaxLoader").style.display = 'block';
         }
     }
@@ -14,15 +14,15 @@
         if (display !== 'piezModeA2') {
             return;
         }
-        A2LoadingPage();
+        a2LoadingPage();
         if (!timeoutID) {
             timeoutID = setTimeout(function() {
                 chrome.devtools.network.getHAR(function(har) {
                     if (display === 'piezModeA2') {
-                        ParsePageA2(har, page);
+                        parsePageA2(har, page);
                     }
                     page.pageLoaded = true;
-                    Report(page, display);
+                    report(page, display);
                 });
             }, 20000);
         }
@@ -36,7 +36,7 @@
             timeoutID = undefined;
         }
         else {
-            A2LoadingPage();
+            a2LoadingPage();
         }
         function isA2Enabled() {
             return (page.A2Enabled && page.A2Policy)

@@ -1,4 +1,4 @@
-ParseImHeaders = function(http_transaction, page, display_mode) {
+parseImHeaders = function(http_transaction, page, display_mode) {
     if(display_mode === 'piezModeBrowserFormatCompare') {
         parseImHeadersBrowserFormatCompare(http_transaction, page, display_mode);
     }

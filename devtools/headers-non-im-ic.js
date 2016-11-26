@@ -1,7 +1,7 @@
 (function(global) {
     'use strict';
 
-    global.ParseNonImOrIcImageHeaders = function(http_transaction, page) {
+    global.parseNonImOrIcImageHeaders = function(http_transaction, page) {
             var res = {};
             res.url = http_transaction.request.url;
 

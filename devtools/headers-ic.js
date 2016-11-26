@@ -1,7 +1,7 @@
 (function(global) {
     'use strict';
 
-    global.ParseIcHeaders = function(http_transaction, page) {
+    global.parseIcHeaders = function(http_transaction, page) {
             var res = {};
             res.url = http_transaction.request.url;
 

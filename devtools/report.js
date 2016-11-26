@@ -1,7 +1,7 @@
 (function(global) {
 	'use strict';
 
-	global.Report = function(page, display_mode) {
+	global.report = function(page, display_mode) {
         if(display_mode == 'piezModeOff') {
 			showPiezNotEnabledTable("<p>Piez Is Not Currently Enabled. The following steps are required:</p>", "<ol><li>Enable Piez by clicking the Piez button in the top right of the browser and selecting enable.</li><li>Click the Chrome browser refresh button</li></ol>");
 		}

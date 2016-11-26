@@ -1,18 +1,18 @@
 (function(global) {
     'use strict';
 
-    global.ParseHeaders = function(http_transaction, page, display_mode) {
+    global.parseHeaders = function(http_transaction, page, display_mode) {
         if (display_mode === 'piezModeA2') { //A2 does parsing separate from this
             return;
         }
 
         if(/x-im-original-size/i.test(JSON.stringify(http_transaction.response.headers))) {
             page.totalIMImagesTransformed += 1;
-            ParseImHeaders(http_transaction, page, display_mode);
+            parseImHeaders(http_transaction, page, display_mode);
         }
         else if(/akamai image server/i.test(JSON.stringify(http_transaction.response.headers))) {
             page.totalICImagesTransformed += 1;
-            ParseIcHeaders(http_transaction, page);
+            parseIcHeaders(http_transaction, page);
         }
         else {
             for(var i=0; i<http_transaction.response.headers.length; i++) {
@@ -23,7 +23,7 @@
                         }
                         else {
                             page.totalNonImImages += 1;
-                            ParseNonImOrIcImageHeaders(http_transaction, page);
+                            parseNonImOrIcImageHeaders(http_transaction, page);
                         }
                     }
                 }

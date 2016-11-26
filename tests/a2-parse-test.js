@@ -72,14 +72,14 @@ QUnit.module('Detecting base page', {
 
 QUnit.test('Basic base page detection', function(assert) {
     assert.expect(1);
-    ParsePageA2(this.har, this.page);
+    parsePageA2(this.har, this.page);
     assert.equal(this.page.baseUrl, 'https://example.com/');
 });
 QUnit.test('Following redirects', function(assert) {
     assert.expect(1);
     this.har.entries[0].response.status = 300;
     this.har.entries[1].response.status = 309;
-    ParsePageA2(this.har, this.page);
+    parsePageA2(this.har, this.page);
     assert.equal(this.page.baseUrl, 'https://example.com/3');
 });
 
@@ -91,7 +91,7 @@ QUnit.test('H1 redirect to H2', function(assert) {
     this.har.entries[0].response.status = 301;
     this.har.entries[1].request.url = 'https://example.com/';
     this.har.entries[1].response.status = 302;
-    ParsePageA2(this.har, this.page);
+    parsePageA2(this.har, this.page);
     assert.equal(this.page.baseUrl, 'https://example.com/3');
 });
 
@@ -185,7 +185,7 @@ QUnit.module('Parsing resources from HAR', {
 
 QUnit.test('A2 Status and policy version', function(assert) {
     assert.expect(6);
-    ParsePageA2(this.har, this.page);
+    parsePageA2(this.har, this.page);
     assert.ok(this.page.A2Enabled, 'A2 enabled is true');
     assert.ok(this.page.A2Policy, 'Policy value given');
 
@@ -194,13 +194,13 @@ QUnit.test('A2 Status and policy version', function(assert) {
         {name: 'x-akamai-rua-debug-policy-version', value: ''}
     ];
     this.page = new Page();
-    ParsePageA2(this.har, this.page);
+    parsePageA2(this.har, this.page);
     assert.notOk(this.page.A2Enabled, 'A2 enabled is false');
     assert.notOk(this.page.A2Policy, 'No policy value');
 
     this.har.entries[0].response.headers = [];
     this.page = new Page();
-    ParsePageA2(this.har, this.page);
+    parsePageA2(this.har, this.page);
     assert.notOk(this.page.A2Enabled, 'No headers');
     assert.notOk(this.page.A2Policy, 'No headers');
 });
@@ -213,7 +213,7 @@ QUnit.test('Common preconnects only', function(assert) {
             value: '<https://example2.com>;rel="preconnect",<https://example3.com>;rel="preconnect"'
         }
     );
-    ParsePageA2(this.har, this.page);
+    parsePageA2(this.har, this.page);
     assert.equal(this.page.preconnects.common.length, 2, '# of preconnects found should be 2');
     assert.notEqual(this.page.preconnects.common.indexOf('https://example2.com'), -1, 'finding https://example2.com in common preconnects');
     assert.notEqual(this.page.preconnects.common.indexOf('https://example3.com'), -1, 'finding https://example3.com in common preconnects');
@@ -228,7 +228,7 @@ QUnit.test('Unique preconnects only', function(assert) {
             value: '<https://example4.com>;rel="preconnect",<https://example5.com>;rel="preconnect"'
         }
     );
-    ParsePageA2(this.har, this.page);
+    parsePageA2(this.har, this.page);
     assert.equal(this.page.preconnects.unique.length, 2, '# of preconnects found should be 2');
     assert.notEqual(this.page.preconnects.unique.indexOf('https://example4.com'), -1, 'finding https://example4.com in unique preconnects');
     assert.notEqual(this.page.preconnects.unique.indexOf('https://example5.com'), -1, 'finding https://example5.com in unique preconnects');
@@ -250,7 +250,7 @@ QUnit.test('All preconnects + link header', function(assert) {
             value: '<https://example2.com>;rel="preconnect",<https://example3.com>;rel="preconnect",<https://example4.com>;rel="preconnect",<https://example5.com>;rel="preconnect"'
         }
     );
-    ParsePageA2(this.har, this.page);
+    parsePageA2(this.har, this.page);
     assert.equal(this.page.preconnects.unique.length + this.page.preconnects.common.length, 4, '# of preconnects found should be 4');
     assert.equal(this.page.preconnects.linkHeader.length, 4, '# of preconnects in link header should be 4');
     assert.notEqual(this.page.preconnects.common.indexOf('https://example2.com'), -1, 'finding https://example2.com in common preconnects');
@@ -267,7 +267,7 @@ QUnit.test('Common pushes only', function(assert) {
             value: '/test1 /test2'
         }
     );
-    ParsePageA2(this.har, this.page);
+    parsePageA2(this.har, this.page);
     assert.equal(this.page.resourcesPushed.common.length, 2, '# of pushes found should be 2');
     assert.ok(this.page.resourcesPushed.common.find(function(el) {
         return el.url === '/test1';
@@ -285,7 +285,7 @@ QUnit.test('Unique pushes only', function(assert) {
             value: '/test3 /test4'
         }
     );
-    ParsePageA2(this.har, this.page);
+    parsePageA2(this.har, this.page);
     assert.equal(this.page.resourcesPushed.unique.length, 2, '# of pushes found should be 2');
     assert.ok(this.page.resourcesPushed.unique.find(function(el) {
         return el.url === '/test3';
@@ -334,7 +334,7 @@ QUnit.test('Pushes in header and pushed resources', function(assert) {
             }
         }
     );
-    ParsePageA2(this.har, this.page);
+    parsePageA2(this.har, this.page);
     assert.equal(this.page.resourcesPushed.unique.length + this.page.resourcesPushed.common.length, 2, '# of pushes found should be 2');
     assert.equal(this.page.resourcesPushed.edgePushed.length, 2, '# of resources verified to be pushed should be 2');
     assert.equal(this.page.resourcesPushed.notUsed, 0, 'all pushed resources verified');

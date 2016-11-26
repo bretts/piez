@@ -30,6 +30,18 @@ window.onload = function() {
         });
     };
 
+    document.getElementById("piezModeRoSimple").onclick = function() {
+        chrome.runtime.sendMessage({
+            type: "piez-ro-simple"
+        });
+    };
+
+    document.getElementById("piezModeRoAdvanced").onclick = function() {
+        chrome.runtime.sendMessage({
+            type: "piez-ro-advanced"
+        });
+    };
+
 	var setFormField = function(piezSettings) {
         chrome.storage.local.get("piezCurrentState", function(result) {
 			document.getElementById(result["piezCurrentState"]).checked = true;

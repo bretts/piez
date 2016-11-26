@@ -2,7 +2,7 @@
 	'use strict';
 
 	global.report = function(page, display_mode) {
-        if(display_mode == 'piezModeOff') {
+		if(display_mode == 'piezModeOff') {
 			showPiezNotEnabledTable("<p>Piez Is Not Currently Enabled. The following steps are required:</p>", "<ol><li>Enable Piez by clicking the Piez button in the top right of the browser and selecting enable.</li><li>Click the Chrome browser refresh button</li></ol>");
 		}
 		else if(page.localCacheEnabled === true) {
@@ -12,16 +12,20 @@
 			hidePiezNotEnabledTable();
 			showSummaryTable(display_mode);
 			showDetailsTable(display_mode);
-            updateSummaryTable(page, display_mode);
-            if(display_mode == 'piezModeA2') {
-                displayA2View(page);
-            }
-            else {
-    			updateImDetailsTable(page, display_mode);
-    			updateIcDetailsTable(page);
-    			updateNonImIcDetailsTable(page);
-                bindImageCompareListener();
-            }
+			updateSummaryTable(page, display_mode);
+			if(display_mode == 'piezModeA2') {
+				displayA2View(page);
+			}
+			else if(display_mode == 'piezModeRoSimple' || display_mode == 'piezModeRoAdvanced') {
+				updateRoDetailsTable(page, display_mode);
+				updateNonRoDetailsTable(page);
+			}
+			else {
+				updateImDetailsTable(page, display_mode);
+				updateIcDetailsTable(page);
+				updateNonImIcDetailsTable(page);
+				bindImageCompareListener();
+			}
 		}
 	};
 

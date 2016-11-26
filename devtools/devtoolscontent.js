@@ -6,7 +6,7 @@ chrome.storage.local.get('piezCurrentState', function(result) {
 });
 var port = chrome.runtime.connect({name:'piez'});
 
-function parseImResponse(http_transaction) {
+function parseResponse(http_transaction) {
     parseHeaders(http_transaction, piezController.current_page, piezController.current_display_mode);
     report(piezController.current_page, piezController.current_display_mode);
 }
@@ -29,7 +29,7 @@ function newPageRequest(url) {
 
 window.onload = function() {
     port.postMessage({type:'inspectedTab', tab: chrome.devtools.inspectedWindow.tabId});
-    chrome.devtools.network.onRequestFinished.addListener(parseImResponse);
+    chrome.devtools.network.onRequestFinished.addListener(parseResponse);
     chrome.devtools.network.onNavigated.addListener(newPageRequest);
 };
 

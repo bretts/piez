@@ -29,66 +29,82 @@
 	};
 
 	global.showSummaryTable = function(display_mode) {
-            var summaryTable = document.getElementById('conversionSummary');
-            summaryTable.style.display = 'block';
-        if (display_mode === 'piezModeBrowserFormatCompare') {
-            summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Generic</h1><h3 id="col-1-info">&nbsp</h3></div>' +
-                                        '<div class="col-1-4-box"><h1 id="col-2-title">Chrome</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
-                                        '<div class="col-1-4-box"><h1 id="col-3-title">Safari</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
-                                        '<div class="col-1-4-box"><h1 id="col-4-title">IE</h1><h3 id="col-4-info">&nbsp;</h3></div>';
-        }
-        else if (display_mode == 'piezModeA2') {
-            summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Policy Version</h1><h3 id="col-1-info">&nbsp</h3></div>' +
-                                        '<div class="col-1-4-box"><h1 id="col-2-title">Preconnects</h1><h3 id="col-2-info">&nbsp</h3></div>' +
-                                        '<div class="col-1-4-box"><h1 id="col-3-title">Pushed Resources</h1><h3 id="col-3-info">&nbsp</h3></div>' +
-                                        '<div class="col-1-4-box"><h1 id="col-4-title">Page Load Time (ms)</h1><h3 id="col-4-info">&nbsp</h3></div>';
-        }
-        else {
-            summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Optimized Realtime</h1><h3 id="col-1-info">&nbsp</h3></div>' +
-                                        '<div class="col-1-4-box"><h1 id="col-2-title">Optimized Offline</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
-                                        '<div class="col-1-4-box"><h1 id="col-3-title">Total Saved Bytes</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
-                                        '<div class="col-1-4-box"><h1 id="col-4-title">% Bytes Change</h1><h3 id="col-4-info">&nbsp;</h3></div>';
-        }
+			var summaryTable = document.getElementById('conversionSummary');
+			summaryTable.style.display = 'block';
+		if (display_mode === 'piezModeBrowserFormatCompare') {
+			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Generic</h1><h3 id="col-1-info">&nbsp</h3></div>' +
+									    '<div class="col-1-4-box"><h1 id="col-2-title">Chrome</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
+									    '<div class="col-1-4-box"><h1 id="col-3-title">Safari</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
+									    '<div class="col-1-4-box"><h1 id="col-4-title">IE</h1><h3 id="col-4-info">&nbsp;</h3></div>';
+		}
+		else if (display_mode == 'piezModeA2') {
+			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Policy Version</h1><h3 id="col-1-info">&nbsp</h3></div>' +
+									    '<div class="col-1-4-box"><h1 id="col-2-title">Preconnects</h1><h3 id="col-2-info">&nbsp</h3></div>' +
+									    '<div class="col-1-4-box"><h1 id="col-3-title">Pushed Resources</h1><h3 id="col-3-info">&nbsp</h3></div>' +
+									    '<div class="col-1-4-box"><h1 id="col-4-title">Page Load Time (ms)</h1><h3 id="col-4-info">&nbsp</h3></div>';
+		}
+		else if (display_mode == 'piezModeRoSimple' || display_mode == 'piezModeRoAdvanced') {
+			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Not Optimized</h1><h3 id="col-1-info">&nbsp</h3></div>' +
+									    '<div class="col-1-4-box"><h1 id="col-2-title">Optimized</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
+									    '<div class="col-1-4-box"><h1 id="col-3-title">Total Saved Bytes</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
+									    '<div class="col-1-4-box"><h1 id="col-4-title">% Bytes Change</h1><h3 id="col-4-info">&nbsp;</h3></div>';
+		}
+		else {
+			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Optimized Realtime</h1><h3 id="col-1-info">&nbsp</h3></div>' +
+									    '<div class="col-1-4-box"><h1 id="col-2-title">Optimized Offline</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
+									    '<div class="col-1-4-box"><h1 id="col-3-title">Total Saved Bytes</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
+									    '<div class="col-1-4-box"><h1 id="col-4-title">% Bytes Change</h1><h3 id="col-4-info">&nbsp;</h3></div>';
+		}
 	};
 
-    global.updateSummaryTable = function(page, display_mode) {
-    	if  (display_mode === 'piezModeBrowserFormatCompare') {
-    		document.getElementById('col-1-info').textContent = displayBytes(page.genericFormatTotal);
-    		document.getElementById('col-2-info').textContent = displayBytes(page.chromeFormatTotal);
-    		document.getElementById('col-3-info').textContent = displayBytes(page.safariFormatTotal);
-    		document.getElementById('col-4-info').innerHTML   = displayBytes(page.ieFormatTotal);
-    	}
-        else if (display_mode === 'piezModeA2')  {
-            document.getElementById('col-1-info').textContent = (page.A2Policy) ? ('Version: ' + page.A2Policy) : 'None';
-            var total = page.preconnects.common.length + page.preconnects.unique.length;
-            document.getElementById('col-2-info').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;
-            total = page.resourcesPushed.common.length + page.resourcesPushed.unique.length;
-            document.getElementById('col-3-info').textContent = (total - page.resourcesPushed.notUsed.length) +  '/' + total;
-            if (page.pageLoaded) {
-                document.getElementById('col-4-info').textContent = page.pageLoadTime;
-            } else {
-                document.getElementById('col-4-info').textContent = '\u00A0';
-            }
-        }
-    	else {
-            document.getElementById('col-1-info').textContent = page.totalICImagesTransformed.toString();
-            document.getElementById('col-2-info').textContent = page.totalIMImagesTransformed.toString();
-            document.getElementById('col-3-info').textContent = displayBytes(page.totalOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
-            document.getElementById('col-4-info').innerHTML   = displayPercentChange(page.totalOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
-    	}
-    };
+	global.updateSummaryTable = function(page, display_mode) {
+		if  (display_mode === 'piezModeBrowserFormatCompare') {
+			document.getElementById('col-1-info').textContent = displayBytes(page.genericFormatTotal);
+			document.getElementById('col-2-info').textContent = displayBytes(page.chromeFormatTotal);
+			document.getElementById('col-3-info').textContent = displayBytes(page.safariFormatTotal);
+			document.getElementById('col-4-info').innerHTML   = displayBytes(page.ieFormatTotal);
+		}
+		else if (display_mode === 'piezModeA2')  {
+			document.getElementById('col-1-info').textContent = (page.A2Policy) ? ('Version: ' + page.A2Policy) : 'None';
+			var total = page.preconnects.common.length + page.preconnects.unique.length;
+			document.getElementById('col-2-info').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;
+			total = page.resourcesPushed.common.length + page.resourcesPushed.unique.length;
+			document.getElementById('col-3-info').textContent = (total - page.resourcesPushed.notUsed.length) +  '/' + total;
+			if (page.pageLoaded) {
+				document.getElementById('col-4-info').textContent = page.pageLoadTime;
+			} else {
+				document.getElementById('col-4-info').textContent = '\u00A0';
+			}
+		}
+		else if(display_mode === 'piezModeRoSimple'|| display_mode == 'piezModeRoAdvanced') {
+			document.getElementById('col-1-info').textContent = page.totalNonRoResources.toString();
+			document.getElementById('col-2-info').textContent = page.totalRoOfflineTransforms.toString();
+			document.getElementById('col-3-info').textContent = displayBytes(page.totalRoOriginalSize - (page.totalRoOfflineTransformSize));
+			document.getElementById('col-4-info').innerHTML   = displayPercentChange(page.totalRoOriginalSize, (page.totalRoOfflineTransformSize));
+		}
+		else {
+			document.getElementById('col-1-info').textContent = page.totalICImagesTransformed.toString();
+			document.getElementById('col-2-info').textContent = page.totalIMImagesTransformed.toString();
+			document.getElementById('col-3-info').textContent = displayBytes(page.totalImIcOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
+			document.getElementById('col-4-info').innerHTML   = displayPercentChange(page.totalImIcOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
+		}
+	};
 
 	global.showDetailsTable = function(display_mode) {
 		document.getElementById('conversionDetails').style.display = 'block';
-        if (display_mode === 'piezModeA2') {
-            document.getElementById('detailsBox1Title').textContent = 'Preconnected Resources';
-            document.getElementById('detailsBox2Title').textContent = 'Pushed Resources';
-        }
-        else {
-            document.getElementById('detailsBox1Title').textContent = 'Optimized Offline Details';
-            document.getElementById('detailsBox2Title').textContent = 'Optimized Realtime Details';
-            document.getElementById('detailsBox3Title').textContent = 'Non Image Manager Images';
-        }
+		if (display_mode === 'piezModeA2') {
+			document.getElementById('detailsBox1Title').textContent = 'Preconnected Resources';
+			document.getElementById('detailsBox2Title').textContent = 'Pushed Resources';
+		}
+		 else if(display_mode === 'piezModeRoSimple' || display_mode == 'piezModeRoAdvanced') {
+			document.getElementById('detailsBox1Title').textContent = 'Optimized Details';
+		 	document.getElementById('detailsBox3Title').textContent = 'Not Optimized';
+		}
+		else {
+			document.getElementById('detailsBox1Title').textContent = 'Optimized Offline Details';
+			document.getElementById('detailsBox2Title').textContent = 'Optimized Realtime Details';
+			document.getElementById('detailsBox3Title').textContent = 'Non Image Manager Images';
+		}
 	};
 
 	global.hidePiezNotEnabledTable = function() {
@@ -114,15 +130,15 @@
 		}
 	};
 
-    global.hideDetails = function(display_mode) {
-        //insert blank space to keep box height
-        document.getElementById('col-1-info').textContent        = '\u00A0';
-        document.getElementById('col-2-info').textContent        = '\u00A0';
-        document.getElementById('col-3-info').textContent        = '\u00A0';
-        document.getElementById('col-4-info').textContent        = '\u00A0';
-        document.getElementById('imageBox').style.display        = 'none';
-        document.getElementById('detailsBox1').style.display = 'none';
-        document.getElementById('detailsBox2').style.display = 'none';
-        document.getElementById('detailsBox3').style.display = 'none';
-    };
+	global.hideDetails = function(display_mode) {
+		//insert blank space to keep box height
+		document.getElementById('col-1-info').textContent        = '\u00A0';
+		document.getElementById('col-2-info').textContent        = '\u00A0';
+		document.getElementById('col-3-info').textContent        = '\u00A0';
+		document.getElementById('col-4-info').textContent        = '\u00A0';
+		document.getElementById('imageBox').style.display        = 'none';
+		document.getElementById('detailsBox1').style.display = 'none';
+		document.getElementById('detailsBox2').style.display = 'none';
+		document.getElementById('detailsBox3').style.display = 'none';
+	};
 })(this);

@@ -14,6 +14,10 @@
             page.totalICImagesTransformed += 1;
             parseIcHeaders(http_transaction, page);
         }
+        else if(/akamai resource optimizer/i.test(JSON.stringify(http_transaction.response.headers))) {
+            page.totalRoOfflineTransforms += 1;
+            parseRoHeaders(http_transaction, page, display_mode);
+        }
         else {
             for(var i=0; i<http_transaction.response.headers.length; i++) {
                 if(/content-type/i.test(http_transaction.response.headers[i].name)) {
@@ -25,6 +29,14 @@
                             page.totalNonImImages += 1;
                             parseNonImOrIcImageHeaders(http_transaction, page);
                         }
+                    }
+                    else if(/css/i.test(http_transaction.response.headers[i].value)) {
+                        page.totalNonRoResources += 1;
+                        parseNonRoHeaders(http_transaction, page);
+                    }
+                    else if(/javascript/i.test(http_transaction.response.headers[i].value)) {
+                        page.totalNonRoResources += 1;
+                        parseNonRoHeaders(http_transaction, page);
                     }
                 }
             }

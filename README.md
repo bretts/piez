@@ -3,7 +3,7 @@ Piez
 
 PURPOSE
 -------
-The purpose of this program is to show how the Akamai Image Manager and Adaptive Acceleration services help to optimize a web page.
+The purpose of this program is to show how the Akamai Image Manager, Adaptive Acceleration, and Akamai Resource Optimizer services help to optimize a web page.
 
 USAGE
 -------------

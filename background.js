@@ -8,6 +8,8 @@ beforeSendCallback = function(details) {
 	}
 	if(details.url.indexOf('http') != -1) {
 		details.requestHeaders.push({name: 'x-im-piez', value: 'on'});
+		details.requestHeaders.push({name: 'x-akamai-ro-piez', value: 'on'});
+		details.requestHeaders.push({name: 'x-akamai-rua-debug', value: 'on'});
 		details.requestHeaders.push({name: 'pragma', value: 'akamai-x-ro-trace x-akamai-cpi-trace'});
 	}
 	if(details.url.indexOf('https') != -1 && details.frameId === 0 && urlMatch.test(details.url)) {

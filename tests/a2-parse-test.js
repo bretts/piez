@@ -173,7 +173,7 @@ QUnit.module('Parsing resources from HAR', {
                     response: {
                         status: 200,
                         headers: [
-                            {name: 'x-akamai-cpi-enabled', value: 'true'},
+                            {name: 'x-akamai-a2-enabled', value: 'true'},
                             {name: 'x-akamai-rua-debug-policy-version', value: '1'}
                         ]
                     }
@@ -190,7 +190,7 @@ QUnit.test('A2 Status and policy version', function(assert) {
     assert.ok(this.page.A2Policy, 'Policy value given');
 
     this.har.entries[0].response.headers = [
-        {name: 'x-akamai-cpi-enabled', value: 'false'},
+        {name: 'x-akamai-a2-enabled', value: 'false'},
         {name: 'x-akamai-rua-debug-policy-version', value: ''}
     ];
     this.page = new Page();

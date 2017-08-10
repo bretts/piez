@@ -14,9 +14,17 @@
             page.totalICImagesTransformed += 1;
             parseIcHeaders(http_transaction, page);
         }
-        else if(/akamai resource optimizer/i.test(JSON.stringify(http_transaction.response.headers))) {
-            page.totalRoOfflineTransforms += 1;
-            parseRoHeaders(http_transaction, page, display_mode);
+        else if(/RO_ENABLED\; value=true/i.test(JSON.stringify(http_transaction.response.headers))) {
+            if(/akamai resource optimizer/i.test(JSON.stringify(http_transaction.response.headers))) {
+                page.totalRoOfflineTransforms += 1;
+                // parseRoOfflineHeaders(http_transaction, page, display_mode);
+                parseRoHeaders(http_transaction, page, display_mode);
+            }
+            else {
+                page.totalRoInProcessTransforms += 1;
+                // parseRoInProcessHeaders(http_transaction, page, display_mode);
+                parseRoHeaders(http_transaction, page, display_mode);
+            }
         }
         else {
             for(var i=0; i<http_transaction.response.headers.length; i++) {

@@ -23,10 +23,11 @@
 		this.totalNonImOrIcSize           = 0;
 
 		this.totalRoOfflineTransforms     = 0;
-		this.totalRoInProcessTransforms   = 0;
+		this.totalRoInProgressTransforms  = 0;
 		this.totalRoOriginalSize          = 0;
 		this.totalRoOfflineTransformSize  = 0;
-		this.roDownloadDetails            = [];
+		this.roOfflineDownloadDetails     = [];
+		this.roInProgressDownloadDetails  = [];
 
 		this.totalNonRoResources          = 0;
 		this.totalNonRoSize               = 0;

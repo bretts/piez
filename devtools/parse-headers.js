@@ -15,15 +15,14 @@
             parseIcHeaders(http_transaction, page);
         }
         else if(/RO_ENABLED\; value=true/i.test(JSON.stringify(http_transaction.response.headers))) {
-            if(/akamai resource optimizer/i.test(JSON.stringify(http_transaction.response.headers))) {
+            if(/x-akamai-ro-file-source.*transformer/i.test(JSON.stringify(http_transaction.response.headers))) {
                 page.totalRoOfflineTransforms += 1;
-                // parseRoOfflineHeaders(http_transaction, page, display_mode);
-                parseRoHeaders(http_transaction, page, display_mode);
+                parseRoOfflineHeaders(http_transaction, page, display_mode);
+
             }
             else {
-                page.totalRoInProcessTransforms += 1;
-                // parseRoInProcessHeaders(http_transaction, page, display_mode);
-                parseRoHeaders(http_transaction, page, display_mode);
+                page.totalRoInProgressTransforms += 1;
+                parseRoInProgressHeaders(http_transaction, page, display_mode);
             }
         }
         else {

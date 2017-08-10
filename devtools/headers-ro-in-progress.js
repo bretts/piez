@@ -1,21 +1,21 @@
-parseRoHeaders = function(http_transaction, page, display_mode) {
+parseRoInProgressHeaders = function(http_transaction, page, display_mode) {
     if(display_mode === 'piezModeRoSimple') {
-        parseRoHeadersSimple(http_transaction, page, display_mode);
+        parseRoInProgressHeadersSimple(http_transaction, page, display_mode);
     }
     else {
-        parseRoHeadersSimple(http_transaction, page, display_mode);
+        parseRoInProgressHeadersSimple(http_transaction, page, display_mode);
     }
 };
 
-var parseRoHeadersSimple = function(http_transaction, page, display_mode) {
+var parseRoInProgressHeadersSimple = function(http_transaction, page, display_mode) {
     var res = {};
     res.url = http_transaction.request.url;
 
-    extractRoHeaders(http_transaction, page, res);
-    page.roDownloadDetails.push(res);
+    extractRoInProgressHeaders(http_transaction, page, res);
+    page.roInProgressDownloadDetails.push(res);
 };
 
-var extractRoHeaders = function(http_transaction, page, res) {
+var extractRoInProgressHeaders = function(http_transaction, page, res) {
     http_transaction.response.headers.forEach(function(header) {
         if(/X-Akamai-RO-Origin-Size/i.test(header.name)) {
             res.orgsize = header.value;
@@ -23,7 +23,7 @@ var extractRoHeaders = function(http_transaction, page, res) {
         }
         else if(/content-length/i.test(header.name)) {
             res.contlen = header.value;
-            page.totalRoOfflineTransformSize += parseInt(header.value);
+            page.totalRoInProgressTransformSize += parseInt(header.value);
         }
         else if(/content-type/i.test(header.name)) {
             res.contype = header.value;

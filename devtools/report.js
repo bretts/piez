@@ -18,6 +18,7 @@
 			}
 			else if(display_mode == 'piezModeRoSimple' || display_mode == 'piezModeRoAdvanced') {
 				updateRoDetailsTable(page, display_mode);
+				updateRoInProgressDetailsTable(page, display_mode)
 				updateNonRoDetailsTable(page);
 			}
 			else {

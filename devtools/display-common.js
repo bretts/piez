@@ -44,7 +44,7 @@
 									    '<div class="col-1-4-box"><h1 id="col-4-title">Page Load Time (ms)</h1><h3 id="col-4-info">&nbsp</h3></div>';
 		}
 		else if (display_mode == 'piezModeRoSimple' || display_mode == 'piezModeRoAdvanced') {
-			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Not Optimized</h1><h3 id="col-1-info">&nbsp</h3></div>' +
+			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Not RO Optimized</h1><h3 id="col-1-info">&nbsp</h3></div>' +
 									    '<div class="col-1-4-box"><h1 id="col-2-title">Optimized</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
 									    '<div class="col-1-4-box"><h1 id="col-3-title">Total Saved Bytes</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
 									    '<div class="col-1-4-box"><h1 id="col-4-title">% Bytes Change</h1><h3 id="col-4-info">&nbsp;</h3></div>';
@@ -98,6 +98,7 @@
 		}
 		 else if(display_mode === 'piezModeRoSimple' || display_mode == 'piezModeRoAdvanced') {
 			document.getElementById('detailsBox1Title').textContent = 'Optimized Details';
+			document.getElementById('detailsBox2Title').textContent = 'In Progress Details';
 		 	document.getElementById('detailsBox3Title').textContent = 'Not Optimized';
 		}
 		else {

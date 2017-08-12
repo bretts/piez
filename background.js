@@ -6,13 +6,13 @@ beforeSendCallback = function(details) {
 	if (details.tabId !== inspectedTab.id) { //make sure we're only affecting the inspected tab
 		return;
 	}
-	if(details.url.indexOf('http') != -1) {
+	if (details.url.indexOf('http') != -1) {
 		details.requestHeaders.push({name: 'x-im-piez', value: 'on'});
 		details.requestHeaders.push({name: 'x-akamai-ro-piez', value: 'on'});
 		details.requestHeaders.push({name: 'x-akamai-rua-debug', value: 'on'});
 		details.requestHeaders.push({name: 'pragma', value: 'akamai-x-ro-trace x-akamai-a2-trace'});
 	}
-	if(details.url.indexOf('https') != -1 && details.frameId === 0 && urlMatch.test(details.url)) {
+	if (details.url.indexOf('https') != -1 && details.frameId === 0 && urlMatch.test(details.url)) {
 		details.requestHeaders.push({name: 'x-akamai-rua-debug', value: ''}, {name:'pragma', value: 'akamai-x-ro-trace x-akamai-a2-trace'});
 	}
 	return {requestHeaders: details.requestHeaders};
@@ -41,7 +41,7 @@ chrome.webRequest.onBeforeRedirect.addListener(function getNewUrl(redirect) {
 chrome.runtime.onConnect.addListener(function(port) {
 	devtools_port = port;
 	port.onMessage.addListener(function onMessageListener (message) {
-		switch(message.type) {
+		switch (message.type) {
 			case "inspectedTab":
 				inspectedTab.id = message.tab;
 				break;
@@ -75,7 +75,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 
 var piezToggle = new PiezToggle();
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	switch(request.type) {
+	switch (request.type) {
 			case "piez-off":
 				piezToggle.turnPiezOff();
 				break;

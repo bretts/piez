@@ -2,8 +2,8 @@
 	'use strict';
 
 	global.Page = function() {
-        this.pageLoaded                   = false;
-        this.pageLoadTime                 = 0;
+		this.pageLoaded                   = false;
+		this.pageLoadTime                 = 0;
 		this.totalImIcOriginalSize        = 0;
 		this.totalImTransformSize         = 0;
 		this.totalIMImagesTransformed     = 0;
@@ -33,7 +33,7 @@
 		this.totalNonRoSize               = 0;
 		this.nonRoDetails                 = [];
 
-        this.preconnects                  = {common: [], unique: [], notUsed: [], linkHeader: []};
-        this.resourcesPushed              = {common: [], unique: [], notUsed: [], edgePushed: []};
+		this.preconnects                  = {common: [], unique: [], notUsed: [], linkHeader: []};
+		this.resourcesPushed              = {common: [], unique: [], notUsed: [], edgePushed: []};
 	};
 })(this);

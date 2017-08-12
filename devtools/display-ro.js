@@ -1,5 +1,5 @@
 function updateRoDetailsTable(page, display_mode) {
-	switch(display_mode) {
+	switch (display_mode) {
 		case "piezModeRoSimple":
 			updateRoSimpleTable(page);
 			break;

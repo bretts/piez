@@ -17,13 +17,13 @@
 
 		var pctChange = (((transformedSizeInt/originalSizeInt) - 1) * 100).toFixed(2);
 
-		if(transformedSizeInt == originalSizeInt) {
+		if (transformedSizeInt == originalSizeInt) {
 			return '<span class="warning">  ' + '0%' + '</td>';
 		}
-		else if(pctChange > 0) {
+		else if (pctChange > 0) {
 			return '<span class="error"> +' + Math.abs(pctChange).toString() + "%" + '</td>';
 		}
-		else if(pctChange < 0) {
+		else if (pctChange < 0) {
 			return '<span class="success"> -' + Math.abs(pctChange).toString() + "%" + '</td>';
 		}
 	};
@@ -33,27 +33,27 @@
 			summaryTable.style.display = 'block';
 		if (display_mode === 'piezModeBrowserFormatCompare') {
 			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Generic</h1><h3 id="col-1-info">&nbsp</h3></div>' +
-									    '<div class="col-1-4-box"><h1 id="col-2-title">Chrome</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
-									    '<div class="col-1-4-box"><h1 id="col-3-title">Safari</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
-									    '<div class="col-1-4-box"><h1 id="col-4-title">IE</h1><h3 id="col-4-info">&nbsp;</h3></div>';
+										'<div class="col-1-4-box"><h1 id="col-2-title">Chrome</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
+										'<div class="col-1-4-box"><h1 id="col-3-title">Safari</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
+										'<div class="col-1-4-box"><h1 id="col-4-title">IE</h1><h3 id="col-4-info">&nbsp;</h3></div>';
 		}
 		else if (display_mode == 'piezModeA2') {
 			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Policy Version</h1><h3 id="col-1-info">&nbsp</h3></div>' +
-									    '<div class="col-1-4-box"><h1 id="col-2-title">Preconnects</h1><h3 id="col-2-info">&nbsp</h3></div>' +
-									    '<div class="col-1-4-box"><h1 id="col-3-title">Pushed Resources</h1><h3 id="col-3-info">&nbsp</h3></div>' +
-									    '<div class="col-1-4-box"><h1 id="col-4-title">Page Load Time (ms)</h1><h3 id="col-4-info">&nbsp</h3></div>';
+										'<div class="col-1-4-box"><h1 id="col-2-title">Preconnects</h1><h3 id="col-2-info">&nbsp</h3></div>' +
+										'<div class="col-1-4-box"><h1 id="col-3-title">Pushed Resources</h1><h3 id="col-3-info">&nbsp</h3></div>' +
+										'<div class="col-1-4-box"><h1 id="col-4-title">Page Load Time (ms)</h1><h3 id="col-4-info">&nbsp</h3></div>';
 		}
 		else if (display_mode == 'piezModeRoSimple' || display_mode == 'piezModeRoAdvanced') {
 			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Not RO Optimized</h1><h3 id="col-1-info">&nbsp</h3></div>' +
-									    '<div class="col-1-4-box"><h1 id="col-2-title">Optimized</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
-									    '<div class="col-1-4-box"><h1 id="col-3-title">Total Saved Bytes</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
-									    '<div class="col-1-4-box"><h1 id="col-4-title">% Bytes Change</h1><h3 id="col-4-info">&nbsp;</h3></div>';
+										'<div class="col-1-4-box"><h1 id="col-2-title">Optimized</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
+										'<div class="col-1-4-box"><h1 id="col-3-title">Total Saved Bytes</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
+										'<div class="col-1-4-box"><h1 id="col-4-title">% Bytes Change</h1><h3 id="col-4-info">&nbsp;</h3></div>';
 		}
 		else {
 			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Optimized Realtime</h1><h3 id="col-1-info">&nbsp</h3></div>' +
-									    '<div class="col-1-4-box"><h1 id="col-2-title">Optimized Offline</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
-									    '<div class="col-1-4-box"><h1 id="col-3-title">Total Saved Bytes</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
-									    '<div class="col-1-4-box"><h1 id="col-4-title">% Bytes Change</h1><h3 id="col-4-info">&nbsp;</h3></div>';
+										'<div class="col-1-4-box"><h1 id="col-2-title">Optimized Offline</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
+										'<div class="col-1-4-box"><h1 id="col-3-title">Total Saved Bytes</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
+										'<div class="col-1-4-box"><h1 id="col-4-title">% Bytes Change</h1><h3 id="col-4-info">&nbsp;</h3></div>';
 		}
 	};
 
@@ -96,10 +96,10 @@
 			document.getElementById('detailsBox1Title').textContent = 'Preconnected Resources';
 			document.getElementById('detailsBox2Title').textContent = 'Pushed Resources';
 		}
-		 else if(display_mode === 'piezModeRoSimple' || display_mode == 'piezModeRoAdvanced') {
+		 else if (display_mode === 'piezModeRoSimple' || display_mode == 'piezModeRoAdvanced') {
 			document.getElementById('detailsBox1Title').textContent = 'Optimized Details';
 			document.getElementById('detailsBox2Title').textContent = 'In Progress Details';
-		 	document.getElementById('detailsBox3Title').textContent = 'Not Optimized';
+			document.getElementById('detailsBox3Title').textContent = 'Not Optimized';
 		}
 		else {
 			document.getElementById('detailsBox1Title').textContent = 'Optimized Offline Details';
@@ -120,7 +120,7 @@
 	};
 
 	global.fileSizeDiff = function(originalSize, transformedSize) {
-		if(parseInt(originalSize) > parseInt(transformedSize)) {
+		if (parseInt(originalSize) > parseInt(transformedSize)) {
 			return '<td class="success">' + displayBytes(transformedSize) + '</td>';
 		}
 		else if (parseInt(originalSize) < parseInt(transformedSize)){

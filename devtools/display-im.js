@@ -1,5 +1,5 @@
 function updateImDetailsTable(page, display_mode) {
-	switch(display_mode) {
+	switch (display_mode) {
 		case "piezModeImSimple":
 			updateImSimpleTable(page);
 			break;
@@ -39,14 +39,14 @@ function updateImBrowserFormatCompareTable(page) {
 		 imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
 
 		 try {
-		 	imDetailsTable += '<td>' + displayBytes(detail.browserFormats.generic.contlen) + '</td>';
+			imDetailsTable += '<td>' + displayBytes(detail.browserFormats.generic.contlen) + '</td>';
 		 }
 		 catch(err) {
 			imDetailsTable += '<td></td>';
 		 }
 
 		 try {
-		 	imDetailsTable += '<td>' + displayBytes(detail.browserFormats.chrome.contlen) + '</td>';
+			imDetailsTable += '<td>' + displayBytes(detail.browserFormats.chrome.contlen) + '</td>';
 		 }
 		 catch(err) {
 			imDetailsTable += '<td></td>';
@@ -55,13 +55,13 @@ function updateImBrowserFormatCompareTable(page) {
 		 try {
 			imDetailsTable += '<td>' + displayBytes(detail.browserFormats.safari.contlen) + '</td>';
 		 }
-		 catch(err) {
+		 catch (err) {
 			imDetailsTable += '<td></td>';
 		 }
 		 try {
 			imDetailsTable += '<td>' + displayBytes(detail.browserFormats.ie.contlen);
 		 }
-		 catch(err) {
+		 catch (err) {
 			imDetailsTable += '<td></td>';
 		 }
 
@@ -125,15 +125,15 @@ function updateNonImIcDetailsTable(page) {
 }
 
 function getEncodingQuality(contentType, encodingQuality) {
-    if(contentType == 'image/gif' || contentType == 'image/png') {
-        return "N/A";
-    }
-    else if(encodingQuality == 'IMG-2834') {
+	if (contentType == 'image/gif' || contentType == 'image/png') {
+		return "N/A";
+	}
+	else if (encodingQuality == 'IMG-2834') {
 		return '-';
-    }
-    else {
-        return encodingQuality;
-    }
+	}
+	else {
+		return encodingQuality;
+	}
 }
 
 function bindImageCompareListener() {
@@ -152,7 +152,7 @@ function showImageCompare() {
 
 	document.getElementById('imageBox').style.display = 'none';
 
-	if(this.getAttribute('data-url').indexOf('?') == -1) {
+	if (this.getAttribute('data-url').indexOf('?') == -1) {
 		origImage = (this.getAttribute('data-url') + '?imbypass=true');
 	}
 	else {

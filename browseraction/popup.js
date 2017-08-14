@@ -18,12 +18,6 @@ window.onload = function() {
 		});
 	};
 
-	/*document.getElementById("piezModeBrowserFormatCompare").onclick = function() {
-		chrome.runtime.sendMessage({
-			type: "piez-browser-format-compare"
-		});
-	};*/
-
 	document.getElementById("piezModeA2").onclick = function() {
 		chrome.runtime.sendMessage({
 			type: "piez-a2"

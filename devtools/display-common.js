@@ -29,15 +29,10 @@
 	};
 
 	global.showSummaryTable = function(display_mode) {
-			var summaryTable = document.getElementById('conversionSummary');
-			summaryTable.style.display = 'block';
-		if (display_mode === 'piezModeBrowserFormatCompare') {
-			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Generic</h1><h3 id="col-1-info">&nbsp</h3></div>' +
-										'<div class="col-1-4-box"><h1 id="col-2-title">Chrome</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
-										'<div class="col-1-4-box"><h1 id="col-3-title">Safari</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
-										'<div class="col-1-4-box"><h1 id="col-4-title">IE</h1><h3 id="col-4-info">&nbsp;</h3></div>';
-		}
-		else if (display_mode == 'piezModeA2') {
+		var summaryTable = document.getElementById('conversionSummary');
+		summaryTable.style.display = 'block';
+
+		if (display_mode == 'piezModeA2') {
 			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Policy Version</h1><h3 id="col-1-info">&nbsp</h3></div>' +
 										'<div class="col-1-4-box"><h1 id="col-2-title">Preconnects</h1><h3 id="col-2-info">&nbsp</h3></div>' +
 										'<div class="col-1-4-box"><h1 id="col-3-title">Pushed Resources</h1><h3 id="col-3-info">&nbsp</h3></div>' +
@@ -58,13 +53,7 @@
 	};
 
 	global.updateSummaryTable = function(page, display_mode) {
-		if  (display_mode === 'piezModeBrowserFormatCompare') {
-			document.getElementById('col-1-info').textContent = displayBytes(page.genericFormatTotal);
-			document.getElementById('col-2-info').textContent = displayBytes(page.chromeFormatTotal);
-			document.getElementById('col-3-info').textContent = displayBytes(page.safariFormatTotal);
-			document.getElementById('col-4-info').innerHTML   = displayBytes(page.ieFormatTotal);
-		}
-		else if (display_mode === 'piezModeA2')  {
+		if (display_mode === 'piezModeA2')  {
 			document.getElementById('col-1-info').textContent = (page.A2Policy) ? ('Version: ' + page.A2Policy) : 'None';
 			var total = page.preconnects.common.length + page.preconnects.unique.length;
 			document.getElementById('col-2-info').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;

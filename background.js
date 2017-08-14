@@ -94,15 +94,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			case "piez-ro-advanced":
 				piezToggle.turnPiezOnRoAdvanced();
 				break;
-			case "piez-browser-format-compare":
-				piezToggle.turnPiezOnModeBrowserFormatCompare();
-				break;
-			case "request-alternate-browser-formats":
-				chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-					request["tabUrl"] = tabs[0].url;
-					chrome.tabs.sendMessage(tabs[0].id, request);
-				});
-				break;
 			default:
 				console.log('Unexpected extension request. ', request);
 	}

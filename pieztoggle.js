@@ -12,9 +12,6 @@ function PiezToggle() {
 				case "piezModeImAdvanced":
 					instance.turnPiezOnImAdvanced();
 					break;
-				case "piezModeBrowserFormatCompare":
-					instance.turnPiezOnModeBrowserFormatCompare();
-					break;
 				case "piezModeA2":
 					instance.turnPiezOnA2();
 					break;
@@ -47,16 +44,6 @@ PiezToggle.prototype.turnPiezOnImSimple = function() {
 
 PiezToggle.prototype.turnPiezOnImAdvanced = function() {
 		chrome.storage.local.set({"piezCurrentState": "piezModeImAdvanced"}, function() {
-				chrome.browserAction.setBadgeText({"text": "IM+"});
-				chrome.browserAction.setBadgeBackgroundColor({"color": [0, 255, 0, 255]});
-				if (!chrome.webRequest.onBeforeSendHeaders.hasListener(beforeSendCallback)) {
-					chrome.webRequest.onBeforeSendHeaders.addListener(beforeSendCallback, {urls: [ "<all_urls>" ]}, ['requestHeaders','blocking']);
-				}
-		});
-};
-
-PiezToggle.prototype.turnPiezOnModeBrowserFormatCompare = function() {
-		chrome.storage.local.set({"piezCurrentState": "piezModeBrowserFormatCompare"}, function() {
 				chrome.browserAction.setBadgeText({"text": "IM+"});
 				chrome.browserAction.setBadgeBackgroundColor({"color": [0, 255, 0, 255]});
 				if (!chrome.webRequest.onBeforeSendHeaders.hasListener(beforeSendCallback)) {

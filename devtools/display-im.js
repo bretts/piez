@@ -6,9 +6,6 @@ function updateImDetailsTable(page, display_mode) {
 		case "piezModeImAdvanced":
 			updateImAdvandedTable(page);
 			break;
-		case "piezModeBrowserFormatCompare":
-			updateImBrowserFormatCompareTable(page);
-			break;
 		default:
 			updateImSimpleTable(page);
 			break;

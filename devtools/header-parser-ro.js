@@ -44,10 +44,7 @@
 			else if (/content-length/i.test(header.name)) {
 				res.contlen = header.value;
 
-				if(resourceState == 'in-progress') {
-					page.totalRoInProgressTransformSize += parseInt(header.value);
-				}
-				else if (resourceState == 'offline') {
+				if (resourceState == 'offline') {
 					page.totalRoOfflineTransformSize += parseInt(header.value);
 				}
 			}

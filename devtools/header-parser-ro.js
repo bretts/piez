@@ -23,7 +23,7 @@
 		var res = {};
 		res.url = http_transaction.request.url;
 
-		extractRoHeaders(http_transaction, page, res);
+		extractRoHeaders(http_transaction, page, res, 'offline');
 		page.roOfflineDownloadDetails.push(res);
 	};
 
@@ -31,11 +31,11 @@
 		var res = {};
 		res.url = http_transaction.request.url;
 
-		extractRoHeaders(http_transaction, page, res);
+		extractRoHeaders(http_transaction, page, res, 'in-progress');
 		page.roInProgressDownloadDetails.push(res);
 	};
 
-	global.extractRoHeaders = function(http_transaction, page, res) {
+	global.extractRoHeaders = function(http_transaction, page, res, resourceState) {
 		http_transaction.response.headers.forEach(function(header) {
 			if (/X-Akamai-RO-Origin-Size/i.test(header.name)) {
 				res.orgsize = header.value;
@@ -43,7 +43,13 @@
 			}
 			else if (/content-length/i.test(header.name)) {
 				res.contlen = header.value;
-				page.totalRoInProgressTransformSize += parseInt(header.value);
+
+				if(resourceState == 'in-progress') {
+					page.totalRoInProgressTransformSize += parseInt(header.value);
+				}
+				else if (resourceState == 'offline') {
+					page.totalRoOfflineTransformSize += parseInt(header.value);
+				}
 			}
 			else if (/content-type/i.test(header.name)) {
 				res.contype = header.value;

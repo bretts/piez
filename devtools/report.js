@@ -2,7 +2,7 @@
 	'use strict';
 
 	global.report = function(page, display_mode) {
-		if (display_mode == 'piezModeOff') {
+		if (display_mode == 'piez-off') {
 			showPiezNotEnabledTable("<p>Piez Is Not Currently Enabled. The following steps are required:</p>", "<ol><li>Enable Piez by clicking the Piez button in the top right of the browser and selecting enable.</li><li>Click the Chrome browser refresh button</li></ol>");
 		}
 		else if (page.localCacheEnabled === true) {
@@ -13,10 +13,10 @@
 			showSummaryTable(display_mode);
 			showDetailsTable(display_mode);
 			updateSummaryTable(page, display_mode);
-			if(display_mode == 'piezModeA2') {
+			if(display_mode == 'piez-a2') {
 				displayA2View(page);
 			}
-			else if (display_mode == 'piezModeRoSimple' || display_mode == 'piezModeRoAdvanced') {
+			else if (display_mode == 'piez-ro-simple' || display_mode == 'piez-ro-advanced') {
 				updateRoDetailsTable(page, display_mode);
 				updateRoInProgressDetailsTable(page, display_mode)
 				updateNonRoDetailsTable(page);

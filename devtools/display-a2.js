@@ -11,14 +11,14 @@
 	}
 
 	global.displayA2Loading = function(page, display) {
-		if (display !== 'piezModeA2') {
+		if (display !== 'piez-a2') {
 			return;
 		}
 		a2LoadingPage();
 		if (!timeoutID) {
 			timeoutID = setTimeout(function() {
 				chrome.devtools.network.getHAR(function(har) {
-					if (display === 'piezModeA2') {
+					if (display === 'piez-a2') {
 						parsePageA2(har, page);
 					}
 					page.pageLoaded = true;

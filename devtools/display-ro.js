@@ -1,9 +1,9 @@
 function updateRoDetailsTable(page, display_mode) {
 	switch (display_mode) {
-		case "piezModeRoSimple":
+		case "piez-ro-simple":
 			updateRoSimpleTable(page);
 			break;
-		case "piezModeRoAdvanced":
+		case "piez-ro-advanced":
 			updateRoAdvandedTable(page);
 			break
 		default:

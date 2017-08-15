@@ -19,7 +19,7 @@ function newPageRequest(url) {
 	});
 	chrome.storage.local.get('piezCurrentState', function(result) {
 		piezController.current_display_mode = result['piezCurrentState'] || 'piezModeImSimple';
-		if (piezController.current_display_mode === 'piezModeA2') {
+		if (piezController.current_display_mode === 'piez-a2') {
 			piezController.current_page.a2Started = true;
 			displayA2Loading(piezController.current_page, piezController.current_display_mode);
 			port.postMessage({type:'a2PageLoad'});
@@ -39,7 +39,7 @@ port.onMessage.addListener(function(message) {
 		case 'a2PageLoaded':
 			chrome.devtools.network.getHAR(function(har) {
 				piezController.current_page.pageLoaded = true;
-				if (piezController.current_display_mode === 'piezModeA2') {
+				if (piezController.current_display_mode === 'piez-a2') {
 					parsePageA2(har, piezController.current_page);
 				}
 				report(piezController.current_page, piezController.current_display_mode);

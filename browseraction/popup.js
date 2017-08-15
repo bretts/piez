@@ -1,36 +1,35 @@
 window.onload = function() {
-
-	document.getElementById("piezModeOff").onclick = function() {
+	document.getElementById("piez-off").onclick = function() {
 		chrome.runtime.sendMessage({
 			type: "piez-off"
 		});
 	};
 
-	document.getElementById("piezModeImSimple").onclick = function() {
+	document.getElementById("piez-im-simple").onclick = function() {
 		chrome.runtime.sendMessage({
 			type: "piez-im-simple"
 		});
 	};
 
-	document.getElementById("piezModeImAdvanced").onclick = function() {
+	document.getElementById("piez-im-advanced").onclick = function() {
 		chrome.runtime.sendMessage({
 			type: "piez-im-advanced"
 		});
 	};
 
-	document.getElementById("piezModeA2").onclick = function() {
+	document.getElementById("piez-a2").onclick = function() {
 		chrome.runtime.sendMessage({
 			type: "piez-a2"
 		});
 	};
 
-	document.getElementById("piezModeRoSimple").onclick = function() {
+	document.getElementById("piez-ro-simple").onclick = function() {
 		chrome.runtime.sendMessage({
 			type: "piez-ro-simple"
 		});
 	};
 
-	document.getElementById("piezModeRoAdvanced").onclick = function() {
+	document.getElementById("piez-ro-advanced").onclick = function() {
 		chrome.runtime.sendMessage({
 			type: "piez-ro-advanced"
 		});

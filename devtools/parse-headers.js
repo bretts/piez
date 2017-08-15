@@ -2,7 +2,7 @@
 	'use strict';
 
 	global.parseHeaders = function(http_transaction, page, display_mode) {
-		if (display_mode === 'piezModeA2') { //A2 does parsing separate from this
+		if (display_mode === 'piez-a2') { //A2 does parsing separate from this
 			return;
 		}
 

@@ -1,5 +1,30 @@
 var inspectedTab = {};
 var devtools_port;
+var piezCurrentStateOptions = { 'piez-im-simple':
+                                                { 'browserActionText': 'IM',
+                                                  'localStorageState': 'piez-im-simple'
+                                                },
+                                'piez-im-advanced':
+                                                {
+                                                   'browserActionText': 'IM+',
+                                                   'localStorageState': 'piez-im-advanced'
+                                                },
+                                'piez-a2':
+                                                {
+                                                   'browserActionText': 'A2',
+                                                   'localStorageState': 'piez-a2'
+                                                },
+                                'piez-ro-simple':
+                                                {
+                                                   'browserActionText': 'RO',
+                                                   'localStorageState': 'piez-ro-simple'
+                                                },
+                                'piez-ro-advanced':
+                                                {
+                                                   'browserActionText': 'RO+',
+                                                   'localStorageState': 'piez-ro-advanced'
+                                                }
+                              }
 
 beforeSendCallback = function(details) {
 	var urlMatch = new RegExp('(' + inspectedTab.url + '|' + inspectedTab.url + '/)', 'i');
@@ -72,27 +97,30 @@ chrome.runtime.onConnect.addListener(function(port) {
 	});
 });
 
-
-var piezToggle = new PiezToggle();
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+	console.log('here we go');
 	switch (request.type) {
 			case "piez-off":
-				piezToggle.turnPiezOff();
+				chrome.storage.local.set({"piezCurrentState": "piez-off"}, function() {
+						chrome.browserAction.setBadgeText({"text": "OFF"});
+						chrome.browserAction.setBadgeBackgroundColor({"color": [255, 0, 0, 255]});
+						chrome.webRequest.onBeforeSendHeaders.removeListener(beforeSendCallback);
+				});
 				break;
 			case "piez-im-simple":
-				piezToggle.turnPiezOnImSimple();
+				setPiezCurrentState(piezCurrentStateOptions['piez-im-simple']['localStorageState'], piezCurrentStateOptions['piez-im-simple']['browserActionText']);
 				break;
 			case "piez-im-advanced":
-				piezToggle.turnPiezOnImAdvanced();
+				setPiezCurrentState(piezCurrentStateOptions['piez-im-advanced']['localStorageState'], piezCurrentStateOptions['piez-im-advanced']['browserActionText']);
 				break;
 			case "piez-a2":
-				piezToggle.turnPiezOnA2();
+				setPiezCurrentState(piezCurrentStateOptions['piez-a2']['localStorageState'], piezCurrentStateOptions['piez-a2']['browserActionText']);
 				break;
 			case "piez-ro-simple":
-				piezToggle.turnPiezOnRoSimple();
+				setPiezCurrentState(piezCurrentStateOptions['piez-ro-simple']['localStorageState'], piezCurrentStateOptions['piez-ro-simple']['browserActionText']);
 				break;
 			case "piez-ro-advanced":
-				piezToggle.turnPiezOnRoAdvanced();
+				setPiezCurrentState(piezCurrentStateOptions['piez-ro-advanced']['localStorageState'], piezCurrentStateOptions['piez-ro-advanced']['browserActionText']);
 				break;
 			default:
 				console.log('Unexpected extension request. ', request);
@@ -117,3 +145,33 @@ var logUrlAnalytics = function(tab) {
 	ga('require', 'displayfeatures');
 	ga('send', 'pageview', tab.url);
 };
+
+var setPiezCurrentState = function(state, browser_action_text) {
+	chrome.storage.local.set({"piezCurrentState": state}, function() {
+			chrome.browserAction.setBadgeText({"text": browser_action_text});
+			chrome.browserAction.setBadgeBackgroundColor({"color": [0, 255, 0, 255]});
+			if (!chrome.webRequest.onBeforeSendHeaders.hasListener(beforeSendCallback)) {
+					chrome.webRequest.onBeforeSendHeaders.addListener(beforeSendCallback, {urls: [ "<all_urls>" ]}, ['requestHeaders','blocking']);
+			}
+	});
+}
+
+chrome.runtime.onInstalled.addListener(function() {
+	initPiezStorageState();
+});
+
+chrome.runtime.onStartup.addListener(function() {
+	initPiezStorageState();
+});
+
+var initPiezStorageState = function() {
+	chrome.storage.local.get("piezCurrentState", function(result) {
+		if(result["piezCurrentState"] == undefined) {
+			setPiezCurrentState(piezCurrentStateOptions['piez-im-simple']['localStorageState'], piezCurrentStateOptions['piez-im-simple']['browserActionText']);
+		}
+		else {
+			key = result["piezCurrentState"];
+			setPiezCurrentState(piezCurrentStateOptions[key]['localStorageState'], piezCurrentStateOptions[key]['browserActionText']);
+		}
+	});
+}

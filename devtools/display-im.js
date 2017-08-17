@@ -1,9 +1,9 @@
 function updateImDetailsTable(page, display_mode) {
 	switch (display_mode) {
-		case "piezModeImSimple":
+		case "piez-im-simple":
 			updateImSimpleTable(page);
 			break;
-		case "piezModeImAdvanced":
+		case "piez-im-advanced":
 			updateImAdvandedTable(page);
 			break;
 		default:

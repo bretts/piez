@@ -166,12 +166,17 @@ chrome.runtime.onStartup.addListener(function() {
 
 var initPiezStorageState = function() {
 	chrome.storage.local.get("piezCurrentState", function(result) {
-		if(result["piezCurrentState"] == undefined) {
+		if (result["piezCurrentState"] == undefined) {
 			setPiezCurrentState(piezCurrentStateOptions['piez-im-simple']['localStorageState'], piezCurrentStateOptions['piez-im-simple']['browserActionText']);
 		}
 		else {
 			key = result["piezCurrentState"];
-			setPiezCurrentState(piezCurrentStateOptions[key]['localStorageState'], piezCurrentStateOptions[key]['browserActionText']);
+			if (piezCurrentStateOptions[key] == undefined) {
+				setPiezCurrentState(piezCurrentStateOptions['piez-im-simple']['localStorageState'], piezCurrentStateOptions['piez-im-simple']['browserActionText']);
+			}
+			else {
+				setPiezCurrentState(piezCurrentStateOptions[key]['localStorageState'], piezCurrentStateOptions[key]['browserActionText']);
+			}
 		}
 	});
 }

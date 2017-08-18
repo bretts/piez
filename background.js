@@ -35,10 +35,11 @@ beforeSendCallback = function(details) {
 		details.requestHeaders.push({name: 'x-im-piez', value: 'on'});
 		details.requestHeaders.push({name: 'x-akamai-ro-piez', value: 'on'});
 		details.requestHeaders.push({name: 'x-akamai-rua-debug', value: 'on'});
-		details.requestHeaders.push({name: 'pragma', value: 'akamai-x-ro-trace x-akamai-a2-trace'});
+		details.requestHeaders.push({name: 'pragma', value: 'akamai-x-ro-trace x-akamai-a2-trace akamai-x-get-extracted-values'});
+		details.requestHeaders.push({name: 'x-akamai-rua-debug', value: 'on'});
 	}
 	if (details.url.indexOf('https') != -1 && details.frameId === 0 && urlMatch.test(details.url)) {
-		details.requestHeaders.push({name: 'x-akamai-rua-debug', value: ''}, {name:'pragma', value: 'akamai-x-ro-trace x-akamai-a2-trace'});
+		details.requestHeaders.push({name: 'x-akamai-rua-debug', value: ''}, {name:'pragma', value: 'akamai-x-ro-trace x-akamai-a2-trace akamai-x-get-extracted-values'});
 	}
 	return {requestHeaders: details.requestHeaders};
 };

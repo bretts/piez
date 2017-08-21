@@ -24,23 +24,29 @@ var piezCurrentStateOptions = { 'piez-im-simple':
                                                    'browserActionText': 'RO+',
                                                    'localStorageState': 'piez-ro-advanced'
                                                 }
-                              }
+                              };
+var piezCurrentStateCached = '';
 
 beforeSendCallback = function(details) {
 	var urlMatch = new RegExp('(' + inspectedTab.url + '|' + inspectedTab.url + '/)', 'i');
-	if (details.tabId !== inspectedTab.id) { //make sure we're only affecting the inspected tab
+	if (details.tabId !== inspectedTab.id) {
 		return;
 	}
+
 	if (details.url.indexOf('http') != -1) {
-		details.requestHeaders.push({name: 'x-im-piez', value: 'on'});
-		details.requestHeaders.push({name: 'x-akamai-ro-piez', value: 'on'});
-		details.requestHeaders.push({name: 'x-akamai-rua-debug', value: 'on'});
-		details.requestHeaders.push({name: 'pragma', value: 'akamai-x-ro-trace x-akamai-a2-trace akamai-x-get-extracted-values'});
-		details.requestHeaders.push({name: 'x-akamai-rua-debug', value: 'on'});
+		if (piezCurrentStateCached == 'piez-a2') {
+			details.requestHeaders.push({name: 'pragma', value: 'x-akamai-a2-trace akamai-x-get-extracted-values'});
+			details.requestHeaders.push({name: 'x-akamai-rua-debug', value: 'on'});
+		}
+		else {
+			details.requestHeaders.push({name: 'x-im-piez', value: 'on'});
+			details.requestHeaders.push({name: 'pragma', value: 'akamai-x-ro-trace akamai-x-get-extracted-values'});
+			details.requestHeaders.push({name: 'x-akamai-ro-piez', value: 'on'});
+			details.requestHeaders.push({name: 'x-akamai-a2-disable', value: 'on'})
+		}
+
 	}
-	if (details.url.indexOf('https') != -1 && details.frameId === 0 && urlMatch.test(details.url)) {
-		details.requestHeaders.push({name: 'x-akamai-rua-debug', value: ''}, {name:'pragma', value: 'akamai-x-ro-trace x-akamai-a2-trace akamai-x-get-extracted-values'});
-	}
+
 	return {requestHeaders: details.requestHeaders};
 };
 
@@ -149,6 +155,7 @@ var logUrlAnalytics = function(tab) {
 
 var setPiezCurrentState = function(state, browser_action_text) {
 	chrome.storage.local.set({"piezCurrentState": state}, function() {
+			piezCurrentStateCached = state;
 			chrome.browserAction.setBadgeText({"text": browser_action_text});
 			chrome.browserAction.setBadgeBackgroundColor({"color": [0, 255, 0, 255]});
 			if (!chrome.webRequest.onBeforeSendHeaders.hasListener(beforeSendCallback)) {

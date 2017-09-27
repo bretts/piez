@@ -14,6 +14,18 @@
 			page.totalICImagesTransformed += 1;
 			parseIcHeaders(http_transaction, page);
 		}
+		else if (/X-Akamai-3PM-Deferred/i.test(JSON.stringify(http_transaction.response.headers))) {
+			page.total3PmDeferred += 1;
+			parse3PmHeaders(http_transaction, page);
+		}
+		else if (/X-Akamai-3PM-SPOF-Protected/i.test(JSON.stringify(http_transaction.response.headers))) {
+			page.total3PmSpofProtected += 1;
+			parse3PmHeaders(http_transaction, page);
+		}
+		else if (/X-Akamai-3PM-Blocked/i.test(JSON.stringify(http_transaction.response.headers))) {
+			page.total3PmSpofBlocked += 1;
+			parse3PmHeaders(http_transaction, page);
+		}
 		else if (/RO_ENABLED\; value=true/i.test(JSON.stringify(http_transaction.response.headers))) {
 			if(/x-akamai-ro-file-source.*transformer/i.test(JSON.stringify(http_transaction.response.headers))) {
 				page.totalRoOfflineTransforms += 1;

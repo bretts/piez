@@ -44,6 +44,12 @@
 										'<div class="col-1-4-box"><h1 id="col-3-title">Total Saved Bytes</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
 										'<div class="col-1-4-box"><h1 id="col-4-title">% Bytes Change</h1><h3 id="col-4-info">&nbsp;</h3></div>';
 		}
+		else if (display_mode == 'piez-3pm') {
+			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Deferred</h1><h3 id="col-1-info">&nbsp</h3></div>' +
+										'<div class="col-1-4-box"><h1 id="col-2-title">SPOF-Protected</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
+										'<div class="col-1-4-box"><h1 id="col-3-title">Blocked</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
+										'<div class="col-1-4-box"><h1 id="col-4-title">Total</h1><h3 id="col-4-info">&nbsp;</h3></div>';
+		}
 		else {
 			summaryTable.innerHTML =    '<div class="col-1-4-box"><h1 id="col-1-title">Optimized Realtime</h1><h3 id="col-1-info">&nbsp</h3></div>' +
 										'<div class="col-1-4-box"><h1 id="col-2-title">Optimized Offline</h1><h3 id="col-2-info">&nbsp;</h3></div>' +
@@ -71,6 +77,13 @@
 			document.getElementById('col-3-info').textContent = displayBytes(page.totalRoOriginalSize - (page.totalRoOfflineTransformSize));
 			document.getElementById('col-4-info').innerHTML   = displayPercentChange(page.totalRoOriginalSize, (page.totalRoOfflineTransformSize));
 		}
+		else if (display_mode == 'piez-3pm') {
+			document.getElementById('col-1-info').textContent = page.total3PmDeferred.toString();
+			document.getElementById('col-2-info').textContent = page.total3PmSpofProtected.toString();
+			document.getElementById('col-3-info').textContent = page.total3PmSpofBlocked.toString();
+			document.getElementById('col-4-info').textContent = page.total3PmResources.toString();
+		}
+
 		else {
 			document.getElementById('col-1-info').textContent = page.totalICImagesTransformed.toString();
 			document.getElementById('col-2-info').textContent = page.totalIMImagesTransformed.toString();
@@ -89,6 +102,9 @@
 			document.getElementById('detailsBox1Title').textContent = 'Optimized Details';
 			document.getElementById('detailsBox2Title').textContent = 'In Progress Details';
 			document.getElementById('detailsBox3Title').textContent = 'Not Optimized';
+		}
+		else if (display_mode == 'piez-3pm') {
+			document.getElementById('detailsBox1Title').textContent = 'Script Managment Details';
 		}
 		else {
 			document.getElementById('detailsBox1Title').textContent = 'Optimized Offline Details';

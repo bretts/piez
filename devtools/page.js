@@ -33,6 +33,12 @@
 		this.totalNonRoSize               = 0;
 		this.nonRoDetails                 = [];
 
+		this.total3PmDeferred             = 0;
+		this.total3PmSpofProtected        = 0;
+		this.total3PmSpofBlocked          = 0;
+		this.total3PmResources            = 0;
+		this.threePmDownloadDetails       = [];
+
 		this.preconnects                  = {common: [], unique: [], notUsed: [], linkHeader: []};
 		this.resourcesPushed              = {common: [], unique: [], notUsed: [], edgePushed: []};
 	};

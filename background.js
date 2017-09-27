@@ -11,7 +11,7 @@ var piezCurrentStateOptions = { 'piez-im-simple':
                                                 },
                                 'piez-a2':
                                                 {
-                                                   'browserActionText': 'A2',
+                                                   'browserActionText': 'PP',
                                                    'localStorageState': 'piez-a2'
                                                 },
                                 'piez-ro-simple':
@@ -23,6 +23,11 @@ var piezCurrentStateOptions = { 'piez-im-simple':
                                                 {
                                                    'browserActionText': 'RO+',
                                                    'localStorageState': 'piez-ro-advanced'
+                                                },
+                                 'piez-3pm':
+                                                {
+                                                   'browserActionText': 'SM',
+                                                   'localStorageState': 'piez-3pm'
                                                 }
                               };
 var piezCurrentStateCached = '';
@@ -128,6 +133,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 				break;
 			case "piez-ro-advanced":
 				setPiezCurrentState(piezCurrentStateOptions['piez-ro-advanced']['localStorageState'], piezCurrentStateOptions['piez-ro-advanced']['browserActionText']);
+				break;
+			case "piez-3pm":
+				setPiezCurrentState(piezCurrentStateOptions['piez-3pm']['localStorageState'], piezCurrentStateOptions['piez-3pm']['browserActionText']);
 				break;
 			default:
 				console.log('Unexpected extension request. ', request);

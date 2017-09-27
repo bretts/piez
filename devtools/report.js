@@ -18,8 +18,12 @@
 			}
 			else if (display_mode == 'piez-ro-simple' || display_mode == 'piez-ro-advanced') {
 				updateRoDetailsTable(page, display_mode);
-				updateRoInProgressDetailsTable(page, display_mode)
+				updateRoInProgressDetailsTable(page, display_mode);
 				updateNonRoDetailsTable(page);
+			}
+			else if (display_mode == 'piez-3pm') {
+				update3PMDetailsTable(page, display_mode);
+				updateNon3PMDetailsTable(page);
 			}
 			else {
 				updateImDetailsTable(page, display_mode);

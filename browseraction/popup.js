@@ -35,6 +35,12 @@ window.onload = function() {
 		});
 	};
 
+	document.getElementById("piez-3pm").onclick = function() {
+		chrome.runtime.sendMessage({
+			type: "piez-3pm"
+		});
+	};
+
 	var setFormField = function(piezSettings) {
 		chrome.storage.local.get("piezCurrentState", function(result) {
 			document.getElementById(result["piezCurrentState"]).checked = true;

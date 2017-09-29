@@ -10,18 +10,3 @@ function update3PMDetailsTable(page) {
 	threePmDetailsTable += '</table>';
 	document.getElementById('detailsBox1Table').innerHTML = threePmDetailsTable;
 }
-
-function updateNon3PMDetailsTable(page) {
-	// var nonImIcDetailsTable	= '<table class="detailed-results"><tr><th>URL</th><th>Image Type</th><th>Size</th>';
-	// page.nonImOrIcImageDetails.forEach(function(detail) {
-	// 	nonImIcDetailsTable += '<tr class="urlInfo">';
-	// 	nonImIcDetailsTable += '<td class="urlData"' + 'data-url="' + detail.url + '">' + '<a href="' + detail.url + '"' + ' target="_blank"' + '>' + detail.url + '</a>' + '</td>';
-	// 	nonImIcDetailsTable += '<td>' + detail.contype + '</td>';
-	// 	nonImIcDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
-	// 	nonImIcDetailsTable += '</tr>';
-	// 	document.getElementById('detailsBox3').style.display = 'block';
-	// 	document.getElementById('nonImIcBytes').textContent = displayBytes(page.totalNonImOrIcSize);
-	// });
-	// nonImIcDetailsTable += '</table>';
-	// document.getElementById('detailsBox3Table').innerHTML = nonImIcDetailsTable;
-}

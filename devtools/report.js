@@ -23,7 +23,6 @@
 			}
 			else if (display_mode == 'piez-3pm') {
 				update3PMDetailsTable(page, display_mode);
-				updateNon3PMDetailsTable(page);
 			}
 			else {
 				updateImDetailsTable(page, display_mode);

@@ -26,16 +26,10 @@
 			page.total3PmSpofBlocked += 1;
 			parse3PmHeaders(http_transaction, page);
 		}
-		else if (/RO_ENABLED\; value=true/i.test(JSON.stringify(http_transaction.response.headers))) {
-			if(/x-akamai-ro-file-source.*transformer/i.test(JSON.stringify(http_transaction.response.headers))) {
-				page.totalRoOfflineTransforms += 1;
-				parseRoOfflineHeaders(http_transaction, page, display_mode);
+		else if(/x-akamai-ro-file-source.*transformer/i.test(JSON.stringify(http_transaction.response.headers)) || /Akamai Resource Optimizer/i.test(JSON.stringify(http_transaction.response.headers))) {
+			page.totalRoOfflineTransforms += 1;
+			parseRoOfflineHeaders(http_transaction, page, display_mode);
 
-			}
-			else {
-				page.totalRoInProgressTransforms += 1;
-				parseRoInProgressHeaders(http_transaction, page, display_mode);
-			}
 		}
 		else {
 			for (var i=0; i<http_transaction.response.headers.length; i++) {

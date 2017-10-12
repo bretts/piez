@@ -38,11 +38,6 @@ var piezCurrentStateOptions = { 'piez-im-simple':
 var piezCurrentStateCached = '';
 
 beforeSendCallback = function(details) {
-	var urlMatch = new RegExp('(' + inspectedTab.url + '|' + inspectedTab.url + '/)', 'i');
-	if (details.tabId !== inspectedTab.id) {
-		return;
-	}
-
 	if (details.url.indexOf('http') != -1) {
 		if (piezCurrentStateCached == 'piez-a2') {
 			details.requestHeaders.push({name: 'pragma', value: 'x-akamai-a2-trace akamai-x-get-extracted-values'});

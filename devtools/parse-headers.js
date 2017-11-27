@@ -5,12 +5,12 @@
 		if (display_mode === 'piez-a2') { //A2 does parsing separate from this
 			return;
 		}
-
 		if (/x-im-original-size/i.test(JSON.stringify(http_transaction.response.headers))) {
 			page.totalIMImagesTransformed += 1;
 			parseImHeaders(http_transaction, page, display_mode);
 		}
-		else if (/akamai image server/i.test(JSON.stringify(http_transaction.response.headers))) {
+		// Real Time IM and IC
+		else if (/x-image-server-original-size/i.test(JSON.stringify(http_transaction.response.headers))) {
 			page.totalICImagesTransformed += 1;
 			parseIcHeaders(http_transaction, page);
 		}

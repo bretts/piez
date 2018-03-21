@@ -6,13 +6,13 @@
 		res.url = http_transaction.request.url;
 
 		http_transaction.response.headers.forEach(function(header) {
-			if (/content-length/i.test(header.name)) {
+			if (/^content-length$/i.test(header.name)) {
 				res.contlen = header.value;
 				if (res.contlen) {
 					page.totalNonRoSize += parseInt(res.contlen);
 				}
 			}
-			else if (/content-type/i.test(header.name)) {
+			else if (/^content-type$/i.test(header.name)) {
 				res.contype = (header.value).split(';')[0];
 			}
 		});
@@ -37,21 +37,21 @@
 
 	global.extractRoHeaders = function(http_transaction, page, res, resourceState) {
 		http_transaction.response.headers.forEach(function(header) {
-			if (/X-Akamai-RO-Origin-Size/i.test(header.name)) {
+			if (/^X-Akamai-RO-Origin-Size$/i.test(header.name)) {
 				res.orgsize = header.value;
 				page.totalRoOriginalSize += parseInt(header.value);
 			}
-			else if (/content-length/i.test(header.name)) {
+			else if (/^content-length$/i.test(header.name)) {
 				res.contlen = header.value;
 
 				if (resourceState == 'offline') {
 					page.totalRoOfflineTransformSize += parseInt(header.value);
 				}
 			}
-			else if (/content-type/i.test(header.name)) {
+			else if (/^content-type$/i.test(header.name)) {
 				res.contype = header.value;
 			}
-			else if (/Content-Encoding/i.test(header.name)) {
+			else if (/^Content-Encoding$/i.test(header.name)) {
 				if (header.value == 'br') {
 					res.contenc = 'Brotli';
 				}
@@ -62,19 +62,19 @@
 					res.contenc = header.value;
 				}
 			}
-			else if (/X-Akamai-RO-File-Source/i.test(header.name)) {
+			else if (/^X-Akamai-RO-File-Source$/i.test(header.name)) {
 				res.filesource = header.value;
 			}
-			else if (/X-Akamai-RO-Raw-Size/i.test(header.name)) {
+			else if (/^X-Akamai-RO-Raw-Size$/i.test(header.name)) {
 				res.rawsize = header.value;
 			}
-			else if (/X-Akamai-RO-Request-Arrived/i.test(header.name)) {
+			else if (/^X-Akamai-RO-Request-Arrived$/i.test(header.name)) {
 				res.requestarrived = header.value;
 			}
-			else if (/X-Akamai-RO-Request-Sent-To-Cache/i.test(header.name)) {
+			else if (/^X-Akamai-RO-Request-Sent-To-Cache$/i.test(header.name)) {
 				res.requestsenttocache = header.value;
 			}
-			else if (/X-Akamai-RO-Transformer-Hostname/i.test(header.name)) {
+			else if (/^X-Akamai-RO-Transformer-Hostname$/i.test(header.name)) {
 				res.transformerhostname = header.value;
 			}
 		});

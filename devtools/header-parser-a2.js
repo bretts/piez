@@ -38,7 +38,7 @@
 			//header from Akamai edge server verifies push
 			else{
 				var pushHeader = entry.response.headers.find(function(header) {
-					return /x-akamai-http2-push/i.test(header.name);
+					return /^x-akamai-http2-push$/i.test(header.name);
 				});
 				if (pushHeader !== undefined) {
 					page.resourcesPushed.edgePushed.pushIfUnique({url: entry.request.url, transferSize: entry.response._transferSize});
@@ -54,16 +54,16 @@
 		http_transaction.response.headers.forEach(function(header) {
 
 			page.baseUrl = http_transaction.request.url;
-			if (/x-akamai-a2-enabled/i.test(header.name)) {
+			if (/^x-akamai-a2-enabled$/i.test(header.name)) {
 				page.A2Enabled = (header.value === 'true');
 			}
-			if (/x-akamai-rua-debug-policy-version/i.test(header.name)) {
+			if (/^x-akamai-rua-debug-policy-version$/i.test(header.name)) {
 				page.A2Policy = header.value;
 			}
 
 			//get all preconnects
 			var preArr;
-			if(/x-akamai-rua-debug-common-preconnect-link-value/i.test(header.name)) {
+			if(/^x-akamai-rua-debug-common-preconnect-link-value$/i.test(header.name)) {
 				preArr = header.value.match(/<([^>]+)>/g);
 				if (preArr) {
 					preArr.forEach(function(urlStr) {
@@ -71,7 +71,7 @@
 					});
 				}
 			}
-			if (/x-akamai-rua-debug-unique-preconnect-link-value/i.test(header.name)) {
+			if (/^x-akamai-rua-debug-unique-preconnect-link-value$/i.test(header.name)) {
 				preArr = header.value.match(/<([^>]+)>/g);
 				if (preArr) {
 					preArr.forEach(function(urlStr) {
@@ -92,7 +92,7 @@
 
 			//get all pushed resources
 			var pushArr;
-			if (/x-akamai-rua-debug-common-push-paths/i.test(header.name)) {
+			if (/^x-akamai-rua-debug-common-push-paths$/i.test(header.name)) {
 				pushArr = header.value.split(' ');
 				if (pushArr) {
 					pushArr.forEach(function(res) {
@@ -102,7 +102,7 @@
 					});
 				}
 			}
-			if (/x-akamai-rua-debug-unique-push-paths/i.test(header.name)) {
+			if (/^x-akamai-rua-debug-unique-push-paths$/i.test(header.name)) {
 				pushArr = header.value.split(' ');
 				if (pushArr) {
 					pushArr.forEach(function(res) {

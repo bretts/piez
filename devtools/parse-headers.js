@@ -14,15 +14,15 @@
 			page.totalICImagesTransformed += 1;
 			parseIcHeaders(http_transaction, page);
 		}
-		else if (/X-Akamai-3PM-Deferred/i.test(JSON.stringify(http_transaction.response.headers))) {
+		else if (/X-Akam-SW-Deferred/i.test(JSON.stringify(http_transaction.response.headers))) {
 			page.total3PmDeferred += 1;
 			parse3PmHeaders(http_transaction, page);
 		}
-		else if (/X-Akamai-3PM-SPOF-Protected/i.test(JSON.stringify(http_transaction.response.headers))) {
+		else if (/X-Akam-SW-SPOF-Protected/i.test(JSON.stringify(http_transaction.response.headers))) {
 			page.total3PmSpofProtected += 1;
 			parse3PmHeaders(http_transaction, page);
 		}
-		else if (/X-Akamai-3PM-Blocked/i.test(JSON.stringify(http_transaction.response.headers))) {
+		else if (/X-Akam-SW-Blocked/i.test(JSON.stringify(http_transaction.response.headers))) {
 			page.total3PmSpofBlocked += 1;
 			parse3PmHeaders(http_transaction, page);
 		}

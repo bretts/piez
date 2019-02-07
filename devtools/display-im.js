@@ -160,7 +160,7 @@ function updateVideoAdvandedTable(page) {
 	imDetailsTable += '</table>';
 	document.getElementById('detailsBox1TaxbleVideo').innerHTML = imDetailsTable;
 	var rows = document.getElementById("videoAdvanced").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
-	page.countImVideosTransformed = rows - 1;
+	page.totalVidTransformed = rows - 1;
 
 	if (rows < 2) {
 		document.getElementById('detailsBox1TaxbleVideo').style.visibility = "collapse";

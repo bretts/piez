@@ -8,13 +8,11 @@
 		http_transaction.response.headers.forEach(function(header) {
 			if (/^x-image-server-original-size$/i.test(header.name)) {
 				res.orgsize = header.value;
-				page.totalImIcOriginalSize += parseInt(header.value);
-			}
-			else if (/^content-length$/i.test(header.name)) {
+				page.totalIcOriginalSize += parseInt(header.value);
+			} else if (/^content-length$/i.test(header.name)) {
 				res.contlen = header.value;
 				page.totalIcTransformSize += parseInt(header.value);
-			}
-			else if (/^content-type$/i.test(header.name)) {
+			} else if (/^content-type$/i.test(header.name)) {
 				res.contype = (header.value).split(';')[0];
 			}
 		});
@@ -27,7 +25,7 @@
 		res.contlen = http_transaction.response.content;
 		// Sum of video contentl
 		
-		var details =JSON.stringify(page.imDownloadDetails);
+		var details = JSON.stringify(page.imDownloadDetails);
 		if(details.indexOf(res.url) < 0){
 			page.totalIMImagesTransformed += 1;
 			extractImHeaders(http_transaction, page, res);
@@ -50,24 +48,20 @@
 		}
 		res.orgsize = headers.find(o => /^x-im-original-size$/i.test(o.name)).value;
 		if(res.orgsize !== undefined) {
-			page.totalImIcOriginalSize += parseInt(res.orgsize);
-			if (/video/i.test(res.contlen.mimeType) || /video/i.test(res.contype)){
-				page.totalVideoOriginalMb += parseFloat(res.orgsize);
-				page.countImVideosTransformed++;
-			}
 			if (/image/i.test(res.contlen.mimeType) || /image/i.test(res.contype)){
-				page.totalImageOriginalMb += parseFloat(res.orgsize);
-				page.countImImagesTransformed++;
+				page.totalImOriginalSize += parseFloat(res.orgsize);
+				page.totalImTransformed++;
+			} else if (/video/i.test(res.contlen.mimeType) || /video/i.test(res.contype)){
+				page.totalVidOriginalSize += parseFloat(res.orgsize);
+				page.totalVidTransformed++;
 			}
 		}
 		res.contlen = headers.find(o => /^content-length$/i.test(o.name)).value;
 		if(res.contlen !== undefined) {
-			page.totalImTransformSize += parseInt(res.contlen);
-			if (/video/i.test(res.contlen.mimeType) || /video/i.test(res.contype)){
-				page.totalVideoTransformedMb += parseFloat(res.contlen);
-			}
 			if (/image/i.test(res.contlen.mimeType) || /image/i.test(res.contype)){
-				page.totalImageTransformedMb += parseFloat(res.contlen);
+				page.totalImTransformSize += parseFloat(res.contlen);
+			} else if (/video/i.test(res.contlen.mimeType) || /video/i.test(res.contype)){
+				page.totalVidTransformSize += parseFloat(res.contlen);
 			}
 		}
 	};
@@ -82,8 +76,7 @@
 				if (res.contlen) {
 					page.totalNonImOrIcSize += parseInt(res.contlen);
 				}
-			}
-			else if (/^content-type$/i.test(header.name)) {
+			} else if (/^content-type$/i.test(header.name)) {
 				res.contype = (header.value).split(';')[0];
 			}
 		});

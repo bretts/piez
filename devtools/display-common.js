@@ -25,6 +25,7 @@
 			return '<span class="success">' + '(-' + Math.abs(pctChange).toString() + '%)' + '</td>';
 		}
 	};
+
 	global.displayPercentChange1 = function(originalSize, transformedSize) {
 		var originalSizeInt    = parseInt(originalSize);
 		var transformedSizeInt = parseInt(transformedSize);
@@ -39,7 +40,16 @@
 			return Math.abs(pctChange);
 		}
 	};
-	
+
+	global.classColour = function(value) {
+		if(value > 0) {
+			return "success";
+		} else if(value < 0) {
+			return "error";
+		} else {
+			return "warning";
+		}
+	}
 
 	global.showSummaryTable = function(display_mode) {
 		var summaryTable = document.getElementById('conversionSummary');
@@ -67,7 +77,7 @@
 			summaryTable.innerHTML =    
 				'<div class="col-1-4-box"><h4 id="col-1-title"><h4 id="col-1-info">&nbsp</h4></h4><div id="block_container"><h4 id="bloc1">Savings :</h4><h4 id="col-1-2-info">&nbsp</h4><h4 id="col-1-3-info">&nbsp</h4></div></div>' +
 				'<div class="col-1-4-box"><h4 id="col-2-title"><h4 id="col-2-info">&nbsp;</h4><div id="block_container"><h4 id="bloc2">Savings :</h4><h4 id="col-2-2-info">&nbsp</h4><h4 id="col-2-3-info">&nbsp</h4></div></div>' +
-				'<div class="col-1-4-box"><h4 id="col-3-title">Total Saved Bytes</h4><h4 id="col-3-info" class="success"∂>&nbsp;</h4></div>' +
+				'<div class="col-1-4-box"><h4 id="col-3-title">Total Saved Bytes</h4><h4 id="col-3-info">&nbsp;</h4></div>' +
 				'<div class="col-1-4-box"><h4 id="col-4-title">% Bytes Change</h4><h4 id="col-4-info">&nbsp;</h4></div>';
 		}
 	};
@@ -96,16 +106,23 @@
 			document.getElementById('col-4-info').textContent = page.total3PmResources.toString();
 		} else {
 			//  Video
-			document.getElementById('col-1-info').textContent = "Optimized videos :  " + page.countImVideosTransformed.toString(); 
-			document.getElementById('col-1-2-info').innerHTML = AllfileSizeDiff(page.totalVideoOriginalMb,page.totalVideoTransformedMb);
-			document.getElementById('col-1-3-info').innerHTML = displayPercentChange(page.totalVideoOriginalMb,page.totalVideoTransformedMb);
-			// Images			
-			document.getElementById('col-2-info').textContent = "Optimized images :  " + page.countImImagesTransformed.toString();
-			document.getElementById('col-2-2-info').innerHTML = AllfileSizeDiff(page.totalImageOriginalMb,page.totalImageTransformedMb);
-			document.getElementById('col-2-3-info').innerHTML = displayPercentChange(page.totalImageOriginalMb,page.totalImageTransformedMb);
+			let totalVideoOriginalSize  = page.totalVidOriginalSize;
+			let totalVideoTransformSize = page.totalVidTransformSize;
+			document.getElementById('col-1-info').textContent = "Optimized videos :  " + page.totalVidTransformed.toString(); 
+			document.getElementById('col-1-2-info').innerHTML = AllfileSizeDiff(totalVideoOriginalSize, totalVideoTransformSize);
+			document.getElementById('col-1-3-info').innerHTML = displayPercentChange(totalVideoOriginalSize, totalVideoTransformSize);
+			// Images
+			let totalImageOriginalSize  = page.totalImOriginalSize + page.totalIcOriginalSize;
+			let totalImageTransformSize = page.totalImTransformSize + page.totalIcTransformSize;
+			document.getElementById('col-2-info').textContent = "Optimized images :  " + (page.totalImTransformed + page.totalICImagesTransformed).toString();
+			document.getElementById('col-2-2-info').innerHTML = AllfileSizeDiff(totalImageOriginalSize, totalImageTransformSize);
+			document.getElementById('col-2-3-info').innerHTML = displayPercentChange(totalImageOriginalSize, totalImageTransformSize);
 
-			document.getElementById('col-3-info').textContent = displayBytes(page.totalImIcOriginalSize - (page.totalImTransformSize + page.totalIcTransformSize));
-			document.getElementById('col-4-info').innerHTML   = displayPercentChange(page.totalImIcOriginalSize, (page.totalImTransformSize + page.totalIcTransformSize));
+			let totalOriginalSize  = totalImageOriginalSize + totalVideoOriginalSize;
+			let totalTransformSize = totalImageTransformSize + totalVideoTransformSize;
+			document.getElementById('col-3-info').textContent = displayBytes(totalOriginalSize - totalTransformSize);
+			document.getElementById('col-3-info').className   = classColour(totalOriginalSize - totalTransformSize);
+			document.getElementById('col-4-info').innerHTML   = displayPercentChange(totalOriginalSize, totalTransformSize);
 		}
 	};
 

@@ -69,6 +69,12 @@
 			if (/image/i.test(res.contlen.mimeType) || /image/i.test(res.contype)){
 				page.totalImTransformSize += parseFloat(res.contlen);
 			} else if (/video/i.test(res.contlen.mimeType) || /video/i.test(res.contype)){
+				let contRangeObj = headers.find(header => /^content-range$/i.test(header.name));
+				// Use content range for range requests, content length for full video requests
+				if(contRangeObj !== undefined) {
+					let contRange = contRangeObj.value;
+					res.contlen = contRange.split('/')[1];
+				}
 				page.totalVidTransformSize += parseFloat(res.contlen);
 			}
 		}

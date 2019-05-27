@@ -62,11 +62,11 @@
 		preconnectsTable += '<tbody>';
 		page.preconnects.common.forEach(function(info) {
 			preconnectsTable += '<tr class="urlInfo"><td class="urlData" title="' + info + '">'  + info +'</td>' ;
-			preconnectsTable += '<td>Default</td>' + '<td>' + ((page.preconnects.notUsed.indexOf(info) === -1) ? 'Connected' : 'Not connected!') + '</td></tr>';
+			preconnectsTable += '<td>Common</td>' + '<td>' + ((page.preconnects.notUsed.indexOf(info) === -1) ? 'Connected' : 'Not connected!') + '</td></tr>';
 		});
 		page.preconnects.unique.forEach(function(info) {
 			preconnectsTable += '<tr class="urlInfo"><td class="urlData" title="' + info + '">' + info +'</td>';
-			preconnectsTable += '<td>Page Specific</td>' + '<td>' + ((page.preconnects.notUsed.indexOf(info) === -1) ? 'Connected' : 'Not connected!') + '</td></tr>';
+			preconnectsTable += '<td>Common</td>' + '<td>' + ((page.preconnects.notUsed.indexOf(info) === -1) ? 'Connected' : 'Not connected!') + '</td></tr>';
 		});
 		preconnectsTable += '</tbody></table>';
 		document.getElementById('detailsBox1Table').innerHTML = preconnectsTable;
@@ -80,7 +80,7 @@
 		pushedTables += '<tbody>';
 		page.resourcesPushed.common.forEach(function(info) {
 			pushedTables += '<tr class="urlInfo"><td class="urlData" title="' + info.url + '">'+ info.url + '</td>';
-			pushedTables += '<td>Default</td>' + '<td>' + ((page.resourcesPushed.notUsed.indexOf(info) === -1) ? 'Pushed' : 'Not pushed!') + '</td>';
+			pushedTables += '<td>Common</td>' + '<td>' + ((page.resourcesPushed.notUsed.indexOf(info) === -1) ? 'Pushed' : 'Not pushed!') + '</td>';
 			pushedTables += '<td>' + ((typeof info.transferSize === 'number') ? displayBytes(info.transferSize) : 'N/A') +'</td></tr>';
 		});
 		page.resourcesPushed.unique.forEach(function(info) {
@@ -90,6 +90,25 @@
 		});
 		pushedTables += '</tbody></table>';
 		document.getElementById('detailsBox2Table').innerHTML = pushedTables;
+
+		//preloaded fonts
+		if(page.fontPreloads.common.length + page.fontPreloads.unique.length + page.fontPreloads.notUsed.length > 0) {
+			document.getElementById('detailsBox3').style.display = "block";
+		}
+		var fontPreloadsTable = '<table class="detailed-results-a2">';
+		fontPreloadsTable += '<thead><tr><th>Preloaded Font URL</th><th>Type</th><th>Status</th></tr></thead>';
+		fontPreloadsTable += '<tbody>';
+		page.fontPreloads.common.forEach(function(info) {
+			fontPreloadsTable += '<tr class="urlInfo"><td class="urlData" title="' + info + '">'  + info +'</td>' ;
+			fontPreloadsTable += '<td>Common</td><td>' + ((page.fontPreloads.notUsed.indexOf(info) === -1) ? 'Preloaded' : 'Not preloaded!') + '</td></tr>';
+		});
+		page.fontPreloads.unique.forEach(function(info) {
+			fontPreloadsTable += '<tr class="urlInfo"><td class="urlData" title="' + info + '">' + info +'</td>';
+			fontPreloadsTable += '<td>Page Specific</td><td>' + ((page.fontPreloads.notUsed.indexOf(info) === -1) ? 'Preloaded' : 'Not preloaded!') + '</td></tr>';
+		});
+		fontPreloadsTable += '</tbody></table>';
+		document.getElementById('detailsBox3Table').innerHTML = fontPreloadsTable;
+
 	};
 
 })(this);

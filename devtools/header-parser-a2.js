@@ -112,23 +112,50 @@
 					});
 				}
 			}
+
+			var preFontArr;
+			// get all preloaded fonts
+			if(/^x-akamai-rua-debug-unique-font-preload-link-value$/i.test(header.name)) {
+				preFontArr = header.value.match(/<([^>]+)>/g);
+				if (preFontArr) {
+					preFontArr.forEach(function(urlStr) {
+						page.fontPreloads.unique.pushIfUnique(urlStr.slice(1,-1));
+					});
+				}
+			}
+
+			if(/^x-akamai-rua-debug-common-font-preload-link-value$/i.test(header.name)) {
+				preFontArr = header.value.match(/<([^>]+)>/g);
+				if (preFontArr) {
+					preFontArr.forEach(function(urlStr) {
+						page.fontPreloads.common.pushIfUnique(urlStr.slice(1,-1));
+					});
+				}
+			}
 		});
 	}
 
-	//make sure every resource the debug headers list is actually there
-	global.verifyA2Preconnects = function(page) {
+	function linkHeaderVerifierGenerator(pageElement) {
+		return function linkHeaderVerifier(page) {
+			page[pageElement].common.forEach(function(url){
+				if(page[pageElement].linkHeader.indexOf(url) === -1) {
+					page[pageElement].notUsed.push(url);
+				}
+			});
 
-		page.preconnects.common.forEach(function(url) {
-			if (page.preconnects.linkHeader.indexOf(url) === -1) {
-				page.preconnects.notUsed.push(url);
-			}
-		});
-		page.preconnects.unique.forEach(function(url) {
-			if (page.preconnects.linkHeader.indexOf(url) === -1) {
-				page.preconnects.notUsed.push(url);
-			}
-		});
-	};
+			page[pageElement].unique.forEach(function(url){
+				if(page[pageElement].linkHeader.indexOf(url) === -1) {
+					page[pageElement].notUsed.push(url);
+				}
+			});
+		};
+	}
+
+	// make sure all the font prelods the debug headers list is actually there
+	global.verifyA2FontPreloads = linkHeaderVerifierGenerator('fontPreloads');
+
+	//make sure every resource the debug headers list is actually there
+	global.verifyA2Preconnects = linkHeaderVerifierGenerator('preconnects');
 
 	//check against edge servers to make sure pushes are actually there
 	global.verifyA2Pushed = function(page) {

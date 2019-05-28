@@ -49,5 +49,6 @@
 
 		this.preconnects                  = {common: [], unique: [], notUsed: [], linkHeader: []};
 		this.resourcesPushed              = {common: [], unique: [], notUsed: [], edgePushed: []};
+		this.fontPreloads                 = {common: [], unique: [], notUsed: [], linkHeader: []};
 	};
 })(this);

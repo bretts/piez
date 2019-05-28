@@ -57,10 +57,11 @@
 
 		if (display_mode == 'piez-a2') {
 			summaryTable.innerHTML =
-				'<div class="col-1-4-box"><h1 id="col-1-title">Policy Version</h1><h3 id="col-1-info">&nbsp</h3></div>' +
-				'<div class="col-1-4-box"><h1 id="col-2-title">Preconnects</h1><h3 id="col-2-info">&nbsp</h3></div>' +
-				'<div class="col-1-4-box"><h1 id="col-3-title">Pushed Resources</h1><h3 id="col-3-info">&nbsp</h3></div>' +
-				'<div class="col-1-4-box"><h1 id="col-4-title">Page Load Time (ms)</h1><h3 id="col-4-info">&nbsp</h3></div>';
+				'<div class="col-1-5-box"><h1 id="col-1-title">Policy Version</h1><h3 id="col-1-info">&nbsp</h3></div>' +
+				'<div class="col-1-5-box"><h1 id="col-2-title">Preconnects</h1><h3 id="col-2-info">&nbsp</h3></div>' +
+				'<div class="col-1-5-box"><h1 id="col-3-title">Pushed Resources</h1><h3 id="col-3-info">&nbsp</h3></div>' +
+				'<div class="col-1-5-box"><h1 id="col-4-title">Preloaded Fonts</h1><h3 id="col-4-info">&nbsp</h3></div>' +
+				'<div class="col-1-5-box"><h1 id="col-5-title">Page Load Time (ms)</h1><h3 id="col-5-info">&nbsp</h3></div>';
 		} else if (display_mode == 'piez-ro-simple' || display_mode == 'piez-ro-advanced') {
 			summaryTable.innerHTML =    
 				'<div class="col-1-4-box"><h1 id="col-1-title">Not RO Optimized</h1><h3 id="col-1-info">&nbsp</h3></div>' +
@@ -89,10 +90,12 @@
 			document.getElementById('col-2-info').textContent = (total - page.preconnects.notUsed.length) +  '/' + total;
 			total = page.resourcesPushed.common.length + page.resourcesPushed.unique.length;
 			document.getElementById('col-3-info').textContent = (total - page.resourcesPushed.notUsed.length) +  '/' + total;
+			total = page.fontPreloads.common.length + page.fontPreloads.unique.length;
+			document.getElementById('col-4-info').textContent = (total - page.fontPreloads.notUsed.length) + "/" + total;
 			if (page.pageLoaded) {
-				document.getElementById('col-4-info').textContent = page.pageLoadTime;
+				document.getElementById('col-5-info').textContent = page.pageLoadTime;
 			} else {
-				document.getElementById('col-4-info').textContent = '\u00A0';
+				document.getElementById('col-5-info').textContent = '\u00A0';
 			}
 		} else if(display_mode === 'piez-ro-simple'|| display_mode == 'piez-ro-advanced') {
 			document.getElementById('col-1-info').textContent = page.totalNonRoResources.toString() 
@@ -131,6 +134,7 @@
 		if (display_mode === 'piez-a2') {
 			document.getElementById('detailsBox1Title').textContent = 'Preconnected Resources';
 			document.getElementById('detailsBox2Title').textContent = 'Pushed Resources';
+			document.getElementById('detailsBox3Title').textContent = 'Preloaded Fonts';
 		} else if (display_mode === 'piez-ro-simple' || display_mode == 'piez-ro-advanced') {
 			document.getElementById('detailsBox1Title').textContent = 'Optimized Details';
 			document.getElementById('detailsBox2Title').textContent = 'In Progress Details';

@@ -5,8 +5,8 @@ function updateImDetailsTable(page, display_mode) {
 			updateVideoDetailsTable(page);
 			break;
 		case "piez-im-advanced":
-			updateImAdvandedTable(page);
-			updateVideoAdvandedTable(page);
+			updateImAdvancedTable(page);
+			updateVideoAdvancedTable(page);
 			break;
 		default:
 			updateImSimpleTable(page);
@@ -57,15 +57,15 @@ function updateVideoDetailsTable(page) {
 		}
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('detailsBox1TaxbleVideo').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox1TableVideo').innerHTML = imDetailsTable;
 
 
 	var rows = document.getElementById('VideoSimple').getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 
 	if (rows <= 1) {
-		document.getElementById('detailsBox1TaxbleVideo').style.visibility = "collapse";
+		document.getElementById('detailsBox1TableVideo').style.visibility = "collapse";
 	} else {
-		document.getElementById('detailsBox1TaxbleVideo').style.visibility = "visible";
+		document.getElementById('detailsBox1TableVideo').style.visibility = "visible";
 	}
 }
 
@@ -107,7 +107,7 @@ function updateImBrowserFormatCompareTable(page) {
 	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
 }
 //Image
-function updateImAdvandedTable(page) {
+function updateImAdvancedTable(page) {
 	var imDetailsTable = '<table id="imageAdvanced" class="detailed-results"><tr><th>Image URL</th><th>Transformed Type</th><th>Original Width</th><th>Encoding Quality</th><th>File Chosen</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function (detail) {
 		if (/image/i.test(detail.contype)) {
@@ -137,7 +137,7 @@ function updateImAdvandedTable(page) {
 
 }
 //Video
-function updateVideoAdvandedTable(page) {
+function updateVideoAdvancedTable(page) {
 	var imDetailsTable = '<table id="videoAdvanced" class="detailed-results"><tr><th>Video URL</th><th>Transformed Type</th><th>Original Width</th><th>Encoding Quality</th><th>File Chosen</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function (detail) {
 		page.totalVideoMb += (((parseFloat(detail.orgsize) / parseFloat(detail.contlen))));
@@ -158,14 +158,14 @@ function updateVideoAdvandedTable(page) {
 
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('detailsBox1TaxbleVideo').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox1TableVideo').innerHTML = imDetailsTable;
 	var rows = document.getElementById("videoAdvanced").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 	page.totalVidTransformed = rows - 1;
 
 	if (rows < 2) {
-		document.getElementById('detailsBox1TaxbleVideo').style.visibility = "collapse";
+		document.getElementById('detailsBox1TableVideo').style.visibility = "collapse";
 	} else {
-		document.getElementById('detailsBox1TaxbleVideo').style.visibility = "visible";
+		document.getElementById('detailsBox1TableVideo').style.visibility = "visible";
 	}
 }
 

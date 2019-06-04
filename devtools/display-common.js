@@ -1,14 +1,16 @@
 (function(global) {
 	'use strict';
 
-	global.displayBytes = function(bytes){
-		var prefixes = ["","Ki","Mi","Gi","Ti","Pi","Ei"];
-		var value    = parseInt(bytes);
+	global.displayBytes = function(bytes, decimals = 2){
+		if (bytes === 0) return '0 B';
 
-		for (var prefix = 0; value >= 1023.995 && prefix < prefixes.length - 1; ++prefix) value /= 1024;
+		const k = 1024;
+		const dm = decimals < 0 ? 0 : decimals;
+		const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
-		if (0 !== prefix) value = value.toFixed(2);
-		return value + " " + prefixes[prefix] + "B";
+		const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+		return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 	};
 
 	global.displayPercentChange = function(originalSize, transformedSize) {

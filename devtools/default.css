@@ -1,3 +1,4 @@
+@import url('https://rsms.me/inter/inter.css');
 /*
 colour palette:
 FFFFFF
@@ -30,10 +31,11 @@ FFFFFF
   }
 body {
 	margin: 0;
-	background-color: #222222;
+	background-image: url(../icons/DarkBg.jpg);
+	background-repeat: repeat;
 	font-size: 20px;
 	color: #FFFFFF;
-	font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: 'Inter', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 h1 {
 	margin: 12px 0px;
@@ -73,7 +75,6 @@ h4 {
 	border-style: solid;
 	border-color: #212121;
 	padding: 12px 12px;
-	text-align: center;
 	display: table-cell;
 	vertical-align: middle;
 	background-color: #2F2F2F;
@@ -111,7 +112,8 @@ h4 {
 	float: none;
 	overflow: auto;
 	border: none;
-	background-color: #2A2A2A;
+	background-image: url(../icons/DarkBg.jpg);
+	background-repeat: repeat;
 }
 .col-full-box-nonImage {
 	margin-top: auto;
@@ -346,13 +348,12 @@ td {
 		font-size: 28px;
 	}
 	table {
-		font-size: 14px;
+		font-size: 15px;
 	}
 	[class*="col-"] {
 		margin-right: 0px;
 		float: left;
 		padding: 20px 12px 0;
-		text-align: center;
 		display: table-cell;
 		vertical-align: middle;
 		background-color: #2F2F2F;
@@ -362,6 +363,20 @@ td {
 	}
 	.im-box .container span {
 		float: left;
+	}
+	.im-box .img-align {
+		margin: 10px;
+	}
+	.im-box .img-align img {
+		float: left;
+		text-align: left;
+		vertical-align: middle;
+	}
+	.im-box .img-align span {
+		text-align: left;
+		vertical-align: middle;
+		font-size: 28px;
+		margin: 10px;
 	}
 	.im-box h4:first-child {
 		font-weight: normal;
@@ -394,6 +409,10 @@ td {
 		margin: 5px 30px 0;
 		text-align: left;
 	}
+	.table-title img {
+		vertical-align: middle;
+		margin-right: 10px;
+	}
 	.detailsTable {
 		margin: 0 30px;
 	}
@@ -420,7 +439,6 @@ td {
 	}
 	h4 {
 		font-size: 16px;
-
 		color: #FFFFFF;
 		text-align: center;
 		margin: 10px;
@@ -462,7 +480,6 @@ td {
 		float: left;
 		border: 1px solid #212121;
 		padding: 50px 25px;
-		text-align: center;
 		display: table-cell;
 		vertical-align: middle;
 		background-color: #2F2F2F;

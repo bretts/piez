@@ -77,8 +77,8 @@
 		} else {
 			summaryTable.innerHTML =
 				'<div class="col-1-2-box im-box"><h4 id="col-1-title">Total Saved Bytes</h4><h4 id="col-1-info">&nbsp;</h4><h4 id="col-1-2-info">&nbsp;</h4></div>' +
-				'<div class="col-1-4-box im-box"><h4 id="col-2-title">0 Videos<h4 id="col-2-info">&nbsp;</h4><h4 id="col-2-2-info">&nbsp</h4></div>' +
-				'<div class="col-1-4-box im-box"><h4 id="col-3-title">0 Images<h4 id="col-3-info">&nbsp;</h4><h4 id="col-3-2-info">&nbsp</h4></div>';
+				'<div class="col-1-4-box im-box"><div class="img-align"><img src="../icons/VideoLight@2x.png"><span id="col-2-title">0 Videos</span></div><h4 id="col-2-info">&nbsp;</h4><h4 id="col-2-2-info">&nbsp</h4></div>' +
+				'<div class="col-1-4-box im-box"><div class="img-align"><img src="../icons/ImageLight@2x.png"><span id="col-3-title">0 Images</span></div><h4 id="col-3-info">&nbsp;</h4><h4 id="col-3-2-info">&nbsp</h4></div>';
 				//'<div class="col-1-4-box"><h4 id="col-4-title">% Bytes Change</h4><h4 id="col-4-info">&nbsp;</h4></div>';
 		}
 	};
@@ -142,8 +142,8 @@
 		} else if (display_mode == 'piez-3pm') {
 			document.getElementById('detailsBox1Title').textContent = 'Script Managment Details';
 		} else {
-			document.getElementById('detailsBox1Title').textContent = 'Video Optimization Details';
-			document.getElementById('detailsBox2Title').textContent = 'Image Optimization Details';
+			document.getElementById('detailsBox1Title').innerHTML   = '<img src="../icons/VideoLight.png">' + 'Video Optimization Details';
+			document.getElementById('detailsBox2Title').innerHTML   = '<img src="../icons/ImageLight.png">' + 'Image Optimization Details';
 			document.getElementById('detailsBox3Title').textContent = 'Optimized Realtime Details';
 			document.getElementById('detailsBox4Title').textContent = 'Non Image Manager';
 		}

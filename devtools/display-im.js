@@ -26,18 +26,18 @@ function updateImSimpleTable(page) {
 			imDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
-			document.getElementById('detailsBox1').style.display = 'block';
+			document.getElementById('detailsBox2').style.display = 'block';
 			page.totalImageMb = (((detail.orgsize / detail.contlen) - 1)).toFixed(2);
 		}
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox2Table').innerHTML = imDetailsTable;
 	var rows = document.getElementById('imageSimple').getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 
 	if (rows < 2) {
-		document.getElementById('detailsBox1Table').style.visibility = "collapse";
+		document.getElementById('detailsBox2Table').style.visibility = "collapse";
 	} else {
-		document.getElementById('detailsBox1Table').style.visibility = "visible";
+		document.getElementById('detailsBox2Table').style.visibility = "visible";
 	}
 
 }

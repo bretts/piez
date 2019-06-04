@@ -337,13 +337,13 @@ td {
 	}
 	h4 {
 		font-size: 14px;
-
 		color: #FFFFFF;
 		text-align: center;
 		margin: 10px;
     }
 	.im-box h4 {
 		text-align: left;
+		font-size: 28px;
 	}
 	table {
 		font-size: 14px;
@@ -358,7 +358,7 @@ td {
 		background-color: #2F2F2F;
 	}
 	.container {
-		margin-top: 130px;
+		margin-top: 210px;
 	}
 	.im-box .container span {
 		float: left;
@@ -368,22 +368,22 @@ td {
 	}
 	.im-box #col-2-info,
 	.im-box #col-3-info {
-		font-size: 18px;
-		padding-top: 12px;
+		font-size: 46px;
+		padding-top: 16px;
 	}
 	.col-1-4-box.im-box {
 		padding: 10px 10px;
-		min-height: 130px;
-		max-height: 130px;
+		min-height: 210px;
+		max-height: 210px;
 	}
 	.col-1-2-box.im-box {
 		padding: 10px 10px;
-		min-height: 130px;
-		max-height: 130px;
+		min-height: 210px;
+		max-height: 210px;
 		background-color: #323334;
 	}
 	.col-1-2-box.im-box #col-1-info {
-		font-size: 30px;
+		font-size: 60px;
 	}
 	.detailed-results td.urlData {
 		max-width:700px;

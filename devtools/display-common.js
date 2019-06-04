@@ -142,9 +142,10 @@
 		} else if (display_mode == 'piez-3pm') {
 			document.getElementById('detailsBox1Title').textContent = 'Script Managment Details';
 		} else {
-			document.getElementById('detailsBox1Title').textContent = 'Optimization Details';
-			document.getElementById('detailsBox2Title').textContent = 'Optimized Realtime Details';
-			document.getElementById('detailsBox3Title').textContent = 'Non Image Manager';
+			document.getElementById('detailsBox1Title').textContent = 'Video Optimization Details';
+			document.getElementById('detailsBox2Title').textContent = 'Image Optimization Details';
+			document.getElementById('detailsBox3Title').textContent = 'Optimized Realtime Details';
+			document.getElementById('detailsBox4Title').textContent = 'Non Image Manager';
 		}
 	};
 
@@ -189,5 +190,6 @@
 		document.getElementById('detailsBox1').style.display = 'none';
 		document.getElementById('detailsBox2').style.display = 'none';
 		document.getElementById('detailsBox3').style.display = 'none';
+		document.getElementById('detailsBox4').style.display = 'none';
 	};
 })(this);

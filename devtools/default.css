@@ -1,12 +1,13 @@
 /*
-colour pallette:
-999797
-ffffff
-2e2f30
+colour palette:
+FFFFFF
+2F2F2F
 000000
-202122
+212121
 */
 
+/*background: linear-gradient(90deg, #2A2A2A (10px), transparent 1%) center, linear-gradient(#2A2A2A (10px), transparent 1%) center, #4F4F4F;*/
+/*background-size: 11px 11px;*/
 *,
 *:before,
 *:after {
@@ -27,12 +28,11 @@ ffffff
 	width: 100%;
 	height: 23px;
   }
-  
 body {
 	margin: 0;
 	background-color: #222222;
 	font-size: 20px;
-	color: #ffffff;
+	color: #FFFFFF;
 	font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 h1 {
@@ -40,19 +40,19 @@ h1 {
 	text-align: center;
 	font-size: 26px;
 	font-weight: 400;
-	color: #999797;
+	color: #FFFFFF;
 }
 h3 {
 	font-size: 20px;
 	font-weight: 600;
-	color: #ffffff;
+	color: #FFFFFF;
 	text-align: center;
 	margin: 10px;
 }
 h4 {
 	font-size: 17px;
 
-	color: #ffffff;
+	color: #FFFFFF;
 	text-align: center;
 	margin: 10px;
 }
@@ -69,12 +69,14 @@ h4 {
 	margin-top: 0px;
 	margin-right: 0px;
 	float: left;
-	border: 1px solid #202122;
+	border-width: 1px 1px 2px 1px;
+	border-style: solid;
+	border-color: #212121;
 	padding: 12px 12px;
 	text-align: center;
 	display: table-cell;
 	vertical-align: middle;
-	background-color: #2e2f30;
+	background-color: #2F2F2F;
 }
 [class*="col-"]:last-child {
 	margin-right: 0;
@@ -108,6 +110,8 @@ h4 {
 	display: block;
 	float: none;
 	overflow: auto;
+	border: none;
+	background-color: #2A2A2A;
 }
 .col-full-box-nonImage {
 	margin-top: auto;
@@ -126,14 +130,19 @@ h4 {
 }
 [class*='detailed-results'] {
 	margin: 0px auto;
-	color: #ffffff;
+	color: #FFFFFF;
+	text-align: left;
+	border-spacing: 0 2px;
 }
 [class*='detailed-results'] th {
-	padding: 10px;
-	color: #999797;
+	background-color: #3D3D3D;
+	font-size: 12px;
+	font-weight: normal;
+	padding: 8px 15px;
 }
 [class*='detailed-results'] td {
-	text-align: center;
+	padding: 8px 15px;
+	background-color: #333333;
 }
 [class*='detailed-results'] td.UrlData {
 	text-align: left;
@@ -147,6 +156,10 @@ h4 {
 	padding-left: 100px;
 	padding-right: 100px;
 }
+#videoAdvanced td.UrlData,
+#imageAdvanced td.UrlData{
+	max-width: 400px;
+}
 .error {
 	color: red;
 }
@@ -154,7 +167,7 @@ h4 {
 	color: #FFDE00;
 }
 .success {
-	color: #87c224;
+	color: #24C325;
 }
 .imageCompareTable {
 	margin: 0px auto;
@@ -184,13 +197,13 @@ h4 {
 	margin-bottom: 20px;
 }
 a:link {
-	color: #ffffff;
+	color: #FFFFFF;
 }
 a:hover {
 	color: white;
 }
 a:visited {
-	color: #ffffff;
+	color: #FFFFFF;
 }
 .piezConfigMessageHeader {
 	font-size: 25px;
@@ -213,8 +226,8 @@ a:visited {
 	padding:10px;
 }
 .unselectedImage {
-	color: #ffffff;
-	border: solid 4px #2e2f30;
+	color: #FFFFFF;
+	border: solid 4px #2F2F2F;
 	padding:10px;
 }
 .selectedImage:hover {
@@ -297,6 +310,7 @@ td {
 
 .subHeaderInfo {
 	text-align: center;
+	margin: 20px;
 }
 
 @media all and ( max-width: 1920px ) {
@@ -311,20 +325,20 @@ td {
 		 text-align: center;
 		 font-size: 20px;
 		 font-weight: 400;
-		 color: #999797;
+		 color: #FFFFFF;
 		 min-height: 30px;
 	}
 	h3 {
 		 font-size: 17px;
 		 font-weight: 600;
-		 color: #ffffff;
+		 color: #FFFFFF;
 		 text-align: center;
 		 margin: 10px;
 	}
 	h4 {
 		font-size: 14px;
 
-		color: #ffffff;
+		color: #FFFFFF;
 		text-align: center;
 		margin: 10px;
     }
@@ -337,12 +351,11 @@ td {
 	[class*="col-"] {
 		margin-right: 0px;
 		float: left;
-		border: 1px solid #202122;
-		padding: 20px 12px;
+		padding: 20px 12px 0;
 		text-align: center;
 		display: table-cell;
 		vertical-align: middle;
-		background-color: #2e2f30;
+		background-color: #2F2F2F;
 	}
 	.container {
 		margin-top: 130px;
@@ -375,8 +388,14 @@ td {
 	.detailed-results td.urlData {
 		max-width:700px;
 	}
+	.table-title {
+		background-color: #3D3D3D;
+		padding: 15px;
+		margin: 5px 30px 0;
+		text-align: left;
+	}
 	.detailsTable {
-		margin: 0 30px 30px;
+		margin: 0 30px;
 	}
 }
 
@@ -385,7 +404,7 @@ td {
 		 text-align: center;
 		 font-size: 16px;
 		 font-weight: 400;
-		 color: #999797;
+		 color: #FFFFFF;
 		 min-height: 33px;
 	}
 	[class*="col-"] {
@@ -395,14 +414,14 @@ td {
 	h3 {
 		 font-size: 15px;
 		 font-weight: 600;
-		 color: #ffffff;
+		 color: #FFFFFF;
 		 text-align: center;
 		 margin: 10px;
 	}
 	h4 {
 		font-size: 16px;
 
-		color: #ffffff;
+		color: #FFFFFF;
 		text-align: center;
 		margin: 10px;
     }
@@ -441,12 +460,12 @@ td {
 	[class*="col-"] {
 		margin-right: 0px;
 		float: left;
-		border: 1px solid #202122;
+		border: 1px solid #212121;
 		padding: 50px 25px;
 		text-align: center;
 		display: table-cell;
 		vertical-align: middle;
-		background-color: #2e2f30;
+		background-color: #2F2F2F;
 	}
 	.container {
 		margin-top: 150px;

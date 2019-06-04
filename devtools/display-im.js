@@ -23,7 +23,7 @@ function updateImSimpleTable(page) {
 			imDetailsTable += '<td class="urlData imageCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
 			imDetailsTable += '<td>' + detail.contype.substring(6) + '</td>';
 			imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-			imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+			imDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
 			document.getElementById('detailsBox1').style.display = 'block';
@@ -50,7 +50,7 @@ function updateVideoDetailsTable(page) {
 			imDetailsTable += '<td class="urlData videoCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
 			imDetailsTable += '<td>' + detail.contype.substring(6) + '</td>';
 			imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-			imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+			imDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
 			document.getElementById('detailsBox1').style.display = 'block';
@@ -119,20 +119,20 @@ function updateImAdvancedTable(page) {
 			imDetailsTable += '<td>' + getEncodingQuality(detail.contype, detail.encQuality) + '</td>';
 			imDetailsTable += '<td>' + detail.filename + '</td>';
 			imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-			imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+			imDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
-			document.getElementById('detailsBox1').style.display = 'block';
+			document.getElementById('detailsBox2').style.display = 'block';
 		}
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox2Table').innerHTML = imDetailsTable;
 
 	var rows = document.getElementById("imageAdvanced").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 	if (rows < 2) {
-		document.getElementById('detailsBox1Table').style.visibility = "collapse";
+		document.getElementById('detailsBox2Table').style.visibility = "collapse";
 	} else {
-		document.getElementById('detailsBox1Table').style.visibility = "visible";
+		document.getElementById('detailsBox2Table').style.visibility = "visible";
 	}
 
 }
@@ -150,7 +150,7 @@ function updateVideoAdvancedTable(page) {
 			imDetailsTable += '<td>' + getEncodingQuality(detail.contype, detail.encQuality) + '</td>';
 			imDetailsTable += '<td>' + detail.filename + '</td>';
 			imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-			imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+			imDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
 			document.getElementById('detailsBox1').style.display = 'block';
@@ -176,13 +176,13 @@ function updateIcDetailsTable(page) {
 		icDetailsTable += '<td class="urlData"' + 'data-url="' + detail.url + '">' + '<a href="' + detail.url + '"' + ' target="_blank"' + '>' + detail.url + '</a>' + '</td>';
 		icDetailsTable += '<td>' + detail.contype + '</td>';
 		icDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-		icDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+		icDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
 		icDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 		icDetailsTable += '</tr>';
-		document.getElementById('detailsBox2').style.display = 'block';
+		document.getElementById('detailsBox3').style.display = 'block';
 	});
 	icDetailsTable += '</table>';
-	document.getElementById('detailsBox2Table').innerHTML = icDetailsTable;
+	document.getElementById('detailsBox3Table').innerHTML = icDetailsTable;
 }
 
 function updateNonImIcDetailsTable(page) {
@@ -193,11 +193,11 @@ function updateNonImIcDetailsTable(page) {
 		nonImIcDetailsTable += '<td>' + detail.contype.substring(6) + '</td>';
 		nonImIcDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
 		nonImIcDetailsTable += '</tr>';
-		document.getElementById('detailsBox3').style.display = 'block';
+		document.getElementById('detailsBox4').style.display = 'block';
 		document.getElementById('nonImIcBytes').textContent = displayBytes(page.totalNonImOrIcSize);
 	});
 	nonImIcDetailsTable += '</table>';
-	document.getElementById('detailsBox3Table').innerHTML = nonImIcDetailsTable;
+	document.getElementById('detailsBox4Table').innerHTML = nonImIcDetailsTable;
 }
 //Removed for now
 function getEncodingQuality(contentType, encodingQuality) {

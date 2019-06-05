@@ -533,14 +533,11 @@ td {
 	h4 {
 		font-size: 15px;
 	}
+	.im-box h4 {
+		font-size: 14px;
+	}
 	[class*="col-"] {
-		margin-right: 0px;
-		float: left;
-		border: 1px solid #212121;
-		padding: 50px 25px;
-		display: table-cell;
-		vertical-align: middle;
-		background-color: #2F2F2F;
+		padding: 5px 0 0;
 	}
 	.container {
 		margin-top: 150px;
@@ -558,6 +555,28 @@ td {
 	.col-4-box {
 		min-height: 150px;
 		overflow: scroll;
+	}
+	.im-box #col-1-info {
+		font-size: 32px;
+	}
+	.im-box #col-2-info,
+	.im-box #col-3-info {
+		font-size: 20px;
+		padding-top: 0px;
+	}
+	.im-box .img-align span {
+		font-size: 14px;
+		margin: 5px;
+	}
+	.im-box .img-align img {
+		width: 16px;
+		height: 16px;
+	}
+	.table-title {
+		margin: 5px 10px 0;
+	}
+	.detailsTable {
+		margin: 0 10px;
 	}
 	.detailed-results td.urlData {
 	    max-width:200px;

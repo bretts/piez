@@ -38,7 +38,7 @@ body {
 	font-family: 'Inter', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 h1 {
-	margin: 12px 0px;
+	margin: 12px 0;
 	text-align: center;
 	font-size: 26px;
 	font-weight: 400;
@@ -127,23 +127,32 @@ h4 {
 	float: relative;
 	overflow: auto;
 }
-.col-image-box {
-	width: 100%;
-	text-align: center;
+#imageBox {
 	display: block;
-	float: none;
+	width: 94%;
+	margin: 3%;
 	padding: 15px;
+	background-color: #333333;
 }
 .im-box .container span {
 	float: left;
 }
-.im-box .img-align {
+#compareTitle {
+	margin: 5px
+}
+.img-align {
 	margin: 10px;
 }
-.im-box .img-align img {
+.img-align img {
 	float: left;
 	text-align: left;
 	vertical-align: middle;
+}
+.img-align span {
+	text-align: left;
+	vertical-align: middle;
+	font-size: 16px;
+	margin: 10px;
 }
 .im-box .img-align span {
 	text-align: left;
@@ -168,7 +177,7 @@ h4 {
 	padding: 10px 10px;
 	min-height: 210px;
 	max-height: 210px;
-	background-color: #323334;
+	background-color: #333333;
 }
 .im-box #col-1-info {
 	font-size: 60px;
@@ -256,8 +265,8 @@ h4 {
 }
 .toggleBoxMessage {
 	margin-top:10px;
-	margin-bottom:20px;
 	color: #eee9e9;
+	text-align: center;
 }
 .imageCompareViewer {
 	margin-top: 20px;
@@ -291,7 +300,7 @@ a:visited {
 }
 .unselectedImage {
 	color: #FFFFFF;
-	border: solid 4px #2F2F2F;
+	border: solid 4px #333333;
 	padding:10px;
 }
 .selectedImage:hover {
@@ -314,12 +323,14 @@ a:visited {
 }
 .imageToggleBox {
 	margin-bottom: 20px;
+	text-align: center;
 }
 .imageToggleBox:hover {
 	cursor: pointer;
 }
 #videoToggleBox {
 	margin-bottom: 20px;
+	text-align: center;
 }
 #videoToggle {
 	max-height: 400px;
@@ -327,6 +338,7 @@ a:visited {
 }
 #videoToggleControls {
 	padding-bottom: 15px;
+	text-align: center;
 }
 .ajaxLoader {
 	width: 60px;
@@ -341,7 +353,7 @@ a:visited {
 	margin-bottom: 40px;
 	-webkit-animation-duration: 1.0s;
 	-webkit-animation-iteration-count:infinite;
-	-webkit-animation-name:loader;
+	-webkit-animation-name:loader;to
 	-webkit-animation-timing-function: linear;
 }
 @-webkit-keyframes loader {
@@ -492,7 +504,7 @@ td {
 		padding: 10px 10px;
 		min-height: 155px;
 		max-height: 155px;
-		background-color: #323334;
+		background-color: #333333;
 	}
 	.table-title {
 		padding: 10px;
@@ -605,7 +617,10 @@ td {
     text-align:center;
 }
 #close {
-    display:inline-block;
-    padding:2px 5px;
-    background:#ccc;
+	float: right;
+	font-size: 26px;
+	padding: 0 5px;
+}
+#close:hover {
+	cursor: pointer;
 }

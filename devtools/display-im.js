@@ -261,7 +261,7 @@ function showImageCompare() {
 	document.getElementById('transformedImage').onclick = function () {
 		window.open(i.transformedImage.src);
 	};
-	document.getElementById('compareTitle').innerHTML = "Image Comparison";
+	document.getElementById('compareTitle').innerHTML = '<img src="../icons/ImageLight.png">' + '<span>Image Comparison</span>';
 	document.getElementById('toggleBoxMessage').innerHTML = "Click the image to toggle";
 	document.getElementById('compareUrlTitle').href = this.getAttribute('data-url');
 	document.getElementById('compareUrlTitle').innerHTML = this.getAttribute('data-url');
@@ -295,7 +295,7 @@ function showVideoCompare() {
 	tranVideoLink.className = 'unselectedImage';
 	origVideoLink.className = 'selectedImage';
 
-	document.getElementById('compareTitle').innerHTML = "Video Comparison"
+	document.getElementById('compareTitle').innerHTML = '<img src="../icons/VideoLight.png">' + '<span>Video Comparison</span>';
 	document.getElementById('toggleBoxMessage').innerHTML = "Click the video to toggle";
 	document.getElementById('compareUrlTitle').href = tranVideo;
 	document.getElementById('compareUrlTitle').innerHTML = tranVideo;

@@ -199,9 +199,15 @@ h4 {
 	font-weight: normal;
 	padding: 8px 15px;
 }
+[class*='detailed-results'] .urlInfo {
+	background-color: #333333;
+	color: #858585;
+}
+[class*='detailed-results'] .transformed {
+	color: #FFFFFF;
+}
 [class*='detailed-results'] td {
 	padding: 8px 15px;
-	background-color: #333333;
 }
 [class*='detailed-results'] td.UrlData {
 	text-align: left;
@@ -246,7 +252,11 @@ h4 {
 	font-size: 14px;
 }
 .urlInfo:hover {
-	background-color: black;
+	background-color: #3D3D3D;
+	color: #FFFFFF;
+}
+.urlInfo:hover a {
+	color: #FFFFFF;
 }
 .toggleBoxMessage {
 	margin-top:10px;
@@ -258,13 +268,10 @@ h4 {
 	margin-bottom: 20px;
 }
 a:link {
-	color: #FFFFFF;
-}
-a:hover {
-	color: white;
+	color: #858585;
 }
 a:visited {
-	color: #FFFFFF;
+	color: #858585;
 }
 .piezConfigMessageHeader {
 	font-size: 25px;

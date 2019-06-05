@@ -23,7 +23,7 @@ function updateImSimpleTable(page) {
 			imDetailsTable += '<td class="urlData imageCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
 			imDetailsTable += '<td>' + detail.contype.substring(6) + '</td>';
 			imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-			imDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
+			imDetailsTable += '<td class="transformed">' + displayBytes(detail.contlen) + '</td>';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
 			document.getElementById('detailsBox2').style.display = 'block';
@@ -50,7 +50,7 @@ function updateVideoDetailsTable(page) {
 			imDetailsTable += '<td class="urlData videoCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
 			imDetailsTable += '<td>' + detail.contype.substring(6) + '</td>';
 			imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-			imDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
+			imDetailsTable += '<td class="transformed">' + displayBytes(detail.contlen) + '</td>';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
 			document.getElementById('detailsBox1').style.display = 'block';
@@ -119,7 +119,7 @@ function updateImAdvancedTable(page) {
 			imDetailsTable += '<td>' + getEncodingQuality(detail.contype, detail.encQuality) + '</td>';
 			imDetailsTable += '<td>' + detail.filename + '</td>';
 			imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-			imDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
+			imDetailsTable += '<td class="transformed">' + displayBytes(detail.contlen) + '';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
 			document.getElementById('detailsBox2').style.display = 'block';
@@ -150,7 +150,7 @@ function updateVideoAdvancedTable(page) {
 			imDetailsTable += '<td>' + getEncodingQuality(detail.contype, detail.encQuality) + '</td>';
 			imDetailsTable += '<td>' + detail.filename + '</td>';
 			imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-			imDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
+			imDetailsTable += '<td class="transformed">' + displayBytes(detail.contlen) + '</td>';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
 			document.getElementById('detailsBox1').style.display = 'block';
@@ -176,7 +176,7 @@ function updateIcDetailsTable(page) {
 		icDetailsTable += '<td class="urlData"' + 'data-url="' + detail.url + '">' + '<a href="' + detail.url + '"' + ' target="_blank"' + '>' + detail.url + '</a>' + '</td>';
 		icDetailsTable += '<td>' + detail.contype + '</td>';
 		icDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-		icDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
+		icDetailsTable += '<td class="transformed">' + displayBytes(detail.contlen) + '</td>';
 		icDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 		icDetailsTable += '</tr>';
 		document.getElementById('detailsBox3').style.display = 'block';

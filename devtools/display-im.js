@@ -57,15 +57,15 @@ function updateVideoDetailsTable(page) {
 		}
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('detailsBox1TableVideo').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
 
 
 	var rows = document.getElementById('VideoSimple').getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 
 	if (rows <= 1) {
-		document.getElementById('detailsBox1TableVideo').style.visibility = "collapse";
+		document.getElementById('detailsBox1Table').style.visibility = "collapse";
 	} else {
-		document.getElementById('detailsBox1TableVideo').style.visibility = "visible";
+		document.getElementById('detailsBox1Table').style.visibility = "visible";
 	}
 }
 
@@ -158,14 +158,14 @@ function updateVideoAdvancedTable(page) {
 
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('detailsBox1TableVideo').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
 	var rows = document.getElementById("videoAdvanced").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 	page.totalVidTransformed = rows - 1;
 
 	if (rows < 2) {
-		document.getElementById('detailsBox1TableVideo').style.visibility = "collapse";
+		document.getElementById('detailsBox1Table').style.visibility = "collapse";
 	} else {
-		document.getElementById('detailsBox1TableVideo').style.visibility = "visible";
+		document.getElementById('detailsBox1Table').style.visibility = "visible";
 	}
 }
 

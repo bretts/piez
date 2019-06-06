@@ -60,10 +60,10 @@ h4 {
 }
 .im-box h4 {
 	text-align: left;
-	font-size: 28px;
+	font-size: 42px;
 }
 .container {
-	margin-top: 210px;
+	margin-top: 215px;
 }
 [class*="row-"] {
 	margin-bottom: 20px;
@@ -97,6 +97,13 @@ h4 {
 
 .col-1-4-box {
 	width: 25%;
+	min-height: 125px;
+	max-height: 125px;
+	overflow: hidden;
+	padding: 5px;
+}
+.col-1-3-box {
+	width: calc(100% / 3);
 	min-height: 125px;
 	max-height: 125px;
 	overflow: hidden;
@@ -154,10 +161,13 @@ h4 {
 	font-size: 16px;
 	margin: 10px;
 }
+.im-box .img-align img {
+	margin-top: 9px;
+}
 .im-box .img-align span {
 	text-align: left;
 	vertical-align: middle;
-	font-size: 28px;
+	font-size: 42px;
 	margin: 10px;
 }
 .im-box h4:first-child {
@@ -165,13 +175,17 @@ h4 {
 }
 .im-box #col-2-info,
 .im-box #col-3-info {
-	font-size: 46px;
-	padding-top: 16px;
+	font-size: 42px;
 }
 .col-1-4-box.im-box {
 	padding: 10px 10px;
 	min-height: 210px;
 	max-height: 210px;
+}
+.col-1-3-box.im-box {
+	padding: 10px 10px;
+	min-height: 215px;
+	max-height: 215px;
 }
 .col-1-2-box.im-box {
 	padding: 10px 10px;
@@ -180,7 +194,7 @@ h4 {
 	background-color: #333333;
 }
 .im-box #col-1-info {
-	font-size: 60px;
+	font-size: 42px;
 }
 .table-title {
 	background-color: #3D3D3D;
@@ -353,7 +367,7 @@ a:visited {
 	margin-bottom: 40px;
 	-webkit-animation-duration: 1.0s;
 	-webkit-animation-iteration-count:infinite;
-	-webkit-animation-name:loader;to
+	-webkit-animation-name:loader;
 	-webkit-animation-timing-function: linear;
 }
 @-webkit-keyframes loader {
@@ -419,9 +433,6 @@ td {
 	table {
 		font-size: 15px;
 	}
-	.container {
-		margin-top: 210px;
-	}
 	.detailed-results td.urlData {
 		max-width:700px;
 	}
@@ -468,6 +479,11 @@ td {
 		min-height: 120px;
 		max-height: 120px;
 	}
+	.col-1-3-box {
+		padding: 10px 5px;
+		min-height: 120px;
+		max-height: 120px;
+	}
 	.col-1-2-box {
 		padding: 10px 10px;
 		min-height: 120px;
@@ -486,6 +502,7 @@ td {
 	.im-box .img-align img {
 		width: 20px;
 		height: 20px;
+		margin-top: 1px;
 	}
 	.im-box #col-1-info {
 		font-size: 42px;
@@ -496,6 +513,11 @@ td {
 		padding-top: 12px;
 	}
 	.col-1-4-box.im-box {
+		padding: 10px 10px;
+		min-height: 155px;
+		max-height: 155px;
+	}
+	.col-1-3-box.im-box {
 		padding: 10px 10px;
 		min-height: 155px;
 		max-height: 155px;
@@ -543,6 +565,11 @@ td {
 		margin-top: 150px;
 	}
 	.col-1-4-box {
+		padding: 5px;
+		min-height: 150px;
+		max-height: 150px;
+	}
+	.col-1-3-box {
 		padding: 5px;
 		min-height: 150px;
 		max-height: 150px;
@@ -600,8 +627,6 @@ td {
 }
 #table-wrapper2 {
 	position:relative;
-	border: 2px black;
-	padding: 5px red;
 }
 #table-wrapper1 table {
 	width:100%;

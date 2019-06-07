@@ -36,11 +36,11 @@ function updateNonRoDetailsTable(page) {
 		nonRoDetailsTable += '<td>' + detail.contype + '</td>';
 		nonRoDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
 		nonRoDetailsTable += '</tr>';
-		document.getElementById('detailsBox3').style.display = 'block';
+		document.getElementById('detailsBox4').style.display = 'block';
 		document.getElementById('nonImIcBytes').textContent = displayBytes(page.totalNonRoSize);
 	});
 	nonRoDetailsTable += '</table>';
-	document.getElementById('detailsBox3Table').innerHTML = nonRoDetailsTable;
+	document.getElementById('detailsBox4Table').innerHTML = nonRoDetailsTable;
 }
 
 function updateRoInProgressDetailsTable(page) {

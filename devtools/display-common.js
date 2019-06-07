@@ -1,14 +1,16 @@
 (function(global) {
 	'use strict';
 
-	global.displayBytes = function(bytes){
-		var prefixes = ["","Ki","Mi","Gi","Ti","Pi","Ei"];
-		var value    = parseInt(bytes);
+	global.displayBytes = function(bytes, decimals = 2){
+		if (bytes === 0) return '0 B';
 
-		for (var prefix = 0; value >= 1023.995 && prefix < prefixes.length - 1; ++prefix) value /= 1024;
+		const k = 1024;
+		const dm = decimals < 0 ? 0 : decimals;
+		const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
-		if (0 !== prefix) value = value.toFixed(2);
-		return value + " " + prefixes[prefix] + "B";
+		const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+		return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 	};
 
 	global.displayPercentChange = function(originalSize, transformedSize) {
@@ -18,11 +20,11 @@
 		var pctChange = (((transformedSizeInt/originalSizeInt) - 1) * 100).toFixed(2);
 
 		if (transformedSizeInt == originalSizeInt) {
-			return '<span class="warning">  ' + '(' + '0%' + ')' + '</td>';
+			return '<span class="warning">' + '( ' + '0%' + ' )' + '</td>';
 		} else if (pctChange > 0) {
-			return '<span class="error"> ' + '(+' + Math.abs(pctChange).toString() + '%)' +'</td>';
+			return '<span class="error">' + '( &#9652; ' + Math.abs(pctChange).toString() + '% )' +'</td>';
 		} else if (pctChange < 0) {
-			return '<span class="success">' + '(-' + Math.abs(pctChange).toString() + '%)' + '</td>';
+			return '<span class="success">' + '( &#9662; ' + Math.abs(pctChange).toString() + '% )' + '</td>';
 		}
 	};
 
@@ -75,11 +77,11 @@
 				'<div class="col-1-4-box"><h1 id="col-3-title">Blocked</h1><h3 id="col-3-info">&nbsp;</h3></div>' +
 				'<div class="col-1-4-box"><h1 id="col-4-title">Total</h1><h3 id="col-4-info">&nbsp;</h3></div>';
 		} else {
-			summaryTable.innerHTML =    
-				'<div class="col-1-4-box"><h4 id="col-1-title"><h4 id="col-1-info">&nbsp</h4></h4><div id="block_container"><h4 id="bloc1">Savings :</h4><h4 id="col-1-2-info">&nbsp</h4><h4 id="col-1-3-info">&nbsp</h4></div></div>' +
-				'<div class="col-1-4-box"><h4 id="col-2-title"><h4 id="col-2-info">&nbsp;</h4><div id="block_container"><h4 id="bloc2">Savings :</h4><h4 id="col-2-2-info">&nbsp</h4><h4 id="col-2-3-info">&nbsp</h4></div></div>' +
-				'<div class="col-1-4-box"><h4 id="col-3-title">Total Saved Bytes</h4><h4 id="col-3-info">&nbsp;</h4></div>' +
-				'<div class="col-1-4-box"><h4 id="col-4-title">% Bytes Change</h4><h4 id="col-4-info">&nbsp;</h4></div>';
+			summaryTable.innerHTML =
+				'<div class="col-1-3-box im-box"><h4 id="col-1-title">Total Saved Bytes</h4><h4 id="col-1-info">&nbsp;</h4><h4 id="col-1-2-info">&nbsp;</h4></div>' +
+				'<div class="col-1-3-box im-box"><div class="img-align"><img src="../icons/VideoLight@2x.png"><span id="col-2-title">0 Videos</span></div><h4 id="col-2-info">&nbsp;</h4><h4 id="col-2-2-info">&nbsp</h4></div>' +
+				'<div class="col-1-3-box im-box"><div class="img-align"><img src="../icons/ImageLight@2x.png"><span id="col-3-title">0 Images</span></div><h4 id="col-3-info">&nbsp;</h4><h4 id="col-3-2-info">&nbsp</h4></div>';
+				//'<div class="col-1-4-box"><h4 id="col-4-title">% Bytes Change</h4><h4 id="col-4-info">&nbsp;</h4></div>';
 		}
 	};
 
@@ -111,21 +113,21 @@
 			//  Video
 			let totalVideoOriginalSize  = page.totalVidOriginalSize;
 			let totalVideoTransformSize = page.totalVidTransformSize;
-			document.getElementById('col-1-info').textContent = "Optimized videos :  " + page.totalVidTransformed.toString(); 
-			document.getElementById('col-1-2-info').innerHTML = AllfileSizeDiff(totalVideoOriginalSize, totalVideoTransformSize);
-			document.getElementById('col-1-3-info').innerHTML = displayPercentChange(totalVideoOriginalSize, totalVideoTransformSize);
+			document.getElementById('col-2-title').textContent = page.totalVidTransformed.toString() + " Video" + ((page.totalVidTransformed !== 1) ? "s" : "");
+			document.getElementById('col-2-info').innerHTML = displayBytes(totalVideoOriginalSize - totalVideoTransformSize);
+			document.getElementById('col-2-2-info').innerHTML = displayPercentChange(totalVideoOriginalSize, totalVideoTransformSize);
 			// Images
 			let totalImageOriginalSize  = page.totalImOriginalSize + page.totalIcOriginalSize;
 			let totalImageTransformSize = page.totalImTransformSize + page.totalIcTransformSize;
-			document.getElementById('col-2-info').textContent = "Optimized images :  " + (page.totalImTransformed + page.totalICImagesTransformed).toString();
-			document.getElementById('col-2-2-info').innerHTML = AllfileSizeDiff(totalImageOriginalSize, totalImageTransformSize);
-			document.getElementById('col-2-3-info').innerHTML = displayPercentChange(totalImageOriginalSize, totalImageTransformSize);
+			document.getElementById('col-3-title').textContent = (page.totalImTransformed + page.totalICImagesTransformed).toString() + " Image" + (((page.totalImTransformed + page.totalICImagesTransformed) !== 1) ? "s" : "");
+			document.getElementById('col-3-info').innerHTML = displayBytes(totalImageOriginalSize - totalImageTransformSize);
+			document.getElementById('col-3-2-info').innerHTML = displayPercentChange(totalImageOriginalSize, totalImageTransformSize);
 
 			let totalOriginalSize  = totalImageOriginalSize + totalVideoOriginalSize;
 			let totalTransformSize = totalImageTransformSize + totalVideoTransformSize;
-			document.getElementById('col-3-info').textContent = displayBytes(totalOriginalSize - totalTransformSize);
-			document.getElementById('col-3-info').className   = classColour(totalOriginalSize - totalTransformSize);
-			document.getElementById('col-4-info').innerHTML   = displayPercentChange(totalOriginalSize, totalTransformSize);
+			document.getElementById('col-1-info').textContent = displayBytes(totalOriginalSize - totalTransformSize);
+			//document.getElementById('col-1-info').className   = classColour(totalOriginalSize - totalTransformSize);
+			document.getElementById('col-1-2-info').innerHTML = displayPercentChange(totalOriginalSize, totalTransformSize);
 		}
 	};
 
@@ -142,9 +144,10 @@
 		} else if (display_mode == 'piez-3pm') {
 			document.getElementById('detailsBox1Title').textContent = 'Script Managment Details';
 		} else {
-			document.getElementById('detailsBox1Title').textContent = 'Optimization Details';
-			document.getElementById('detailsBox2Title').textContent = 'Optimized Realtime Details';
-			document.getElementById('detailsBox3Title').textContent = 'Non Image Manager';
+			document.getElementById('detailsBox1Title').innerHTML   = '<img src="../icons/VideoLight.png">' + 'Video Optimization Details';
+			document.getElementById('detailsBox2Title').innerHTML   = '<img src="../icons/ImageLight.png">' + 'Image Optimization Details';
+			document.getElementById('detailsBox3Title').textContent = 'Optimized Realtime Details';
+			document.getElementById('detailsBox4Title').textContent = 'Non Image Manager';
 		}
 	};
 
@@ -184,10 +187,11 @@
 		document.getElementById('col-1-info').textContent    = '\u00A0';
 		document.getElementById('col-2-info').textContent    = '\u00A0';
 		document.getElementById('col-3-info').textContent    = '\u00A0';
-		document.getElementById('col-4-info').textContent    = '\u00A0';
+		//document.getElementById('col-4-info').textContent    = '\u00A0';
 		document.getElementById('imageBox').style.display    = 'none';
 		document.getElementById('detailsBox1').style.display = 'none';
 		document.getElementById('detailsBox2').style.display = 'none';
 		document.getElementById('detailsBox3').style.display = 'none';
+		document.getElementById('detailsBox4').style.display = 'none';
 	};
 })(this);

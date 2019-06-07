@@ -25,8 +25,8 @@
         </div>
         <div class="clearfix">
             <div style="display:none" id="imageBox" class="col-image-box">
-                <button id="close">close(x)</button>
-                <h1 id = "compareTitle"></h1>
+                <div id="close">&#215;</div>
+                <div id="compareTitle" class="img-align"></div>
                 <a id="compareUrlTitle" target="_blank"></a>
                 <!-- Image -->
                 <div id="imageCompare">
@@ -64,26 +64,31 @@
         <div id="conversionDetails">
             <div id="detailsBox1" style="display:none" class="row details clearfix">
                 <div class="col-full-box">
-                    <h1 id="detailsBox1Title">Optimized Data Details</h1>
-                    <div id="table-wrapper2">
-                        <h3 class="" id="detailsBox1TaxbleVideo"></h3>
-                    </div>
+                    <h3 class="table-title" id="detailsBox1Title">Video Optimization Details</h3>
                     <div id="table-wrapper1">
-                        <h3 class="detailsTable" id="detailsBox1Table"></h3>
+                        <div class="detailsTable" id="detailsBox1Table"></div>
                     </div>
                 </div>
             </div>
             <div id="detailsBox2" style="display:none" class="row details clearfix">
                 <div class="col-full-box">
-                    <h1 id="detailsBox2Title">Optimized Realtime Details</h1>
-                    <h3 id="detailsBox2Table"></h3>
+                    <h3 class="table-title" id="detailsBox2Title">Image Optimization Details</h3>
+                    <div id="table-wrapper2">
+                        <div class="detailsTable" id="detailsBox2Table"></div>
+                    </div>
                 </div>
             </div>
             <div id="detailsBox3" style="display:none" class="row details clearfix">
                 <div class="col-full-box">
-                    <h1 id="detailsBox3Title">Non Image Manager</h1>
-                    <div id="nonImIcBytes" class="subHeaderInfo">&nbsp;</div>
+                    <h3 class="table-title" id="detailsBox3Title">Optimized Realtime Details</h3>
                     <h3 id="detailsBox3Table"></h3>
+                </div>
+            </div>
+            <div id="detailsBox4" style="display:none" class="row details clearfix">
+                <div class="col-full-box">
+                    <h3 class="table-title" id="detailsBox4Title">Non Image Manager</h3>
+                    <div id="nonImIcBytes" class="subHeaderInfo">&nbsp;</div>
+                    <h3 id="detailsBox4Table"></h3>
                 </div>
             </div>
         </div>

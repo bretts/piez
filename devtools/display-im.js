@@ -5,8 +5,8 @@ function updateImDetailsTable(page, display_mode) {
 			updateVideoDetailsTable(page);
 			break;
 		case "piez-im-advanced":
-			updateImAdvandedTable(page);
-			updateVideoAdvandedTable(page);
+			updateImAdvancedTable(page);
+			updateVideoAdvancedTable(page);
 			break;
 		default:
 			updateImSimpleTable(page);
@@ -23,21 +23,21 @@ function updateImSimpleTable(page) {
 			imDetailsTable += '<td class="urlData imageCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
 			imDetailsTable += '<td>' + detail.contype.substring(6) + '</td>';
 			imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-			imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+			imDetailsTable += '<td class="transformed">' + displayBytes(detail.contlen) + '</td>';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
-			document.getElementById('detailsBox1').style.display = 'block';
+			document.getElementById('detailsBox2').style.display = 'block';
 			page.totalImageMb = (((detail.orgsize / detail.contlen) - 1)).toFixed(2);
 		}
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox2Table').innerHTML = imDetailsTable;
 	var rows = document.getElementById('imageSimple').getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 
 	if (rows < 2) {
-		document.getElementById('detailsBox1Table').style.visibility = "collapse";
+		document.getElementById('detailsBox2Table').style.visibility = "collapse";
 	} else {
-		document.getElementById('detailsBox1Table').style.visibility = "visible";
+		document.getElementById('detailsBox2Table').style.visibility = "visible";
 	}
 
 }
@@ -50,22 +50,22 @@ function updateVideoDetailsTable(page) {
 			imDetailsTable += '<td class="urlData videoCompareUrl" data-width="' + detail.originalWidth + '" ' + 'data-url="' + detail.url + '">' + '<a href="' + "#" + '">' + detail.url + '</a>' + '</td>';
 			imDetailsTable += '<td>' + detail.contype.substring(6) + '</td>';
 			imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-			imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+			imDetailsTable += '<td class="transformed">' + displayBytes(detail.contlen) + '</td>';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
 			document.getElementById('detailsBox1').style.display = 'block';
 		}
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('detailsBox1TaxbleVideo').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
 
 
 	var rows = document.getElementById('VideoSimple').getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 
 	if (rows <= 1) {
-		document.getElementById('detailsBox1TaxbleVideo').style.visibility = "collapse";
+		document.getElementById('detailsBox1Table').style.visibility = "collapse";
 	} else {
-		document.getElementById('detailsBox1TaxbleVideo').style.visibility = "visible";
+		document.getElementById('detailsBox1Table').style.visibility = "visible";
 	}
 }
 
@@ -107,7 +107,7 @@ function updateImBrowserFormatCompareTable(page) {
 	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
 }
 //Image
-function updateImAdvandedTable(page) {
+function updateImAdvancedTable(page) {
 	var imDetailsTable = '<table id="imageAdvanced" class="detailed-results"><tr><th>Image URL</th><th>Transformed Type</th><th>Original Width</th><th>Encoding Quality</th><th>File Chosen</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function (detail) {
 		if (/image/i.test(detail.contype)) {
@@ -119,25 +119,25 @@ function updateImAdvandedTable(page) {
 			imDetailsTable += '<td>' + getEncodingQuality(detail.contype, detail.encQuality) + '</td>';
 			imDetailsTable += '<td>' + detail.filename + '</td>';
 			imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-			imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+			imDetailsTable += '<td class="transformed">' + displayBytes(detail.contlen) + '';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
-			document.getElementById('detailsBox1').style.display = 'block';
+			document.getElementById('detailsBox2').style.display = 'block';
 		}
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox2Table').innerHTML = imDetailsTable;
 
 	var rows = document.getElementById("imageAdvanced").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 	if (rows < 2) {
-		document.getElementById('detailsBox1Table').style.visibility = "collapse";
+		document.getElementById('detailsBox2Table').style.visibility = "collapse";
 	} else {
-		document.getElementById('detailsBox1Table').style.visibility = "visible";
+		document.getElementById('detailsBox2Table').style.visibility = "visible";
 	}
 
 }
 //Video
-function updateVideoAdvandedTable(page) {
+function updateVideoAdvancedTable(page) {
 	var imDetailsTable = '<table id="videoAdvanced" class="detailed-results"><tr><th>Video URL</th><th>Transformed Type</th><th>Original Width</th><th>Encoding Quality</th><th>File Chosen</th><th>Original Size</th><th>Transformed Size</th><th>% Bytes Change</th></tr>';
 	page.imDownloadDetails.forEach(function (detail) {
 		page.totalVideoMb += (((parseFloat(detail.orgsize) / parseFloat(detail.contlen))));
@@ -150,7 +150,7 @@ function updateVideoAdvandedTable(page) {
 			imDetailsTable += '<td>' + getEncodingQuality(detail.contype, detail.encQuality) + '</td>';
 			imDetailsTable += '<td>' + detail.filename + '</td>';
 			imDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-			imDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+			imDetailsTable += '<td class="transformed">' + displayBytes(detail.contlen) + '</td>';
 			imDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 			imDetailsTable += '</tr>';
 			document.getElementById('detailsBox1').style.display = 'block';
@@ -158,14 +158,14 @@ function updateVideoAdvandedTable(page) {
 
 	});
 	imDetailsTable += '</table>';
-	document.getElementById('detailsBox1TaxbleVideo').innerHTML = imDetailsTable;
+	document.getElementById('detailsBox1Table').innerHTML = imDetailsTable;
 	var rows = document.getElementById("videoAdvanced").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
 	page.totalVidTransformed = rows - 1;
 
 	if (rows < 2) {
-		document.getElementById('detailsBox1TaxbleVideo').style.visibility = "collapse";
+		document.getElementById('detailsBox1Table').style.visibility = "collapse";
 	} else {
-		document.getElementById('detailsBox1TaxbleVideo').style.visibility = "visible";
+		document.getElementById('detailsBox1Table').style.visibility = "visible";
 	}
 }
 
@@ -176,13 +176,13 @@ function updateIcDetailsTable(page) {
 		icDetailsTable += '<td class="urlData"' + 'data-url="' + detail.url + '">' + '<a href="' + detail.url + '"' + ' target="_blank"' + '>' + detail.url + '</a>' + '</td>';
 		icDetailsTable += '<td>' + detail.contype + '</td>';
 		icDetailsTable += '<td>' + displayBytes(detail.orgsize) + '</td>';
-		icDetailsTable += fileSizeDiff(detail.orgsize, detail.contlen);
+		icDetailsTable += '<td class="transformed">' + displayBytes(detail.contlen) + '</td>';
 		icDetailsTable += '<td>' + displayPercentChange(detail.orgsize, detail.contlen) + '</td>';
 		icDetailsTable += '</tr>';
-		document.getElementById('detailsBox2').style.display = 'block';
+		document.getElementById('detailsBox3').style.display = 'block';
 	});
 	icDetailsTable += '</table>';
-	document.getElementById('detailsBox2Table').innerHTML = icDetailsTable;
+	document.getElementById('detailsBox3Table').innerHTML = icDetailsTable;
 }
 
 function updateNonImIcDetailsTable(page) {
@@ -193,11 +193,11 @@ function updateNonImIcDetailsTable(page) {
 		nonImIcDetailsTable += '<td>' + detail.contype.substring(6) + '</td>';
 		nonImIcDetailsTable += '<td>' + displayBytes(detail.contlen) + '</td>';
 		nonImIcDetailsTable += '</tr>';
-		document.getElementById('detailsBox3').style.display = 'block';
+		document.getElementById('detailsBox4').style.display = 'block';
 		document.getElementById('nonImIcBytes').textContent = displayBytes(page.totalNonImOrIcSize);
 	});
 	nonImIcDetailsTable += '</table>';
-	document.getElementById('detailsBox3Table').innerHTML = nonImIcDetailsTable;
+	document.getElementById('detailsBox4Table').innerHTML = nonImIcDetailsTable;
 }
 //Removed for now
 function getEncodingQuality(contentType, encodingQuality) {
@@ -261,7 +261,7 @@ function showImageCompare() {
 	document.getElementById('transformedImage').onclick = function () {
 		window.open(i.transformedImage.src);
 	};
-	document.getElementById('compareTitle').innerHTML = "Image Comparison";
+	document.getElementById('compareTitle').innerHTML = '<img src="../icons/ImageLight.png">' + '<span>Image Comparison</span>';
 	document.getElementById('toggleBoxMessage').innerHTML = "Click the image to toggle";
 	document.getElementById('compareUrlTitle').href = this.getAttribute('data-url');
 	document.getElementById('compareUrlTitle').innerHTML = this.getAttribute('data-url');
@@ -295,7 +295,7 @@ function showVideoCompare() {
 	tranVideoLink.className = 'unselectedImage';
 	origVideoLink.className = 'selectedImage';
 
-	document.getElementById('compareTitle').innerHTML = "Video Comparison"
+	document.getElementById('compareTitle').innerHTML = '<img src="../icons/VideoLight.png">' + '<span>Video Comparison</span>';
 	document.getElementById('toggleBoxMessage').innerHTML = "Click the video to toggle";
 	document.getElementById('compareUrlTitle').href = tranVideo;
 	document.getElementById('compareUrlTitle').innerHTML = tranVideo;

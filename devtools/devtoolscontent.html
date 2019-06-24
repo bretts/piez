@@ -24,38 +24,40 @@
         <div id="conversionSummary" class="rowFixTop clearfix">
         </div>
         <div class="clearfix">
-            <div style="display:none" id="imageBox" class="col-image-box">
-                <div id="close">&#215;</div>
-                <div id="compareTitle" class="img-align"></div>
-                <a id="compareUrlTitle" target="_blank"></a>
-                <!-- Image -->
-                <div id="imageCompare">
-                    <table id='imageToggleControls' class='imageCompareTable'>
-                        <tr>
-                            <th id="transformedImage" class="unselectedImage">Transformed Image</th>
-                            <th id="originalImage" class="unselectedImage">Original Image</th>
-                        </tr>
-                    </table>
-                    <div id="ImageAjaxloader" class="ajaxLoader" style="display:none;"></div>
-                    <div id='imageToggleBox' class="imageToggleBox">
-                        <img id="toggleOriginalImage" class="toggleOriginalImage">
-                        <img id="toggleTransformedImage" class="toggleTransformedImage">
+            <div id="compareWrapper">
+                <div style="display:none" id="imageBox" class="col-image-box">
+                    <div id="close">&#215;</div>
+                    <div id="compareTitle" class="img-align"></div>
+                    <a id="compareUrlTitle" target="_blank"></a>
+                    <!-- Image -->
+                    <div id="imageCompare">
+                        <table id='imageToggleControls' class='imageCompareTable'>
+                            <tr>
+                                <th id="transformedImage" class="unselectedImage">Transformed Image</th>
+                                <th id="originalImage" class="unselectedImage">Original Image</th>
+                            </tr>
+                        </table>
+                        <div id="ImageAjaxloader" class="ajaxLoader" style="display:none;"></div>
+                        <div id='imageToggleBox' class="imageToggleBox">
+                            <img id="toggleOriginalImage" class="toggleOriginalImage">
+                            <img id="toggleTransformedImage" class="toggleTransformedImage">
+                        </div>
+                        <p id='toggleBoxMessage' class='toggleBoxMessage'></p>
                     </div>
-                    <p id='toggleBoxMessage' class='toggleBoxMessage'></p>
-                </div>
-                <!-- Video -->
-                <div id="videoCompare">
-                    <table id='imageToggleControls' class='imageCompareTable'>
-                        <tr>
-                            <th id="transformedVideo" class="unselectedImage">Transformed Video</th>
-                            <th id="originalVideo" class="unselectedImage">Original Video</th>
-                        </tr>
-                    </table>
-                    <div id="videoToggleControls">
-                        <button id="videoToggleButton" type="button">Toggle Video</button>
-                    </div>
-                    <div id="videoToggleBox">
-                        <video id="videoToggle" controls autoplay loop></video>
+                    <!-- Video -->
+                    <div id="videoCompare">
+                        <table id='imageToggleControls' class='imageCompareTable'>
+                            <tr>
+                                <th id="transformedVideo" class="unselectedImage">Transformed Video</th>
+                                <th id="originalVideo" class="unselectedImage">Original Video</th>
+                            </tr>
+                        </table>
+                        <div id="videoToggleControls">
+                            <button id="videoToggleButton" type="button">Toggle Video</button>
+                        </div>
+                        <div id="videoToggleBox">
+                            <video id="videoToggle" controls autoplay loop></video>
+                        </div>
                     </div>
                 </div>
             </div>

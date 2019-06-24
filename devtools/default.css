@@ -127,10 +127,13 @@ h4 {
 	float: relative;
 	overflow: auto;
 }
+#compareWrapper {
+	margin: 0 40px;
+}
 #imageBox {
 	display: block;
-	width: 94%;
-	margin: 3%;
+	width: 100%;
+	margin-top: 35px;
 	padding: 15px;
 	background-color: #333333;
 }
@@ -458,7 +461,7 @@ td {
 		margin-top: 155px;
 	}
 	[class*="col-"] {
-		padding: 18px 0px 0;
+		padding: 20px 0px 0;
 	}
 	.col-1-4-box {
 		padding: 10px 5px;
@@ -473,6 +476,13 @@ td {
 	.col-4-box {
 		min-height: 150px;
 		overflow: scroll;
+	}
+	#compareWrapper {
+		margin: 0 30px;
+	}
+	#imageBox {
+		margin-top: 25px;
+		padding: 15px;
 	}
 	.im-box h4 {
 		font-size: 18px;
@@ -552,6 +562,13 @@ td {
 	.col-4-box {
 		min-height: 150px;
 		overflow: scroll;
+	}
+	#compareWrapper {
+		margin: 0 10px;
+	}
+	#imageBox {
+		margin-top: 10px;
+		padding: 15px;
 	}
 	.im-box #col-1-info {
 		font-size: 32px;

@@ -1,7 +1,7 @@
 (function(global) {
 	'use strict';
 
-	global.displayBytes = function(bytes, decimals = 2){
+	global.displayBytes = function(bytes, decimals = 1){
 		if (bytes === 0) return '0 B';
 
 		const k = 1024;
@@ -10,36 +10,21 @@
 
 		const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-		return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+		return (bytes / Math.pow(k, i)).toFixed(dm) + ' ' + sizes[i];
 	};
 
 	global.displayPercentChange = function(originalSize, transformedSize) {
 		var originalSizeInt    = parseInt(originalSize);
 		var transformedSizeInt = parseInt(transformedSize);
 
-		var pctChange = (((transformedSizeInt/originalSizeInt) - 1) * 100).toFixed(2);
+		var pctChange = ((transformedSizeInt/originalSizeInt) - 1) * 100;
 
 		if (transformedSizeInt == originalSizeInt) {
 			return '<span class="warning">' + '( ' + '0%' + ' )' + '</td>';
 		} else if (pctChange > 0) {
-			return '<span class="error">' + '( &#9652; ' + Math.abs(pctChange).toString() + '% )' +'</td>';
+			return '<span class="error">' + '( &#9652; ' + Math.abs(pctChange).toFixed(1) + '% )' +'</td>';
 		} else if (pctChange < 0) {
-			return '<span class="success">' + '( &#9662; ' + Math.abs(pctChange).toString() + '% )' + '</td>';
-		}
-	};
-
-	global.displayPercentChange1 = function(originalSize, transformedSize) {
-		var originalSizeInt    = parseInt(originalSize);
-		var transformedSizeInt = parseInt(transformedSize);
-
-		var pctChange = (((transformedSizeInt/originalSizeInt) - 1) * 100).toFixed(2);
-
-		if (transformedSizeInt == originalSizeInt) {
-			return 0;
-		} else if (pctChange > 0) {
-			return  Math.abs(pctChange);
-		} else if (pctChange < 0) {
-			return Math.abs(pctChange);
+			return '<span class="success">' + '( &#9662; ' + Math.abs(pctChange).toFixed(1) + '% )' + '</td>';
 		}
 	};
 

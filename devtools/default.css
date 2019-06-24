@@ -280,17 +280,14 @@ a:visited {
 }
 .piezConfigMessageHeader {
 	font-size: 25px;
-	color: yellow;
 	text-align: center;
-	width: 50%;
 	margin: auto;
+	padding: 0 10px;
 }
 .piezConfigMessageSteps ol {
-	list-style-position: inside;
 	font-size: 15px;
-	color: yellow;
 	text-align: left;
-	width: 30%;
+	width: 710px;
 	margin: auto;
 }
 .selectedImage {
@@ -353,7 +350,7 @@ a:visited {
 	margin-bottom: 40px;
 	-webkit-animation-duration: 1.0s;
 	-webkit-animation-iteration-count:infinite;
-	-webkit-animation-name:loader;to
+	-webkit-animation-name:loader;
 	-webkit-animation-timing-function: linear;
 }
 @-webkit-keyframes loader {
@@ -587,6 +584,9 @@ td {
 	#imageAdvanced td.UrlData {
 		max-width: 150px;
 	}
+	.piezConfigMessageSteps ol {
+		width: 90%;
+	}
 }
 
 /* Scroll on images and videos*/
@@ -600,8 +600,6 @@ td {
 }
 #table-wrapper2 {
 	position:relative;
-	border: 2px black;
-	padding: 5px red;
 }
 #table-wrapper1 table {
 	width:100%;

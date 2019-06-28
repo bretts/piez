@@ -241,30 +241,61 @@ function hideVideoCompare() {
 }
 
 function showImageCompare() {
-	ga('send', 'event', 'displayImage', this.getAttribute('data-url'));
+	//ga('send', 'event', 'displayImage', this.getAttribute('data-url'));
 
 	hideVideoCompare();
 
+	let origImage = document.getElementById('originalImage');
+	let tranImage = document.getElementById('transformedImage');
+	origImage.style.display = 'none';
+	tranImage.style.display = 'none';
+	document.getElementById("originalImageText").style.display = 'none';
+	document.getElementById("originalImageValues").style.display = 'none';
+	document.getElementById("transformedImageText").style.display = 'none';
+	document.getElementById("transformedImageValues").style.display = 'none';
+	document.getElementById("imageCompareOrig").style.margin = '10% 20%';
+	document.getElementById("imageCompareTran").style.margin = '10% 20%';
+	document.getElementById("imageAjaxLoader1").style.display = 'block';
+	document.getElementById("imageAjaxLoader2").style.display = 'block';
+
+	let origImageLink, tranImageLink, tranImagePercent;
 	if (this.getAttribute('data-url').indexOf('?') == -1) {
-		origImage = (this.getAttribute('data-url') + '?imbypass=true');
+		origImageLink = (this.getAttribute('data-url') + '?imbypass=true');
 	} else {
-		origImage = (this.getAttribute('data-url') + '&imbypass=true');
+		origImageLink = (this.getAttribute('data-url') + '&imbypass=true');
 	}
-	tranImage = this.getAttribute('data-url');
+	tranImageLink = this.getAttribute('data-url');
+	tranImagePercent = this.parentElement.lastChild.innerHTML;
 
-	i = new ImageToggle();
-	i.addImages(origImage, tranImage);
+	origImage.src = origImageLink;
+	origImage.onload = () => {
+		document.getElementById("imageAjaxLoader1").style.display = 'none';
+		document.getElementById("imageCompareOrig").style.margin = '0';
+		document.getElementById("originalImageText").style.display = 'block';
+		document.getElementById("originalImageValues").style.display = 'block';
+		origImage.style.display = 'block';
+		origImage.onclick = function () {
+			window.open(origImageLink);
+		};
+	};
+	tranImage.src = tranImageLink;
+	tranImage.onload = () => {
+		document.getElementById("imageAjaxLoader2").style.display = 'none';
+		document.getElementById("imageCompareTran").style.margin = '0';
+		document.getElementById("transformedImageText").style.display = 'block';
+		document.getElementById("transformedImageValues").style.display = 'block';
+		tranImage.style.display = 'block';
+		tranImage.onclick = function () {
+			window.open(tranImageLink);
+		};
+	};
 
-	document.getElementById('originalImage').onclick = function () {
-		window.open(i.originalImage.src);
-	};
-	document.getElementById('transformedImage').onclick = function () {
-		window.open(i.transformedImage.src);
-	};
 	document.getElementById('compareTitle').innerHTML = '<img src="../icons/ImageLight.png">' + '<span>Image Comparison</span>';
-	document.getElementById('toggleBoxMessage').innerHTML = "Click the image to toggle";
-	document.getElementById('compareUrlTitle').href = this.getAttribute('data-url');
-	document.getElementById('compareUrlTitle').innerHTML = this.getAttribute('data-url');
+	document.getElementById('compareUrlTitle').innerHTML = "Image link";
+	document.getElementById('compareUrlLink').href = tranImageLink;
+	document.getElementById('compareUrlLink').innerHTML = tranImageLink;
+	document.getElementById('originalImageValues').innerHTML = '<p>' + this.parentElement.children[5].innerHTML + '</p>';
+	document.getElementById('transformedImageValues').innerHTML = tranImagePercent + '<p>' + this.parentElement.children[6].innerHTML + '</p>';
 	document.getElementById('imageBox').style.display = 'block';
 	document.getElementById('imageCompare').style.display = 'block';
 }
@@ -274,31 +305,75 @@ function showVideoCompare() {
 
 	hideImageCompare();
 
+	let origVideo = document.getElementById('originalVideo');
+	let tranVideo = document.getElementById('transformedVideo');
+	origVideo.style.display = 'none';
+	tranVideo.style.display = 'none';
+	document.getElementById("originalVideoText").style.display = 'none';
+	document.getElementById("originalVideoValues").style.display = 'none';
+	document.getElementById("transformedVideoText").style.display = 'none';
+	document.getElementById("transformedVideoValues").style.display = 'none';
+	document.getElementById("videoCompareOrig").style.margin = '10% 20%';
+	document.getElementById("videoCompareTran").style.margin = '10% 20%';
+	document.getElementById("videoAjaxLoader1").style.display = 'block';
+	document.getElementById("videoAjaxLoader2").style.display = 'block';
+
+	let origVideoLink, tranVideoLink, tranVideoPercent;
 	if (this.getAttribute('data-url').indexOf('?') == -1) {
-		origVideo = (this.getAttribute('data-url') + '?imbypass=true');
+		origVideoLink = (this.getAttribute('data-url') + '?imbypass=true');
 	} else {
-		origVideo = (this.getAttribute('data-url') + '&imbypass=true');
+		origVideoLink = (this.getAttribute('data-url') + '&imbypass=true');
 	}
-	tranVideo = this.getAttribute('data-url');
+	tranVideoLink = this.getAttribute('data-url');
+	tranVideoPercent = this.parentElement.lastChild.innerHTML;
 
-	var origVideoLink = document.getElementById('originalVideo');
-	var tranVideoLink = document.getElementById('transformedVideo');
-	v = new VideoToggle(origVideo, tranVideo, origVideoLink, tranVideoLink);
+	let promise = new Promise(resolve => {
+		let loaded = 0;
+		origVideo.addEventListener('loadedmetadata', () => {
+			loaded++;
+			if (loaded === 2) {
+				resolve();
+			}
+		});
+		tranVideo.addEventListener('loadedmetadata', () => {
+			loaded++;
+			if (loaded === 2) {
+				resolve();
+			}
+		});
+	});
 
-	origVideoLink.onclick = function () {
-		window.open(origVideo);
-	};
-	tranVideoLink.onclick = function () {
-		window.open(tranVideo);
-	};
+	promise.then(() => {
+		document.getElementById("videoAjaxLoader1").style.display = 'none';
+		document.getElementById("videoCompareOrig").style.margin = '0';
+		document.getElementById("originalVideoText").style.display = 'block';
+		document.getElementById("originalVideoValues").style.display = 'block';
+		origVideo.style.display = 'block';
+		origVideo.onclick = function () {
+			window.open(origVideoLink);
+		};
+		document.getElementById("videoAjaxLoader2").style.display = 'none';
+		document.getElementById("videoCompareTran").style.margin = '0';
+		document.getElementById("transformedVideoText").style.display = 'block';
+		document.getElementById("transformedVideoValues").style.display = 'block';
+		tranVideo.style.display = 'block';
+		tranVideo.onclick = function () {
+			window.open(tranVideoLink);
+		};
+	}).then(() => {
+		origVideo.play();
+		tranVideo.play();
+	});
 
-	tranVideoLink.className = 'unselectedImage';
-	origVideoLink.className = 'selectedImage';
+	origVideo.src = origVideoLink;
+	tranVideo.src = tranVideoLink;
 
 	document.getElementById('compareTitle').innerHTML = '<img src="../icons/VideoLight.png">' + '<span>Video Comparison</span>';
-	document.getElementById('toggleBoxMessage').innerHTML = "Click the video to toggle";
-	document.getElementById('compareUrlTitle').href = tranVideo;
-	document.getElementById('compareUrlTitle').innerHTML = tranVideo;
+	document.getElementById('compareUrlTitle').innerHTML = "Video link";
+	document.getElementById('compareUrlLink').href = tranVideoLink;
+	document.getElementById('compareUrlLink').innerHTML = tranVideoLink;
+	document.getElementById('originalVideoValues').innerHTML = '<p>' + this.parentElement.children[5].innerHTML + '</p>';
+	document.getElementById('transformedVideoValues').innerHTML = tranVideoPercent + '<p>' + this.parentElement.children[6].innerHTML + '</p>';
 	document.getElementById('videoCompare').style.display = 'block';
 	document.getElementById('imageBox').style.display = 'block';
 }

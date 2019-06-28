@@ -141,7 +141,10 @@ h4 {
 	float: left;
 }
 #compareTitle {
-	margin: 5px
+	margin: 5px 5px 20px 5px;
+}
+#compareTitle img {
+	margin-top: 2px;
 }
 .img-align {
 	margin: 10px;
@@ -193,6 +196,7 @@ h4 {
 }
 .table-title img {
 	vertical-align: middle;
+	margin-top: -2px;
 	margin-right: 10px;
 }
 .detailsTable {
@@ -244,19 +248,7 @@ h4 {
 .success {
 	color: #24C325;
 }
-.imageCompareTable {
-	margin: 0px auto;
-	margin-bottom:20px;
-	margin-top:10px;
-}
-.imageCompareTable th {
-	text-align: center;
-	padding-left: 20px;
-	padding-right: 20px;
-	text-decoration: underline;
-	min-width: 300px;
-}
-#compareUrlTitle {
+#compareUrlLink {
 	font-size: 14px;
 }
 .urlInfo:hover {
@@ -266,14 +258,8 @@ h4 {
 .urlInfo:hover a {
 	color: #FFFFFF;
 }
-.toggleBoxMessage {
-	margin-top:10px;
-	color: #eee9e9;
-	text-align: center;
-}
-.imageCompareViewer {
-	margin-top: 20px;
-	margin-bottom: 20px;
+.imageCompare {
+	padding: 20px;
 }
 a:link {
 	color: #858585;
@@ -293,52 +279,47 @@ a:visited {
 	width: 710px;
 	margin: auto;
 }
-.selectedImage {
-	border: solid 4px green;
-	color: green;
-	padding:10px;
+.compareOrig,
+.compareTran {
+	max-width: 50%;
 }
-.unselectedImage {
-	color: #FFFFFF;
-	border: solid 4px #333333;
-	padding:10px;
+.compareOrig {
+	padding-right: 10px;
 }
-.selectedImage:hover {
-	cursor: pointer;
-	color: white;
-	background-color: black;
+.compareTran {
+	padding-left: 10px;
 }
-.unselectedImage:hover {
-	cursor: pointer;
-	color: white;
-	background-color: black;
+#transformedImageValues p,
+#transformedImageValues span,
+#transformedVideoValues p,
+#transformedVideoValues span {
+	font-weight: bold;
 }
-.toggleOriginalImage 	{
-	position: absolute;
-	border: 1px solid #999797;
+.compareBox p {
+	font-size: 16px
 }
-.toggleTransformedImage {
-	position: relative;
-	border: 1px solid #999797;
+.compareBox span {
+	float: right;
+	font-size: 16px;
 }
-.imageToggleBox {
-	margin-bottom: 20px;
-	text-align: center;
+.compareBox {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-.imageToggleBox:hover {
-	cursor: pointer;
-}
-#videoToggleBox {
-	margin-bottom: 20px;
-	text-align: center;
-}
-#videoToggle {
-	max-height: 400px;
+.compareBox img {
 	max-width: 100%;
+	max-height: 100%;
+	cursor: pointer;
 }
-#videoToggleControls {
-	padding-bottom: 15px;
-	text-align: center;
+.compareBox video {
+	max-width: 100%;
+	max-height: 100%;
+	cursor: pointer;
+}
+#imageBox p {
+	font-size: 14px
 }
 .ajaxLoader {
 	width: 60px;
@@ -347,10 +328,7 @@ a:visited {
 	border-right-color: transparent;
 	border-radius: 50%;
 	box-shadow: 0 0 25px 2px #000000;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 40px;
-	margin-bottom: 40px;
+	margin: 30% auto;
 	-webkit-animation-duration: 1.0s;
 	-webkit-animation-iteration-count:infinite;
 	-webkit-animation-name:loader;

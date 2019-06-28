@@ -1,5 +1,5 @@
 function ImageToggle() {
-	this.toggleBox = document.getElementById('imageToggleBox');
+	this.toggleBox = document.getElementById('imageCompareBox');
 	this.orImageElement = document.getElementById('toggleOriginalImage');
 	this.trImageElement = document.getElementById('toggleTransformedImage');
 	this.transformedSelected = document.getElementById('transformedImage');
@@ -7,7 +7,6 @@ function ImageToggle() {
 	instance = this;
 
 	this.toggleBox.onclick = function() {
-		document.getElementById("imageToggleControls").style.visibility = 'visible';
 		var swapIndex = instance.orImageElement.style.zIndex;
 		instance.orImageElement.style.zIndex = instance.trImageElement.style.zIndex;
 		instance.trImageElement.style.zIndex = swapIndex;
@@ -24,9 +23,8 @@ function ImageToggle() {
 }
 
 ImageToggle.prototype.addImages = function(originalImage, transformedImage) {
-	document.getElementById("imageToggleControls").style.visibility = 'hidden';
-	document.getElementById("imageToggleBox").style.display = 'none';
-	document.getElementById("ImageAjaxloader").style.display = 'block';
+	document.getElementById("imageCompareBox").style.display = 'none';
+	document.getElementById("imageAjaxLoader").style.display = 'block';
 	instance = this;
 
 	var oImage = new Image();
@@ -40,9 +38,9 @@ ImageToggle.prototype.addImages = function(originalImage, transformedImage) {
 	};
 
 	oImage.onload = function() {
-		document.getElementById("toggleBoxMessage").style.visibility = 'visible';
-		document.getElementById("imageToggleBox").style.display = 'block';
-		document.getElementById("ImageAjaxloader").style.display = 'none';
+		document.getElementById("compareUrlTitle").style.visibility = 'visible';
+		document.getElementById("imageCompareBox").style.display = 'block';
+		document.getElementById("imageAjaxLoader").style.display = 'none';
 
 		instance.transformedSelected.className = 'unselectedImage';
 		instance.originalSelected.className = 'unselectedImage';

@@ -100,13 +100,6 @@ h4 {
 	overflow: hidden;
 	padding: 5px;
 }
-.col-1-3-box {
-	width: calc(100% / 3);
-	min-height: 125px;
-	max-height: 125px;
-	overflow: hidden;
-	padding: 5px;
-}
 .col-1-2-box {
 	width: 50%;
 	min-height: 125px;
@@ -170,9 +163,6 @@ h4 {
 	font-size: 16px;
 	margin: 10px;
 }
-.im-box .img-align img {
-	margin-top: 9px;
-}
 .im-box .img-align span {
 	text-align: left;
 	vertical-align: middle;
@@ -192,11 +182,6 @@ h4 {
 	min-height: 185px;
 	max-height: 185px;
 }
-.col-1-3-box.im-box {
-	padding: 10px 10px;
-	min-height: 215px;
-	max-height: 215px;
-}
 .col-1-2-box.im-box {
 	padding: 10px 10px;
 	min-height: 185px;
@@ -205,7 +190,6 @@ h4 {
 }
 .im-box #col-1-info {
 	font-size: 52px;
-	font-size: 42px;
 }
 .table-title {
 	background-color: #3D3D3D;
@@ -411,6 +395,9 @@ td {
 	table {
 		font-size: 15px;
 	}
+	.container {
+		margin-top: 185px;
+	}
 	.detailed-results td.urlData {
 		max-width:700px;
 	}
@@ -457,11 +444,6 @@ td {
 		min-height: 120px;
 		max-height: 120px;
 	}
-	.col-1-3-box {
-		padding: 10px 5px;
-		min-height: 120px;
-		max-height: 120px;
-	}
 	.col-1-2-box {
 		padding: 10px 10px;
 		min-height: 120px;
@@ -500,7 +482,6 @@ td {
 	.im-box .img-align img {
 		width: 20px;
 		height: 20px;
-		margin-top: 1px;
 	}
 	.im-box #col-1-info {
 		font-size: 42px;
@@ -511,11 +492,6 @@ td {
 		padding-top: 12px;
 	}
 	.col-1-4-box.im-box {
-		padding: 10px 10px;
-		min-height: 155px;
-		max-height: 155px;
-	}
-	.col-1-3-box.im-box {
 		padding: 10px 10px;
 		min-height: 155px;
 		max-height: 155px;
@@ -563,11 +539,6 @@ td {
 		margin-top: 150px;
 	}
 	.col-1-4-box {
-		padding: 5px;
-		min-height: 150px;
-		max-height: 150px;
-	}
-	.col-1-3-box {
 		padding: 5px;
 		min-height: 150px;
 		max-height: 150px;

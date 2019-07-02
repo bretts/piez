@@ -36,7 +36,7 @@
 		} else {
 			return "warning";
 		}
-	}
+	};
 
 	global.showSummaryTable = function(display_mode) {
 		var summaryTable = document.getElementById('conversionSummary');
@@ -63,9 +63,9 @@
 				'<div class="col-1-4-box"><h1 id="col-4-title">Total</h1><h3 id="col-4-info">&nbsp;</h3></div>';
 		} else {
 			summaryTable.innerHTML =
-				'<div class="col-1-3-box im-box"><h4 id="col-1-title">Total Saved Bytes</h4><h4 id="col-1-info">&nbsp;</h4><h4 id="col-1-2-info">&nbsp;</h4></div>' +
-				'<div class="col-1-3-box im-box"><div class="img-align"><img src="../icons/VideoLight@2x.png"><span id="col-2-title">0 Videos</span></div><h4 id="col-2-info">&nbsp;</h4><h4 id="col-2-2-info">&nbsp</h4></div>' +
-				'<div class="col-1-3-box im-box"><div class="img-align"><img src="../icons/ImageLight@2x.png"><span id="col-3-title">0 Images</span></div><h4 id="col-3-info">&nbsp;</h4><h4 id="col-3-2-info">&nbsp</h4></div>';
+				'<div class="col-1-2-box im-box"><h4 id="col-1-title">Total Saved Bytes</h4><h4 id="col-1-info">&nbsp;</h4><h4 id="col-1-2-info">&nbsp;</h4></div>' +
+				'<div class="col-1-4-box im-box"><div class="img-align"><img src="../icons/VideoLight@2x.png"><span id="col-2-title">0 Videos</span></div><h4 id="col-2-info">&nbsp;</h4><h4 id="col-2-2-info">&nbsp</h4></div>' +
+				'<div class="col-1-4-box im-box"><div class="img-align"><img src="../icons/ImageLight@2x.png"><span id="col-3-title">0 Images</span></div><h4 id="col-3-info">&nbsp;</h4><h4 id="col-3-2-info">&nbsp</h4></div>';
 				//'<div class="col-1-4-box"><h4 id="col-4-title">% Bytes Change</h4><h4 id="col-4-info">&nbsp;</h4></div>';
 		}
 	};

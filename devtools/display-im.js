@@ -294,8 +294,8 @@ function showImageCompare() {
 	document.getElementById('compareUrlTitle').innerHTML = "Image link";
 	document.getElementById('compareUrlLink').href = tranImageLink;
 	document.getElementById('compareUrlLink').innerHTML = tranImageLink;
-	document.getElementById('originalImageValues').innerHTML = '<p>' + this.parentElement.children[5].innerHTML + '</p>';
-	document.getElementById('transformedImageValues').innerHTML = tranImagePercent + '<p>' + this.parentElement.children[6].innerHTML + '</p>';
+	document.getElementById('originalImageValues').innerHTML = '<p>' + this.parentElement.lastChild.previousElementSibling.previousElementSibling.innerHTML + '</p>';
+	document.getElementById('transformedImageValues').innerHTML = tranImagePercent + '<p>' + this.parentElement.lastChild.previousElementSibling.innerHTML + '</p>';
 	document.getElementById('imageBox').style.display = 'block';
 	document.getElementById('imageCompare').style.display = 'block';
 }
@@ -372,8 +372,8 @@ function showVideoCompare() {
 	document.getElementById('compareUrlTitle').innerHTML = "Video link";
 	document.getElementById('compareUrlLink').href = tranVideoLink;
 	document.getElementById('compareUrlLink').innerHTML = tranVideoLink;
-	document.getElementById('originalVideoValues').innerHTML = '<p>' + this.parentElement.children[5].innerHTML + '</p>';
-	document.getElementById('transformedVideoValues').innerHTML = tranVideoPercent + '<p>' + this.parentElement.children[6].innerHTML + '</p>';
+	document.getElementById('originalVideoValues').innerHTML = '<p>' + this.parentElement.lastChild.previousElementSibling.previousElementSibling.innerHTML + '</p>';
+	document.getElementById('transformedVideoValues').innerHTML = tranVideoPercent + '<p>' + this.parentElement.lastChild.previousElementSibling.innerHTML + '</p>';
 	document.getElementById('videoCompare').style.display = 'block';
 	document.getElementById('imageBox').style.display = 'block';
 }

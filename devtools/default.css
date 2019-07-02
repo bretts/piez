@@ -60,7 +60,7 @@ h4 {
 }
 .im-box h4 {
 	text-align: left;
-	font-size: 28px;
+	font-size: 24px;
 }
 .container {
 	margin-top: 210px;
@@ -86,7 +86,6 @@ h4 {
 [class*="col-"]:last-child {
 	margin-right: 0;
 }
-
 .col-1-5-box {
 	width: 20%;
 	min-height: 125px;
@@ -94,7 +93,6 @@ h4 {
 	overflow: hidden;
 	padding: 5px;
 }
-
 .col-1-4-box {
 	width: 25%;
 	min-height: 125px;
@@ -146,6 +144,9 @@ h4 {
 #compareTitle img {
 	margin-top: 2px;
 }
+#compareUrl {
+	padding: 0 20px 20px;
+}
 .img-align {
 	margin: 10px;
 }
@@ -153,6 +154,7 @@ h4 {
 	float: left;
 	text-align: left;
 	vertical-align: middle;
+	width: 29px;
 }
 .img-align span {
 	text-align: left;
@@ -163,7 +165,7 @@ h4 {
 .im-box .img-align span {
 	text-align: left;
 	vertical-align: middle;
-	font-size: 28px;
+	font-size: 24px;
 	margin: 10px;
 }
 .im-box h4:first-child {
@@ -171,22 +173,22 @@ h4 {
 }
 .im-box #col-2-info,
 .im-box #col-3-info {
-	font-size: 46px;
-	padding-top: 16px;
+	font-size: 40px;
+	padding-top: 14px;
 }
 .col-1-4-box.im-box {
 	padding: 10px 10px;
-	min-height: 210px;
-	max-height: 210px;
+	min-height: 185px;
+	max-height: 185px;
 }
 .col-1-2-box.im-box {
 	padding: 10px 10px;
-	min-height: 210px;
-	max-height: 210px;
+	min-height: 185px;
+	max-height: 185px;
 	background-color: #333333;
 }
 .im-box #col-1-info {
-	font-size: 60px;
+	font-size: 52px;
 }
 .table-title {
 	background-color: #3D3D3D;
@@ -204,7 +206,7 @@ h4 {
 	overflow-x: auto;
 }
 [class*='detailed-results'] {
-	margin: 0px auto;
+	margin: 0 auto;
 	color: #FFFFFF;
 	text-align: left;
 	border-spacing: 0 2px;
@@ -282,12 +284,7 @@ a:visited {
 .compareOrig,
 .compareTran {
 	max-width: 50%;
-}
-.compareOrig {
-	padding-right: 10px;
-}
-.compareTran {
-	padding-left: 10px;
+	padding: 20px;
 }
 #transformedImageValues p,
 #transformedImageValues span,
@@ -310,12 +307,12 @@ a:visited {
 }
 .compareBox img {
 	max-width: 100%;
-	max-height: 100%;
+	max-height: 450px;
 	cursor: pointer;
 }
 .compareBox video {
 	max-width: 100%;
-	max-height: 100%;
+	max-height: 450px;
 	cursor: pointer;
 }
 #imageBox p {
@@ -398,7 +395,7 @@ td {
 		font-size: 15px;
 	}
 	.container {
-		margin-top: 210px;
+		margin-top: 185px;
 	}
 	.detailed-results td.urlData {
 		max-width:700px;
@@ -461,6 +458,19 @@ td {
 	#imageBox {
 		margin-top: 25px;
 		padding: 15px;
+	}
+	.compareOrig,
+	.compareTran {
+		padding: 0;
+	}
+	#compareUrl {
+		padding: 0;
+	}
+	.compareOrig {
+		padding-right: 10px;
+	}
+	.compareTran {
+		padding-left: 10px;
 	}
 	.im-box h4 {
 		font-size: 18px;

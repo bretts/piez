@@ -63,7 +63,7 @@ h4 {
 	font-size: 24px;
 }
 .container {
-	margin-top: 210px;
+	margin-top: 185px;
 }
 [class*="row-"] {
 	margin-bottom: 20px;
@@ -143,6 +143,7 @@ h4 {
 }
 #compareTitle img {
 	margin-top: 2px;
+	width: 16px;
 }
 #compareUrl {
 	padding: 0 20px 20px;

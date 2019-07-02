@@ -1,7 +1,7 @@
 (function(global) {
 	'use strict';
 
-	global.displayBytes = function(bytes, decimals = 2){
+	global.displayBytes = function(bytes, decimals = 1){
 		if (bytes === 0) return '0 B';
 
 		const k = 1024;
@@ -10,36 +10,21 @@
 
 		const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-		return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+		return (bytes / Math.pow(k, i)).toFixed(dm) + ' ' + sizes[i];
 	};
 
 	global.displayPercentChange = function(originalSize, transformedSize) {
 		var originalSizeInt    = parseInt(originalSize);
 		var transformedSizeInt = parseInt(transformedSize);
 
-		var pctChange = (((transformedSizeInt/originalSizeInt) - 1) * 100).toFixed(2);
+		var pctChange = ((transformedSizeInt/originalSizeInt) - 1) * 100;
 
 		if (transformedSizeInt == originalSizeInt) {
 			return '<span class="warning">' + '( ' + '0%' + ' )' + '</td>';
 		} else if (pctChange > 0) {
-			return '<span class="error">' + '( &#9652; ' + Math.abs(pctChange).toString() + '% )' +'</td>';
+			return '<span class="error">' + '( &#9652; ' + Math.abs(pctChange).toFixed(1) + '% )' +'</td>';
 		} else if (pctChange < 0) {
-			return '<span class="success">' + '( &#9662; ' + Math.abs(pctChange).toString() + '% )' + '</td>';
-		}
-	};
-
-	global.displayPercentChange1 = function(originalSize, transformedSize) {
-		var originalSizeInt    = parseInt(originalSize);
-		var transformedSizeInt = parseInt(transformedSize);
-
-		var pctChange = (((transformedSizeInt/originalSizeInt) - 1) * 100).toFixed(2);
-
-		if (transformedSizeInt == originalSizeInt) {
-			return 0;
-		} else if (pctChange > 0) {
-			return  Math.abs(pctChange);
-		} else if (pctChange < 0) {
-			return Math.abs(pctChange);
+			return '<span class="success">' + '( &#9662; ' + Math.abs(pctChange).toFixed(1) + '% )' + '</td>';
 		}
 	};
 
@@ -51,7 +36,7 @@
 		} else {
 			return "warning";
 		}
-	}
+	};
 
 	global.showSummaryTable = function(display_mode) {
 		var summaryTable = document.getElementById('conversionSummary');
@@ -78,9 +63,9 @@
 				'<div class="col-1-4-box"><h1 id="col-4-title">Total</h1><h3 id="col-4-info">&nbsp;</h3></div>';
 		} else {
 			summaryTable.innerHTML =
-				'<div class="col-1-3-box im-box"><h4 id="col-1-title">Total Saved Bytes</h4><h4 id="col-1-info">&nbsp;</h4><h4 id="col-1-2-info">&nbsp;</h4></div>' +
-				'<div class="col-1-3-box im-box"><div class="img-align"><img src="../icons/VideoLight@2x.png"><span id="col-2-title">0 Videos</span></div><h4 id="col-2-info">&nbsp;</h4><h4 id="col-2-2-info">&nbsp</h4></div>' +
-				'<div class="col-1-3-box im-box"><div class="img-align"><img src="../icons/ImageLight@2x.png"><span id="col-3-title">0 Images</span></div><h4 id="col-3-info">&nbsp;</h4><h4 id="col-3-2-info">&nbsp</h4></div>';
+				'<div class="col-1-2-box im-box"><h4 id="col-1-title">Total Saved Bytes</h4><h4 id="col-1-info">&nbsp;</h4><h4 id="col-1-2-info">&nbsp;</h4></div>' +
+				'<div class="col-1-4-box im-box"><div class="img-align"><img src="../icons/VideoLight@2x.png"><span id="col-2-title">0 Videos</span></div><h4 id="col-2-info">&nbsp;</h4><h4 id="col-2-2-info">&nbsp</h4></div>' +
+				'<div class="col-1-4-box im-box"><div class="img-align"><img src="../icons/ImageLight@2x.png"><span id="col-3-title">0 Images</span></div><h4 id="col-3-info">&nbsp;</h4><h4 id="col-3-2-info">&nbsp</h4></div>';
 				//'<div class="col-1-4-box"><h4 id="col-4-title">% Bytes Change</h4><h4 id="col-4-info">&nbsp;</h4></div>';
 		}
 	};

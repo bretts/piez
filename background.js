@@ -170,7 +170,7 @@ var setPiezCurrentState = function (state) {
 			chrome.browserAction.setBadgeText({ "text": piezCurrentStateOptions[state]["browserActionText"] });
 			chrome.browserAction.setBadgeBackgroundColor({ "color": [0, 255, 0, 255] });
 			if (!chrome.webRequest.onBeforeSendHeaders.hasListener(beforeSendCallback)) {
-				chrome.webRequest.onBeforeSendHeaders.addListener(beforeSendCallback, { urls: ["<all_urls>"] }, ['requestHeaders', 'blocking']);
+				chrome.webRequest.onBeforeSendHeaders.addListener(beforeSendCallback, { urls: ["<all_urls>"] }, ['requestHeaders', 'extraHeaders', 'blocking']);
 			}
 		});
 	}

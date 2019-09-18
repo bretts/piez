@@ -483,6 +483,9 @@ td {
 		width: 20px;
 		height: 20px;
 	}
+	.present-mode .im-box .img-align img {
+		margin-top: 1px;
+	}
 	.im-box #col-1-info {
 		font-size: 42px;
 	}
@@ -646,4 +649,38 @@ td {
 }
 #close:hover {
 	cursor: pointer;
+}
+.present-mode .im-box h4 {
+	font-size: 42px;
+}
+.present-mode .container {
+	margin-top: 215px;
+}
+.present-mode .col-1-2-box,
+.present-mode .col-1-4-box {
+	width: calc(100% / 3);
+	min-height: 125px;
+	max-height: 125px;
+	overflow: hidden;
+	padding: 5px;
+}
+.present-mode .col-1-2-box.im-box,
+.present-mode .col-1-4-box.im-box {
+	padding: 10px 10px;
+	min-height: 215px;
+	max-height: 215px;
+}
+.present-mode .im-box .img-align img {
+	margin-top: 9px;
+}
+.present-mode .im-box .img-align span {
+	font-size: 42px;
+}
+.present-mode .im-box #col-2-info,
+.present-mode .im-box #col-3-info {
+	padding-top: 0;
+	font-size: 42px;
+}
+.present-mode .im-box #col-1-info {
+	font-size: 42px;
 }

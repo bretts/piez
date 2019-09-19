@@ -449,6 +449,11 @@ td {
 		min-height: 120px;
 		max-height: 120px;
 	}
+	.present-mode .col-1-2-box {
+		padding: 10px 5px;
+		min-height: 120px;
+		max-height: 120px;
+	}
 	.col-4-box {
 		min-height: 150px;
 		overflow: scroll;
@@ -503,7 +508,6 @@ td {
 		padding: 10px 10px;
 		min-height: 155px;
 		max-height: 155px;
-		background-color: #333333;
 	}
 	.table-title {
 		padding: 10px;

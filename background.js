@@ -180,11 +180,16 @@ var setPiezCurrentState = function(state) {
 			}
 		});
 	}
-}
+};
 
 var setPiezCurrentSettings = function(options) {
 	chrome.storage.local.set({ "piezCurrentOptions": options }, function () {
 		piezCurrentOptionsCached = options;
+		if(options.includes('present-mode')) {
+			document.body.classList.add('present-mode');
+		} else {
+			document.body.classList.remove('present-mode');
+		}
 	});
 };
 
@@ -205,7 +210,7 @@ var initPiezStorageState = function () {
 			if (piezCurrentStateOptions[key] == undefined) {
 				setPiezCurrentState('piez-im-simple');
 			} else {
-				console.log("Setting state to: " + key)
+				console.log("Setting state to: " + key);
 				setPiezCurrentState(key);
 			}
 		}

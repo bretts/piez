@@ -4,8 +4,24 @@ chrome.storage.local.get('piezCurrentState', function (result) {
 	piezController.current_display_mode = result['piezCurrentState'] || 'piezModeImSimple';
 	showSummaryTable(piezController.current_display_mode); //choose correct summary header before page actually loads
 });
+chrome.storage.local.get('piezCurrentOptions', function (options) {
+	if(options['piezCurrentOptions'].includes('present-mode')) {
+		document.body.classList.add('present-mode');
+	}
+});
 var port = chrome.runtime.connect({ name: 'piez' });
 
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+	for (var key in changes) {
+		if (key === "piezCurrentOptions") {
+			if(changes[key].newValue.includes('present-mode')) {
+				document.body.classList.add('present-mode');
+			} else {
+				document.body.classList.remove('present-mode');
+			}
+		}
+	}
+});
 function parseResponse(http_transaction) {
 	parseHeaders(http_transaction, piezController.current_page, piezController.current_display_mode);
 	report(piezController.current_page, piezController.current_display_mode);

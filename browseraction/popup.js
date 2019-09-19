@@ -41,14 +41,19 @@ window.onload = function() {
 		});
 	};
 
-	Array.from(document.getElementsByClassName("piez-options")).forEach((option) => {
-		option.onclick = () => {
-			chrome.runtime.sendMessage({
-				type: "piez-options",
-				options: getOptions()
-			});
-		};
-	});
+	document.getElementById("save-data").onclick = function() {
+		chrome.runtime.sendMessage({
+			type: "piez-options",
+			options: getOptions()
+		});
+	};
+
+	document.getElementById('present-mode').onclick = function() {
+		chrome.runtime.sendMessage({
+			type: "piez-options",
+			options: getOptions()
+		})
+	};
 
 	var getOptions = function() {
 		var allOptions = document.getElementsByClassName("piez-options");

@@ -26,7 +26,7 @@
 		// Sum of video contentl
 		
 		var details = JSON.stringify(page.imDownloadDetails);
-		if(details.indexOf(res.url) < 0){
+		if(details !== res.url){
 			page.totalIMImagesTransformed += 1;
 			extractImHeaders(http_transaction, page, res);
 			page.imDownloadDetails.push(res);

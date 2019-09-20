@@ -37,6 +37,7 @@ var piezCurrentStateOptions = {
 	}
 };
 var piezCurrentStateCached = '';
+var piezCurrentOptionsCached = [];
 
 beforeSendCallback = function (details) {
 	if (details.url.indexOf('http') != -1) {
@@ -49,7 +50,9 @@ beforeSendCallback = function (details) {
 			details.requestHeaders.push({ name: 'x-akamai-ro-piez', value: 'on' });
 			details.requestHeaders.push({ name: 'x-akamai-a2-disable', value: 'on' })
 		}
-
+		if (piezCurrentOptionsCached.includes('save-data')) {
+			details.requestHeaders.push({ name: 'Save-Data', value: 'on' });
+		}
 	}
 	return { requestHeaders: details.requestHeaders };
 };
@@ -132,6 +135,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 		case "piez-3pm":
 			setPiezCurrentState('piez-3pm');
 			break;
+		case "piez-options":
+			setPiezCurrentSettings(request.options);
+			break;
 		default:
 			console.log('Unexpected extension request. ', request);
 	}
@@ -156,8 +162,8 @@ var logUrlAnalytics = function(tab) {
 	ga('send', 'pageview', tab.url);
 };
 
-var setPiezCurrentState = function (state) {
-	if (state == 'piez-off') {
+var setPiezCurrentState = function(state) {
+ 	if (state == 'piez-off') {
 		chrome.storage.local.set({ "piezCurrentState": state }, function () {
 			piezCurrentStateCached = state;
 			chrome.browserAction.setBadgeText({ "text": piezCurrentStateOptions[state]["browserActionText"] });
@@ -174,7 +180,13 @@ var setPiezCurrentState = function (state) {
 			}
 		});
 	}
-}
+};
+
+var setPiezCurrentSettings = function(options) {
+	chrome.storage.local.set({ "piezCurrentOptions": options }, function () {
+		piezCurrentOptionsCached = options;
+	});
+};
 
 chrome.runtime.onInstalled.addListener(function () {
 	initPiezStorageState();
@@ -193,7 +205,7 @@ var initPiezStorageState = function () {
 			if (piezCurrentStateOptions[key] == undefined) {
 				setPiezCurrentState('piez-im-simple');
 			} else {
-				console.log("Setting state to: " + key)
+				console.log("Setting state to: " + key);
 				setPiezCurrentState(key);
 			}
 		}

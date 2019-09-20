@@ -1,6 +1,9 @@
 <html>
 	<head>
 		<style>
+			h2 {
+				margin: 0 0 5px;
+			}
 			body {
 			  padding: 15px;
 			  background-color: #2F2F2F;
@@ -8,7 +11,6 @@
 			  color: #FFFFFF;
 			  font-family: 'Inter', 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 			}
-
 			div.main {
 				border-radius: 5px;
 				background: #3D3D3D;
@@ -26,6 +28,7 @@
 		<script src="popup.js"></script>
 		<div class='main'>
 			<form id='piezConfigForm' class=''>
+				<h2>Mode</h2>
 				<input type="radio" name="piezRadio" id="piez-off" value="piez-off">
 				<label for="piez-off">Disabled</label><br>
 				<input type="radio" name="piezRadio" id="piez-im-simple" value="piez-im-simple">
@@ -40,6 +43,12 @@
 				<label for="piez-ro-advanced">Resource Optimizer (Advanced)</label><br>
 				<input type="radio" name="piezRadio" id="piez-3pm" value="piez-3pm">
 				<label for="piez-3pm">Script Management</label><br>
+				<br>
+				<h2>Options</h2>
+				<input type="checkbox" name="piezCheckbox" class="piez-options" id="save-data" value="save-data">
+				<label for="save-data">Save-Data</label><br>
+				<input type="checkbox" name="piezCheckbox" class="piez-options" id="present-mode" value="present-mode">
+				<label for="present-mode">Present mode (Image Manager)</label>
 			</form>
 		</div>
 	</body>

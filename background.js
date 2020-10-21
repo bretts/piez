@@ -144,12 +144,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	return false;
 });
 
-var getCookiesUrl = function (href) {
-	var link = document.createElement("a");
-	link.href = href;
-	return (link.protocol + "//" + link.hostname);
-};
-
 var logUrlAnalytics = function(tab) {
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
